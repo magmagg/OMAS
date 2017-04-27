@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Add Customer</h1>
+            <h1 class="page-header">Add Supplier</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -15,12 +15,32 @@
      <div class="panel-body">
          <div class="row">
              <div class="col-lg-12">
-               <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
+             <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
                 <form role="form" method="POST">
                      <div class="form-group">
                          <label>Name</label>
-                         <input class="form-control" name="customername" placeholder="Enter Name" value="<?=set_value('customername');?>" required>
-                         <?php echo form_error('customername'); ?>
+                         <input class="form-control" name="suppliername" placeholder="Enter Name" value="<?=set_value('suppliername');?>" required>
+                         <?php echo form_error('suppliername'); ?>
+                     </div>
+                     <div class="form-group">
+                         <label>Address</label>
+                         <input class="form-control" name="address" placeholder="Enter Address"  value="<?=set_value('address');?>" required>
+                         <?php echo form_error('address'); ?>
+                     </div>
+                     <div class="form-group">
+                         <label>City</label>
+                         <input class="form-control" name="city" placeholder="Enter City"  value="<?=set_value('city');?>" required>
+                         <?php echo form_error('city'); ?>
+                     </div>
+                     <div class="form-group">
+                         <label>Region</label>
+                         <input class="form-control" name="region" placeholder="Enter Region" value="<?=set_value('region');?>" required>
+                         <?php echo form_error('region'); ?>
+                     </div>
+                     <div class="form-group">
+                         <label>Postal code</label>
+                         <input class="form-control" name="postalcode" placeholder="Enter Postal code" value="<?=set_value('postalcode');?>" required>
+                         <?php echo form_error('postalcode'); ?>
                      </div>
                      <div class="form-group">
                          <label>Phone</label>
@@ -32,11 +52,7 @@
                          <input class="form-control" name="email" type="email" placeholder="Enter Email" value="<?=set_value('email');?>" required>
                          <?php echo form_error('email'); ?>
                      </div>
-                     <div class="form-group">
-                         <label>Address</label>
-                         <input class="form-control" name="address" placeholder="Enter Address"  value="<?=set_value('address');?>" required>
-                         <?php echo form_error('address'); ?>
-                     </div>
+
                      <button type="submit" class="btn btn-default">Submit Button</button>
                      <button type="reset" class="btn btn-default">Reset Button</button>
                  </form>

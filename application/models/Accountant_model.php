@@ -8,8 +8,15 @@ class Accountant_model extends CI_Model
     parent::__construct();
   }
 
+  //Customer
   function submit_add_user($data)
   {
     $this->db->insert('customer',$data);
+  }
+
+  //Supplier
+  function submit_add_supplier($data)
+  {
+    $this->db->insert('supplier',$data);
   }
 }

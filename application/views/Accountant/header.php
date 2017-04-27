@@ -269,6 +269,9 @@
                             <a href="<?=base_url();?>Accountant/add_customer"><i class="fa fa-dashboard fa-fw"></i>Add Customer</a>
                         </li>
                         <li>
+                            <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
