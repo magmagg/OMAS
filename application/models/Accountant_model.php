@@ -42,7 +42,7 @@ class Accountant_model extends CI_Model
 		$this->db->update('customer',$data);
 	}
 
-	function check_user_email($id, $email)
+	function check_customer_email($id, $email)
 	{
 		$this->db->where('Email', $email);
 		if($id) {
@@ -56,4 +56,32 @@ class Accountant_model extends CI_Model
   {
     $this->db->insert('supplier',$data);
   }
+
+	function get_suppliers()
+	{
+		$this->db->select('*');
+		$this->db->from('supplier');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_one_supplier($id)
+	{
+		$this->db->select('*');
+		$this->db->from('supplier');
+		$this->db->where('SupplierID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function submit_edit_one_supplier($id,$data)
+	{
+		$this->db->where('SupplierID',$id);
+		$this->db->update('supplier',$data);
+	}
+
+	function delete_one_supplier($id)
+	{
+		$this->db->delete('supplier', array('SupplierID' => $id));
+	}
 }

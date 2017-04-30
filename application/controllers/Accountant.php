@@ -30,7 +30,7 @@ class Accountant extends CI_Controller
         array(
                 'field' => 'phone',
                 'label' => 'phone',
-                'rules' => 'required|min_length[1]|max_length[10]|is_natural',
+                'rules' => 'required|min_length[1]|max_length[10]|numeric',
                 'errors' => array(
                         'required' => 'You must provide a %s.',
                 ),
@@ -91,7 +91,7 @@ class Accountant extends CI_Controller
 				array(
 								'field' => 'phone',
 								'label' => 'phone',
-								'rules' => 'required|min_length[1]|max_length[10]|is_natural',
+								'rules' => 'required|min_length[1]|max_length[10]|numeric',
 								'errors' => array(
 												'required' => 'You must provide a %s.',
 								),
@@ -99,7 +99,7 @@ class Accountant extends CI_Controller
 				array(
 								'field' => 'email',
 								'label' => 'email',
-								'rules' => 'required|valid_email|callback_check_user_email',
+								'rules' => 'required|valid_email|callback_check_customer_email',
 				),
 				array(
 								'field' => 'address',
@@ -133,7 +133,7 @@ class Accountant extends CI_Controller
 		}
 	}
 
-	function check_user_email($email)
+	function check_customer_email($email)
 	{
 		$id = $this->input->post('customerid');
 		$data['customers'] = $this->Accountant_model->get_customers();
@@ -151,7 +151,7 @@ class Accountant extends CI_Controller
 			{
 				if($email == $d->Email)
 				{
-					$this->form_validation->set_message('check_user_email', 'Email must be unique');
+					$this->form_validation->set_message('check_customer_email', 'Email must be unique');
 					return FALSE;
 				}
 			}
@@ -192,12 +192,12 @@ class Accountant extends CI_Controller
 				array(
 								'field' => 'postalcode',
 								'label' => 'postalcode',
-								'rules' => 'required|min_length[4]|max_length[4]|is_natural'
+								'rules' => 'required|min_length[4]|max_length[4]|numeric'
 				),
         array(
                 'field' => 'phone',
                 'label' => 'phone',
-                'rules' => 'required|min_length[1]|max_length[10]|is_natural',
+                'rules' => 'required|min_length[1]|max_length[10]|numeric',
                 'errors' => array(
                         'required' => 'You must provide a %s.',
                 ),
@@ -237,4 +237,117 @@ class Accountant extends CI_Controller
 
     }
   }
+
+	function view_suppliers()
+	{
+		$data['suppliers'] = $this->Accountant_model->get_suppliers();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/supplier/view_suppliers',$data);
+	}
+
+	function edit_one_supplier()
+	{
+		$id = $this->uri->segment(3);
+		$config = array(
+        array(
+                'field' => 'suppliername',
+                'label' => 'suppliername',
+                'rules' => 'required'
+        ),
+				array(
+								'field' => 'address',
+								'label' => 'address',
+								'rules' => 'required'
+				),
+        array(
+                'field' => 'city',
+                'label' => 'city',
+                'rules' => 'required'
+        ),
+				array(
+								'field' => 'region',
+								'label' => 'region',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'postalcode',
+								'label' => 'postalcode',
+								'rules' => 'required|min_length[4]|max_length[4]|numeric'
+				),
+        array(
+                'field' => 'phone',
+                'label' => 'phone',
+                'rules' => 'required|min_length[1]|max_length[10]|numeric',
+                'errors' => array(
+                        'required' => 'You must provide a %s.',
+                ),
+        ),
+        array(
+                'field' => 'email',
+                'label' => 'email',
+                'rules' => 'required|valid_email|callback_check_supplier_email',
+                'errors' => array(
+                        'is_unique' => 'Email already in use',
+                      ),
+        )
+    );
+
+    $this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['supplier'] = $this->Accountant_model->get_one_supplier($id);
+
+			$this->load->view('Accountant/header');
+			$this->load->view('Accountant/supplier/edit_one_supplier',$data);
+			$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors! The form has been reset</div>');
+		}
+		else
+		{
+				$data = array('SupplierName'=>$this->input->post('suppliername'),
+											'Address'=>$this->input->post('address'),
+											'City'=>$this->input->post('city'),
+											'Region'=>$this->input->post('region'),
+											'PostalCode'=>$this->input->post('postalcode'),
+											'Phone'=>$this->input->post('phone'),
+											'Email'=>$this->input->post('email'),
+										 );
+
+				$this->Accountant_model->submit_edit_one_supplier($id, $data);
+				$this->session->set_flashdata('success','<div class="alert alert-success">Data updated!</div>');
+				redirect(base_url().'Accountant/edit_one_supplier/'.$id, 'refresh');
+		}
+	}
+
+	function check_supplier_email($email)
+	{
+		$id = $this->input->post('supplierid');
+		$data['suppliers'] = $this->Accountant_model->get_suppliers();
+
+		foreach($data['suppliers'] as $d)
+		{
+			if($id == $d->SupplierID)
+			{
+				if($email == $d->Email)
+				{
+					return TRUE;
+				}
+			}
+			else
+			{
+				if($email == $d->Email)
+				{
+					$this->form_validation->set_message('check_supplier_email', 'Email must be unique');
+					return FALSE;
+				}
+			}
+		}
+	}
+
+	function delete_one_supplier()
+	{
+		$id = $this->input->post('supplierID');
+		$this->Accountant_model->delete_one_supplier($id);
+	}
+
 }
