@@ -68,8 +68,101 @@ class Accountant extends CI_Controller
 
         $this->Accountant_model->submit_add_user($data);
         $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+				redirect(base_url().'Accountant/add_customer', 'refresh');
     }
   }
+
+	function view_customers()
+	{
+		$data['customers'] = $this->Accountant_model->get_customers();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/customers/view_customers',$data);
+	}
+
+	function edit_one_customer()
+	{
+		$id = $this->uri->segment(3);
+		$config = array(
+				array(
+								'field' => 'customername',
+								'label' => 'customername',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'phone',
+								'label' => 'phone',
+								'rules' => 'required|min_length[1]|max_length[10]|is_natural',
+								'errors' => array(
+												'required' => 'You must provide a %s.',
+								),
+				),
+				array(
+								'field' => 'email',
+								'label' => 'email',
+								'rules' => 'required|valid_email|callback_check_user_email',
+				),
+				array(
+								'field' => 'address',
+								'label' => 'address',
+								'rules' => 'required'
+				)
+		);
+
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['customer'] = $this->Accountant_model->get_one_customer($id);
+
+			$this->load->view('Accountant/header');
+			$this->load->view('Accountant/customers/edit_one_customer',$data);
+			$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors! The form has been reset</div>');
+		}
+		else
+		{
+				$data = array('CustomerName'=>$this->input->post('customername'),
+											'Phone'=>$this->input->post('phone'),
+											'Email'=>$this->input->post('email'),
+											'Address'=>$this->input->post('address')
+										 );
+
+				$this->Accountant_model->submit_edit_one_customer($id, $data);
+				$this->session->set_flashdata('success','<div class="alert alert-success">Data updated!</div>');
+				redirect(base_url().'Accountant/edit_one_customer/'.$id, 'refresh');
+		}
+	}
+
+	function check_user_email($email)
+	{
+		$id = $this->input->post('customerid');
+		$data['customers'] = $this->Accountant_model->get_customers();
+
+		foreach($data['customers'] as $d)
+		{
+			if($id == $d->CustomerID)
+			{
+				if($email == $d->Email)
+				{
+					return TRUE;
+				}
+			}
+			else
+			{
+				if($email == $d->Email)
+				{
+					$this->form_validation->set_message('check_user_email', 'Email must be unique');
+					return FALSE;
+				}
+			}
+		}
+	}
+
+	function delete_one_customer()
+	{
+		$id = $this->input->post('customerID');
+		$this->Accountant_model->delete_one_customer($id);
+	}
 
   //Suppliers
 
@@ -81,6 +174,26 @@ class Accountant extends CI_Controller
                 'label' => 'suppliername',
                 'rules' => 'required'
         ),
+				array(
+								'field' => 'address',
+								'label' => 'address',
+								'rules' => 'required'
+				),
+        array(
+                'field' => 'city',
+                'label' => 'city',
+                'rules' => 'required'
+        ),
+				array(
+								'field' => 'region',
+								'label' => 'region',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'postalcode',
+								'label' => 'postalcode',
+								'rules' => 'required|min_length[4]|max_length[4]|is_natural'
+				),
         array(
                 'field' => 'phone',
                 'label' => 'phone',
@@ -96,21 +209,6 @@ class Accountant extends CI_Controller
                 'errors' => array(
                         'is_unique' => 'Email already in use',
                       ),
-        ),
-        array(
-                'field' => 'address',
-                'label' => 'address',
-                'rules' => 'required'
-        ),
-        array(
-                'field' => 'city',
-                'label' => 'city',
-                'rules' => 'required'
-        ),
-        array(
-                'field' => 'region',
-                'label' => 'region',
-                'rules' => 'required'
         )
     );
 
@@ -135,6 +233,7 @@ class Accountant extends CI_Controller
 
         $this->Accountant_model->submit_add_supplier($data);
         $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!</div>');
+				redirect(base_url().'Accountant/add_supplier', 'refresh');
 
     }
   }

@@ -15,6 +15,7 @@
      <div class="panel-body">
          <div class="row">
              <div class="col-lg-12">
+             <?= $this->session->flashdata('success'); ?>
              <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
                 <form role="form" method="POST">
                      <div class="form-group">

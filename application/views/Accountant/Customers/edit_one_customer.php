@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Add Customer</h1>
+            <h1 class="page-header">Edit Customer</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -17,30 +17,33 @@
              <div class="col-lg-12">
                <?= $this->session->flashdata('success'); ?>
                <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
+               <?php foreach($customer as $c): ?>
                 <form role="form" method="POST">
+                  <input type="hidden" name="customerid" value="<?=$c->CustomerID?>">
                      <div class="form-group">
                          <label>Name</label>
-                         <input class="form-control" name="customername" placeholder="Enter Name" value="<?=set_value('customername');?>" required>
+                         <input class="form-control" name="customername" placeholder="Enter Name" value="<?=$c->CustomerName?>" required>
                          <?php echo form_error('customername'); ?>
                      </div>
                      <div class="form-group">
                          <label>Phone</label>
-                         <input class="form-control" name="phone" placeholder="Enter Phone" value="<?=set_value('phone');?>" required>
+                         <input class="form-control" name="phone" placeholder="Enter Phone" value="<?=$c->Phone?>" required>
                          <?php echo form_error('phone'); ?>
                      </div>
                      <div class="form-group">
                          <label>Email</label>
-                         <input class="form-control" name="email" type="email" placeholder="Enter Email" value="<?=set_value('email');?>" required>
+                         <input class="form-control" name="email" type="email" placeholder="Enter Email" value="<?=$c->Email?>" required>
                          <?php echo form_error('email'); ?>
                      </div>
                      <div class="form-group">
                          <label>Address</label>
-                         <input class="form-control" name="address" placeholder="Enter Address"  value="<?=set_value('address');?>" required>
+                         <input class="form-control" name="address" placeholder="Enter Address"  value="<?=$c->Address?>" required>
                          <?php echo form_error('address'); ?>
                      </div>
                      <button type="submit" class="btn btn-default">Submit Button</button>
                      <button type="reset" class="btn btn-default">Reset Button</button>
                  </form>
+               <?php endforeach; ?>
              </div>
          </div>
          <!-- /.row (nested) -->

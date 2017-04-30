@@ -15,13 +15,20 @@
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="<?=base_url();?>/assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="<?=base_url();?>assets/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="<?=base_url();?>assets/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Sweetalert CSS -->
+    <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet">
+
 
     <!-- Custom CSS -->
     <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="<?=base_url();?>assets/vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?=base_url();?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -265,23 +272,32 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="<?=base_url();?>Accountant/add_customer"><i class="fa fa-dashboard fa-fw"></i>Add Customer</a>
-                        </li>
-                        <li>
-                            <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                      <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i>Customer<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="<?=base_url();?>Accountant/add_customer">Add customer</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="<?=base_url();?>Accountant/view_customers">View Customers</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                              <a href="#"><i class="fa fa-users fa-fw"></i>Suppliers<span class="fa arrow"></span></a>
+                              <ul class="nav nav-second-level">
+                                  <li>
+                                      <a href="<?=base_url();?>Accountant/add_supplier">Add Supplier</a>
+                                  </li>
+                                  <li>
+                                      <a href="<?=base_url();?>Accountant/view_suppliers">View Suppliers</a>
+                                  </li>
+                              </ul>
+                              <!-- /.nav-second-level -->
+                          </li>
+                        <li>
+                            <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
                         </li>
                     </ul>
                 </div>
