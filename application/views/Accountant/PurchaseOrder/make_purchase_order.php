@@ -30,28 +30,31 @@
                                    <p class="help-block" id="saddress">Supplier Address:</p>
                                    <p class="help-block" id="snum">Supplier #:</p>
                                  </div>
-                                 <div class="row">
-                                   <div class="form-group col-lg-3">
-                                     <label>Item</label>
-                                     <input class="form-control" name="item[]" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
-                                     <?php echo form_error('address'); ?>
+                                 <div id="append">
+                                   <div class="row" id="itemsrow">
+                                     <div class="form-group col-lg-3">
+                                       <label class="myformlabel">Item</label>
+                                       <input class="form-control" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
+                                       <?php echo form_error('address'); ?>
+                                     </div>
+                                     <div class="form-group col-lg-3">
+                                       <label class="myformlabel">Quantity</label>
+                                       <input class="form-control" name="quantity[]" id="quantity" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
+                                       <?php echo form_error('address'); ?>
+                                     </div>
+                                     <div class="form-group col-lg-3">
+                                       <label class="myformlabel">Unit price</label>
+                                       <input class="form-control" name="unitprice[]" id="unitprice" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
+                                       <?php echo form_error('address'); ?>
+                                     </div>
+                                     <div class="form-group col-lg-3">
+                                       <label class="myformlabel">Total</label>
+                                       <input class="form-control" id="total" placeholder="Total" readonly>
+                                       <?php echo form_error('address'); ?>
+                                     </div>
                                    </div>
-                                   <div class="form-group col-lg-3">
-                                     <label>Quantity</label>
-                                     <input class="form-control" name="quantity[]" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
-                                     <?php echo form_error('address'); ?>
-                                   </div>
-                                   <div class="form-group col-lg-3">
-                                     <label>Unit price</label>
-                                     <input class="form-control" name="unitprice[]" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
-                                     <?php echo form_error('address'); ?>
-                                   </div>
-                                   <div class="form-group col-lg-3">
-                                     <label>Total</label>
-                                     <input class="form-control" placeholder="Total" readonly>
-                                     <?php echo form_error('address'); ?>
-                                   </div>
-                                 </div>
+                                  </div>
+                                 <button type="button" class="btn btn-success" id="cloneme">Add more items</button>
                                  <p> Prepared by: <?=$this->session->userdata['username']?> </p>
                                  <button type="submit" class="btn btn-default">Submit Button</button>
                                  <button type="reset" class="btn btn-default">Reset Button</button>
@@ -111,6 +114,15 @@
           dataType: 'json'
       });
     })
+    </script>
+
+    <script>
+    $( "#cloneme" ).click(function() {
+      var clone = $("#itemsrow").clone();
+      clone.find(".myformlabel").remove();
+      clone.find("#select").attr("id","select-"+length);
+      $("#append").append(clone);
+    });
     </script>
 
 </body>
