@@ -43,11 +43,11 @@ class Login_model extends CI_Model
 		}
 	}
 
-	function get_accountant_details($accountantID)
+	function get_accountant_details($username)
 	{
 		$this ->db->select('*');
 		$this ->db->from('accountant');
-		$this->db->where('UserID', $accountantID);
+		$this->db->where('Username', $username);
 		$query = $this->db->get();
 		return $query->result();
 	}

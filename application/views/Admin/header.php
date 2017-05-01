@@ -273,29 +273,17 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                       <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i>Customer<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i>Accountants<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=base_url();?>Accountant/add_customer">Add customer</a>
+                                    <a href="<?=base_url();?>Admin/add_accountant">Add accountant</a>
                                 </li>
                                 <li>
-                                    <a href="<?=base_url();?>Accountant/view_customers">View Customers</a>
+                                    <a href="<?=base_url();?>Admin/view_accountants">View accountants</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                              <a href="#"><i class="fa fa-users fa-fw"></i>Suppliers<span class="fa arrow"></span></a>
-                              <ul class="nav nav-second-level">
-                                  <li>
-                                      <a href="<?=base_url();?>Accountant/add_supplier">Add Supplier</a>
-                                  </li>
-                                  <li>
-                                      <a href="<?=base_url();?>Accountant/view_suppliers">View Suppliers</a>
-                                  </li>
-                              </ul>
-                              <!-- /.nav-second-level -->
-                          </li>
                         <li>
                             <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
                         </li>

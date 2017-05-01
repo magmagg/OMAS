@@ -26,6 +26,8 @@
     <!-- Sweetalert CSS -->
     <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet">
 
+    <!-- Select2 CSS -->
+    <link href="<?=base_url();?>assets/vendor/select2/select2.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -296,6 +298,18 @@
                               </ul>
                               <!-- /.nav-second-level -->
                           </li>
+                          <li>
+                                <a href="#"><i class="fa fa-list-alt fa-fw"></i>Purchase order/Invoice<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="<?=base_url();?>Accountant/make_purchase_order">Make purchase order</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?=base_url();?>Accountant/view_purchase_orders">View purchase orders</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
                         <li>
                             <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
                         </li>

@@ -350,4 +350,19 @@ class Accountant extends CI_Controller
 		$this->Accountant_model->delete_one_supplier($id);
 	}
 
+	//Purchase orders
+	function make_purchase_order()
+	{
+		$data['suppliers'] = $this->Accountant_model->get_suppliers();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/PurchaseOrder/make_purchase_order',$data);
+	}
+
+	function get_one_supplier()
+	{
+		$id = $this->input->post('supplierid');
+		$data['supplier'] = $this->Accountant_model->get_one_supplier($id);
+		echo json_encode($data);
+	}
+
 }

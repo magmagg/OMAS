@@ -66,11 +66,15 @@ class Login extends CI_Controller
 				}
 				else
 				{
-					$accountantID = $this->Login_model->check_if_accountant($username,$password);
+					$data['accountant'] = $this->Login_model->get_accountant_details($username);
 
-					if($accountantID)
+					foreach($data['accountant'] as $a)
 					{
-						$data['accountant'] = $this->Login_model->get_accountant_details($accountantID);
+						$hash = $a->password;
+					}
+					if(password_verify($password, $hash))
+					{
+						$data['accountant'] = $this->Login_model->get_accountant_details($username);
 						foreach($data['accountant'] as $a)
 						{
 							$sessiondata = array('AccountantID'=>$a->UserID,
