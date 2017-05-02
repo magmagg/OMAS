@@ -22,6 +22,7 @@
                             <th>Purchase Order ID</th>
                             <th>Supplier</th>
                             <th>Transaction date</th>
+                            <th>Accountant</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -44,6 +45,16 @@
                             </td>
                             <td><?=$p->TransactionDate?></td>
                             <td>
+                              <?php foreach($accountants as $a)
+                              {
+                                if($p->Accountant_UserID == $a->UserID)
+                                {
+                                  echo $a->username;
+                                }
+                              }
+                              ?>
+                            </td>
+                            <td>
                               <?php if($p->Status == 0): ?>
                                 <span class="label label-info">Processing</span>
                               <?php elseif($p->Status == 1): ?>
@@ -53,7 +64,7 @@
                               <?php endif;?>
                             </td>
                             <td>
-                              <a href="<?=base_url().'Accountant/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <a href="<?=base_url().'Admin/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
                             </td>
                         </tr>
                       <?php $num++; ?>
@@ -99,48 +110,6 @@
 $(document).ready(function() {
     $('#dataTables-example').DataTable({
         responsive: true
-    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    $('.DeleteCustomer').click(function() {
-        var id = $(this).data("id");
-        swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover supplier!",
-                type: "warning",
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: false,
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "<?php echo base_url();?>Accountant/delete_one_supplier/",
-                        data: {
-                          supplierID: id
-                        },
-                        success: function(data) {
-                          swal({
-                            title: "Deleted!",
-                            text: "Supplier has been deleted. Refreshing page...",
-                            type: "success",
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, delete it!",
-                            closeOnConfirm: false
-                          });
-                            setTimeout(function() {
-                            }, 2000);
-
-                        }
-                    });
-                } else {}
-            });
     });
 });
 </script>

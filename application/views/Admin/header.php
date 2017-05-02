@@ -285,7 +285,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
+                            <a href="<?=base_url();?>Admin/view_purchase_orders"><i class="fa fa-list-alt fa-fw"></i>Purchase order/Invoice </a>
                         </li>
                     </ul>
                 </div>

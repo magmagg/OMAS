@@ -74,4 +74,45 @@ class Admin extends CI_Controller
 		$this->load->view('Admin/Accountants/view_accountants',$data);
 	}
 
+	//PurchaseOrder processing
+	function view_purchase_orders()
+	{
+		$data['purchaseorders'] = $this->Admin_model->get_purchase_orders();
+		$data['suppliers'] = $this->Admin_model->get_suppliers();
+		$data['accountants'] = $this->Admin_model->get_accountants();
+		$this->load->view('Admin/header');
+		$this->load->view('Admin/PurchaseOrder/view_purchase_orders',$data);
+	}
+
+	function view_one_purchase_order()
+	{
+		$id = $this->uri->segment(3);
+		$data['purchaseorder'] = $this->Admin_model->get_purchase_orders_byuser_items($id);
+		$data['supplier'] = $this->Admin_model->get_one_supplier($data['purchaseorder'][0]->Supplier_SupplierID);
+		$data['POID'] = $data['purchaseorder'][0]->PurchaseID;
+
+		$this->load->view('Admin/header');
+		$this->load->view('Admin/PurchaseOrder/view_purchase_order_one',$data);
+	}
+
+	function accept_one_purchase_order()
+	{
+		$id = $this->input->post('purchaseorderid');
+
+		$data = array('Status'=>1);
+
+		$this->Admin_model->process_purchase_order($id,$data);
+		$this->session->set_flashdata('success','<div class="alert alert-success">Purchase order accepted!</div>');
+	}
+
+	function reject_one_purchase_order()
+	{
+		$id = $this->input->post('purchaseorderid');
+
+		$data = array('Status'=>2);
+
+		$this->Admin_model->process_purchase_order($id,$data);
+		$this->session->set_flashdata('success','<div class="alert alert-danger">Purchase order Rejected!</div>');
+	}
+
 }
