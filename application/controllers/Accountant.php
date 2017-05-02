@@ -415,4 +415,20 @@ class Accountant extends CI_Controller
 		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
 	}
 
+	//Sales Invoice
+	function make_sales_invoice()
+	{
+		$data['customers'] = $this->Accountant_model->get_customers();
+		$data['items'] = $this->Accountant_model->get_purchase_order_items();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/SalesInvoice/make_sales_invoice',$data);
+	}
+
+	function get_one_customer()
+	{
+		$id = $this->input->post('customerid');
+		$data['customer'] = $this->Accountant_model->get_one_customer($id);
+		echo json_encode($data);
+	}
+
 }

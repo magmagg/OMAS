@@ -310,6 +310,18 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
+                            <li>
+                                  <a href="#"><i class="fa fa-list-alt fa-fw"></i>Sales Invoice/Billing<span class="fa arrow"></span></a>
+                                  <ul class="nav nav-second-level">
+                                      <li>
+                                          <a href="<?=base_url();?>Accountant/make_sales_invoice">Make Sales Invoice</a>
+                                      </li>
+                                      <li>
+                                          <a href="<?=base_url();?>Accountant/view_sales_invoices">View Sales Invoice</a>
+                                      </li>
+                                  </ul>
+                                  <!-- /.nav-second-level -->
+                              </li>
                         <li>
                             <a href="<?=base_url();?>Accountant/add_supplier"><i class="fa fa-dashboard fa-fw"></i>Add Supplier</a>
                         </li>

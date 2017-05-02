@@ -115,4 +115,13 @@ class Accountant_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	//Sales invoice
+	function get_purchase_order_items()
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order_item');
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
