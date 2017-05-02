@@ -34,22 +34,22 @@
                                    <div class="row" id="itemsrow">
                                      <div class="form-group col-lg-3">
                                        <label class="myformlabel">Item</label>
-                                       <input class="form-control" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
+                                       <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
                                        <?php echo form_error('address'); ?>
                                      </div>
                                      <div class="form-group col-lg-3">
                                        <label class="myformlabel">Quantity</label>
-                                       <input class="form-control" name="quantity[]" id="quantity" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
+                                       <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
                                        <?php echo form_error('address'); ?>
                                      </div>
                                      <div class="form-group col-lg-3">
                                        <label class="myformlabel">Unit price</label>
-                                       <input class="form-control" name="unitprice[]" id="unitprice" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
+                                       <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
                                        <?php echo form_error('address'); ?>
                                      </div>
                                      <div class="form-group col-lg-3">
                                        <label class="myformlabel">Total</label>
-                                       <input class="form-control" id="total" placeholder="Total" readonly>
+                                       <input class="form-control totalfield" id="total" placeholder="Total" readonly>
                                        <?php echo form_error('address'); ?>
                                      </div>
                                    </div>
@@ -117,11 +117,41 @@
     </script>
 
     <script>
+    var id = 1;
     $( "#cloneme" ).click(function() {
       var clone = $("#itemsrow").clone();
+      clone.find('input').val('');
       clone.find(".myformlabel").remove();
-      clone.find("#select").attr("id","select-"+length);
+      clone.find("#item").attr("id","item"+id);
+      clone.find("#quantity").attr("id","quantity"+id);
+      clone.find("#unitprice").attr("id","unitprice"+id);
+      clone.find("#total").attr("id","total"+id);
+      id++;
       $("#append").append(clone);
+    });
+    </script>
+
+    <script>
+    $("form").on('keyup change', '.unitpricefield', function (){
+       var currentid =this.id.slice(-1);
+       if(isNaN(currentid)){
+       	currentid = '';
+        }else{
+
+        }
+       var total = $('#quantity'+currentid).val() * this.value;
+       $('#total'+currentid).val(total);
+    });
+
+    $("form").on('keyup change', '.quantityfield', function (){
+       var currentid =this.id.slice(-1);
+       if(isNaN(currentid)){
+        currentid = '';
+        }else{
+
+        }
+       var total = $('#unitprice'+currentid).val() * this.value;
+       $('#total'+currentid).val(total);
     });
     </script>
 
