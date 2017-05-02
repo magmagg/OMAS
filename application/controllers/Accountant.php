@@ -393,7 +393,26 @@ class Accountant extends CI_Controller
                     'PO_ID'=>$PurchaseID);
       $this->Accountant_model->insert_purchase_order_item($data);
     }
+		$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
+		redirect(base_url().'Accountant/view_purchase_orders');
+	}
 
+	function view_purchase_orders()
+	{
+		$data['purchaseorders'] = $this->Accountant_model->get_purchase_orders_byuser($this->session->userdata('AccountantID'));
+		$data['suppliers'] = $this->Accountant_model->get_suppliers();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/PurchaseOrder/view_purchase_orders',$data);
+	}
+
+	function view_one_purchase_order()
+	{
+		$id = $this->uri->segment(3);
+		$data['purchaseorder'] = $this->Accountant_model->get_purchase_orders_byuser_items($id);
+		$data['supplier'] = $this->Accountant_model->get_one_supplier($data['purchaseorder'][0]->Supplier_SupplierID);
+
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
 	}
 
 }

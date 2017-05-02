@@ -96,4 +96,23 @@ class Accountant_model extends CI_Model
 	{
 		$this->db->insert('purchasing_order_item',$data);
 	}
+
+	function get_purchase_orders_byuser($accountantID)
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order');
+		$this->db->where('Accountant_UserID',$accountantID);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_purchase_orders_byuser_items($POID)
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order as po');
+		$this->db->join('purchasing_order_item as poi', 'po.PurchaseID = poi.PO_ID');
+		$this->db->where('po.PurchaseID',$POID);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
