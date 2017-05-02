@@ -17,10 +17,10 @@
                          <div class="col-lg-12">
                          <?= $this->session->flashdata('success'); ?>
                          <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-                            <form role="form" method="POST">
+                            <form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
                                  <div class="form-group">
                                   <label>Supplier</label>
-                                   <select class="suppliers" id="supplierselect" style="width: 100%">
+                                   <select class="suppliers" id="supplierselect" name="supplierid" style="width: 100%">
                                      <option value=""></option>
                                      <?php foreach($suppliers as $s):?>
                                      <option value="<?=$s->SupplierID?>"><?=$s->SupplierName?></option>
@@ -49,7 +49,7 @@
                                      </div>
                                      <div class="form-group col-lg-3">
                                        <label class="myformlabel">Total</label>
-                                       <input class="form-control totalfield" id="total" placeholder="Total" readonly>
+                                       <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
                                        <?php echo form_error('address'); ?>
                                      </div>
                                    </div>

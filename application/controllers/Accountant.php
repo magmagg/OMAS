@@ -365,4 +365,35 @@ class Accountant extends CI_Controller
 		echo json_encode($data);
 	}
 
+	function submit_make_purchase_order()
+	{
+    $use['items'] = list($items) = $this->input->post('item');
+    $use['quantity'] = list($items) = $this->input->post('quantity');
+    $use['unitprice'] = list($items) = $this->input->post('unitprice');
+    $use['total'] = list($items) = $this->input->post('total');
+
+    $total = 0;
+    foreach($use['total'] as $t)
+    {
+      $total += $t;
+    }
+
+    //Insert data now
+    $data = array('Total'=>$total,
+                  'Accountant_UserID'=>$this->session->userdata('AccountantID'),
+                  'Supplier_SupplierID'=>$this->input->post('supplierid'),
+                  'Administrator_AdminID'=>1);
+    $PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+
+    foreach($use['items'] as $key=>$value)
+    {
+      $data = array('ItemName'=>$value,
+                    'Quantity'=>$use['quantity'][$key],
+                    'UnitPrice'=>$use['unitprice'][$key],
+                    'PO_ID'=>$PurchaseID);
+      $this->Accountant_model->insert_purchase_order_item($data);
+    }
+
+	}
+
 }

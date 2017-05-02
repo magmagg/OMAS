@@ -84,4 +84,16 @@ class Accountant_model extends CI_Model
 	{
 		$this->db->delete('supplier', array('SupplierID' => $id));
 	}
+
+	//Purchase orders
+	function insert_purchase_order($data)
+	{
+		$this->db->insert('purchasing_order',$data);
+		return $this->db->insert_id();
+	}
+
+	function insert_purchase_order_item($data)
+	{
+		$this->db->insert('purchasing_order_item',$data);
+	}
 }
