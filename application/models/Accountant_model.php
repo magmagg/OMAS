@@ -117,10 +117,29 @@ class Accountant_model extends CI_Model
 	}
 
 	//Sales invoice
-	function get_purchase_order_items()
+	function get_purchase_order_items_poid()
+	{
+		$this->db->select('PO_ID');
+		$this->db->from('purchasing_order_item');
+		$this->db->distinct();
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_purchase_order_status($id)
+	{
+		$this->db->select('PurchaseID,Status');
+		$this->db->from('purchasing_order');
+		$this->db->where('PurchaseID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_purchase_order_items_byid($id)
 	{
 		$this->db->select('*');
 		$this->db->from('purchasing_order_item');
+		$this->db->where('PO_ID',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}

@@ -419,7 +419,23 @@ class Accountant extends CI_Controller
 	function make_sales_invoice()
 	{
 		$data['customers'] = $this->Accountant_model->get_customers();
-		$data['items'] = $this->Accountant_model->get_purchase_order_items();
+
+    //Get distinct PO ID's to check if accepted by admin or not
+		$use['POID'] = $this->Accountant_model->get_purchase_order_items_poid();
+
+    foreach($use['POID'] as $p)
+    {
+      $use['status'] = $this->Accountant_model->get_purchase_order_status($p->PO_ID);
+    }
+    var_dump($use['status']);
+    $data['items'] = array();
+    foreach($use['status'] as $s)
+    {
+      if($s->Status == 1)
+      {
+        $data['items'][] = $this->Accountant_model->get_purchase_order_items_byid($s->PurchaseID);
+      }
+    }
 		$this->load->view('Accountant/header');
 		$this->load->view('Accountant/SalesInvoice/make_sales_invoice',$data);
 	}
