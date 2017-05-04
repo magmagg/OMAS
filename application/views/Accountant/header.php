@@ -311,13 +311,13 @@
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                  <a href="#"><i class="fa fa-list-alt fa-fw"></i>Sales Invoice/Billing<span class="fa arrow"></span></a>
+                                  <a href="#"><i class="fa fa-list-alt fa-fw"></i>Service Invoice/Billing<span class="fa arrow"></span></a>
                                   <ul class="nav nav-second-level">
                                       <li>
-                                          <a href="<?=base_url();?>Accountant/make_sales_invoice">Make Sales Invoice</a>
+                                          <a href="<?=base_url();?>Accountant/make_service_invoice">Make Service Invoice</a>
                                       </li>
                                       <li>
-                                          <a href="<?=base_url();?>Accountant/view_sales_invoices">View Sales Invoice</a>
+                                          <a href="<?=base_url();?>Accountant/view_service_invoices">View Service Invoice</a>
                                       </li>
                                   </ul>
                                   <!-- /.nav-second-level -->

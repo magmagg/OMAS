@@ -131,6 +131,7 @@ class Accountant_model extends CI_Model
 		$this->db->select('PurchaseID,Status');
 		$this->db->from('purchasing_order');
 		$this->db->where('PurchaseID',$id);
+
 		$query = $this->db->get();
 		return $query->result();
 	}

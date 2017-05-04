@@ -415,29 +415,32 @@ class Accountant extends CI_Controller
 		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
 	}
 
-	//Sales Invoice
-	function make_sales_invoice()
+	//service Invoice
+	function make_service_invoice()
 	{
 		$data['customers'] = $this->Accountant_model->get_customers();
 
     //Get distinct PO ID's to check if accepted by admin or not
 		$use['POID'] = $this->Accountant_model->get_purchase_order_items_poid();
-
+    $data['items']  = array();
     foreach($use['POID'] as $p)
     {
       $use['status'] = $this->Accountant_model->get_purchase_order_status($p->PO_ID);
-    }
-    var_dump($use['status']);
-    $data['items'] = array();
-    foreach($use['status'] as $s)
-    {
-      if($s->Status == 1)
+      $Status = $use['status'][0]->Status;
+      $purchaseID = $use['status'][0]->PurchaseID;
+      if($Status == 1)
       {
-        $data['items'][] = $this->Accountant_model->get_purchase_order_items_byid($s->PurchaseID);
+        $use['items'] = $this->Accountant_model->get_purchase_order_items_byid($purchaseID);
+        foreach($use['items'] as $i)
+        {
+          $data['items'][] = array('ItemName'=>$i->ItemName,
+                                   'ItemID'=>$i->ItemID,
+                                    'UnitPrice'=>$i->UnitPrice);
+        }
       }
     }
 		$this->load->view('Accountant/header');
-		$this->load->view('Accountant/SalesInvoice/make_sales_invoice',$data);
+		$this->load->view('Accountant/ServiceInvoice/make_service_invoice',$data);
 	}
 
 	function get_one_customer()
@@ -446,5 +449,37 @@ class Accountant extends CI_Controller
 		$data['customer'] = $this->Accountant_model->get_one_customer($id);
 		echo json_encode($data);
 	}
+
+  function submit_make_service_invoice()
+  {
+    $use['items'] = list($items) = $this->input->post('item');
+    $use['quantity'] = list($items) = $this->input->post('quantity');
+    $use['unitprice'] = list($items) = $this->input->post('unitprice');
+    $use['total'] = list($items) = $this->input->post('total');
+
+    $total = 0;
+    foreach($use['total'] as $t)
+    {
+      $total += $t;
+    }
+
+    //Insert data now
+    $data = array('Total'=>$total,
+                  'Accountant_UserID'=>$this->session->userdata('AccountantID'),
+                  'Supplier_SupplierID'=>$this->input->post('supplierid'),
+                  'Administrator_AdminID'=>1);
+    $PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+
+    foreach($use['items'] as $key=>$value)
+    {
+      $data = array('ItemName'=>$value,
+                    'Quantity'=>$use['quantity'][$key],
+                    'UnitPrice'=>$use['unitprice'][$key],
+                    'PO_ID'=>$PurchaseID);
+      $this->Accountant_model->insert_purchase_order_item($data);
+    }
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
+    redirect(base_url().'Accountant/view_purchase_orders');
+  }
 
 }
