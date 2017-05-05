@@ -452,7 +452,7 @@ class Accountant extends CI_Controller
 
   function submit_make_service_invoice()
   {
-    $use['items'] = list($items) = $this->input->post('item');
+    $use['items'] = list($items) = $this->input->post('items');
     $use['quantity'] = list($items) = $this->input->post('quantity');
     $use['unitprice'] = list($items) = $this->input->post('unitprice');
     $use['total'] = list($items) = $this->input->post('total');
@@ -466,20 +466,38 @@ class Accountant extends CI_Controller
     //Insert data now
     $data = array('Total'=>$total,
                   'Accountant_UserID'=>$this->session->userdata('AccountantID'),
-                  'Supplier_SupplierID'=>$this->input->post('supplierid'),
+                  'Customer_CustomerID'=>$this->input->post('customerid'),
                   'Administrator_AdminID'=>1);
-    $PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+    $ServiceID = $this->Accountant_model->insert_service_invoice($data);
 
     foreach($use['items'] as $key=>$value)
     {
       $data = array('ItemName'=>$value,
                     'Quantity'=>$use['quantity'][$key],
                     'UnitPrice'=>$use['unitprice'][$key],
-                    'PO_ID'=>$PurchaseID);
-      $this->Accountant_model->insert_purchase_order_item($data);
+                    'SO_ID'=>$ServiceID);
+      $this->Accountant_model->insert_service_invoice_item($data);
     }
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
-    redirect(base_url().'Accountant/view_purchase_orders');
+    redirect(base_url().'Accountant/view_service_invoices');
+  }
+
+  function view_service_invoices()
+  {
+    $data['serviceinvoices'] = $this->Accountant_model->get_service_invoice_byuser($this->session->userdata('AccountantID'));
+    $data['customers'] = $this->Accountant_model->get_customers();
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/view_service_invoices',$data);
+  }
+
+  function view_one_service_invoice()
+  {
+    $id = $this->uri->segment(3);
+    $data['serviceinvoice'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
+    $data['customer'] = $this->Accountant_model->get_one_customer($data['serviceinvoice'][0]->Customer_CustomerID);
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/view_service_invoice_one',$data);
   }
 
 }

@@ -17,7 +17,7 @@
 						<div class="col-lg-12">
 							<?= $this->session->flashdata('success'); ?>
 								<?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
+								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
 									<div class="form-group">
 										<label>Customer</label>
 										<select class="customers" id="customerselect" name="customerid" style="width: 100%">

@@ -116,7 +116,7 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
-	//Sales invoice
+	//Service invoice
 	function get_purchase_order_items_poid()
 	{
 		$this->db->select('PO_ID');
@@ -144,4 +144,35 @@ class Accountant_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function insert_service_invoice($data)
+	{
+		$this->db->insert('service_invoice',$data);
+		return $this->db->insert_id();
+	}
+
+	function insert_service_invoice_item($data)
+	{
+		$this->db->insert('service_invoice_item',$data);
+	}
+
+	function get_service_invoice_byuser($accountantID)
+	{
+		$this->db->select('*');
+		$this->db->from('service_invoice');
+		$this->db->where('Accountant_UserID',$accountantID);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_service_invoice_byuser_items($SOID)
+	{
+		$this->db->select('*');
+		$this->db->from('service_invoice as so');
+		$this->db->join('service_invoice_item as soi', 'so.PurchaseID = soi.SO_ID');
+		$this->db->where('so.PurchaseID',$SOID);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }
