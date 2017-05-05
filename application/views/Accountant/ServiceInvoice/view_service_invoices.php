@@ -31,7 +31,7 @@
                       <?php foreach($serviceinvoices as $s): ?>
                         <tr>
                             <td><?=$num?></td>
-                            <td><?=$s->PurchaseID?></td>
+                            <td><?=$s->ServiceID?></td>
                             <td>
                               <?php foreach($customers as $c)
                               {
@@ -53,7 +53,7 @@
                               <?php endif;?>
                             </td>
                             <td>
-                              <a href="<?=base_url().'Accountant/view_one_service_invoice/'.$s->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <a href="<?=base_url().'Accountant/view_one_service_invoice/'.$s->ServiceID?>"><button type="button" class="btn btn-primary">View</button></a>
                             </td>
                         </tr>
                       <?php $num++; ?>

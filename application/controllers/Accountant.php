@@ -454,7 +454,6 @@ class Accountant extends CI_Controller
   {
     $use['items'] = list($items) = $this->input->post('items');
     $use['quantity'] = list($items) = $this->input->post('quantity');
-    $use['unitprice'] = list($items) = $this->input->post('unitprice');
     $use['total'] = list($items) = $this->input->post('total');
 
     $total = 0;
@@ -472,9 +471,8 @@ class Accountant extends CI_Controller
 
     foreach($use['items'] as $key=>$value)
     {
-      $data = array('ItemName'=>$value,
+      $data = array('POI_ItemID'=>$value,
                     'Quantity'=>$use['quantity'][$key],
-                    'UnitPrice'=>$use['unitprice'][$key],
                     'SO_ID'=>$ServiceID);
       $this->Accountant_model->insert_service_invoice_item($data);
     }
@@ -493,6 +491,7 @@ class Accountant extends CI_Controller
   function view_one_service_invoice()
   {
     $id = $this->uri->segment(3);
+    $use['items'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
     $data['serviceinvoice'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
     $data['customer'] = $this->Accountant_model->get_one_customer($data['serviceinvoice'][0]->Customer_CustomerID);
 
