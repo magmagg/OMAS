@@ -115,4 +115,62 @@ class Admin extends CI_Controller
 		$this->session->set_flashdata('success','<div class="alert alert-danger">Purchase order Rejected!</div>');
 	}
 
+	//Service Invoice processing
+	function view_service_invoices()
+	{
+		$data['serviceinvoices'] = $this->Admin_model->get_service_invoices();
+		$data['customers'] = $this->Admin_model->get_customers();
+		$data['accountants'] = $this->Admin_model->get_accountants();
+		$this->load->view('Admin/header');
+		$this->load->view('Admin/ServiceInvoice/view_service_invoices',$data);
+	}
+
+	function view_one_service_invoice()
+	{
+		$id = $this->uri->segment(3);
+		$use['items'] = $this->Admin_model->get_so_id_quantity($id);
+		$data['serviceinvoice'] = $this->Admin_model->get_service_invoice_byuser_items($id);
+		$data['items']  = array();
+		foreach($use['items'] as $p)
+		{
+				$use['allitems'] = $this->Admin_model->get_purchase_order_items();
+
+				foreach($use['allitems'] as $i)
+				{
+					if($p->POI_ItemID == $i->ItemID)
+					{
+						$data['items'][] = array('ItemName'=>$i->ItemName,
+																		 'ItemID'=>$i->ItemID,
+																			'UnitPrice'=>$i->UnitPrice,
+																			'Quantity'=>$p->Quantity);
+					}
+				}
+		}
+		$data['customer'] = $this->Admin_model->get_one_customer($data['serviceinvoice'][0]->Customer_CustomerID);
+		$data['SOID'] = $data['serviceinvoice'][0]->ServiceID;
+
+		$this->load->view('Admin/header');
+		$this->load->view('Admin/ServiceInvoice/view_service_invoice_one',$data);
+	}
+
+	function accept_one_service_invoice()
+	{
+		$id = $this->input->post('serviceinvoiceid');
+
+		$data = array('Status'=>1);
+
+		$this->Admin_model->process_service_invoice($id,$data);
+		$this->session->set_flashdata('success','<div class="alert alert-success">Service invoice accepted!</div>');
+	}
+
+	function reject_one_service_invoice()
+	{
+		$id = $this->input->post('serviceinvoiceid');
+
+		$data = array('Status'=>2);
+
+		$this->Admin_model->process_service_invoice($id,$data);
+		$this->session->set_flashdata('success','<div class="alert alert-danger">Service invoice Rejected!</div>');
+	}
+
 }

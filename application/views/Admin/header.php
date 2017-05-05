@@ -287,6 +287,9 @@
                         <li>
                             <a href="<?=base_url();?>Admin/view_purchase_orders"><i class="fa fa-list-alt fa-fw"></i>Purchase order/Invoice </a>
                         </li>
+                        <li>
+                            <a href="<?=base_url();?>Admin/view_service_invoices"><i class="fa fa-list-alt fa-fw"></i>Service invoice </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

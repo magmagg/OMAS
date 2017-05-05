@@ -491,8 +491,24 @@ class Accountant extends CI_Controller
   function view_one_service_invoice()
   {
     $id = $this->uri->segment(3);
-    $use['items'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
+    $use['items'] = $this->Accountant_model->get_so_id_quantity($id);
     $data['serviceinvoice'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
+    $data['items']  = array();
+    foreach($use['items'] as $p)
+    {
+        $use['allitems'] = $this->Accountant_model->get_purchase_order_items();
+
+        foreach($use['allitems'] as $i)
+        {
+          if($p->POI_ItemID == $i->ItemID)
+          {
+            $data['items'][] = array('ItemName'=>$i->ItemName,
+                                     'ItemID'=>$i->ItemID,
+                                      'UnitPrice'=>$i->UnitPrice,
+                                      'Quantity'=>$p->Quantity);
+          }
+        }
+    }
     $data['customer'] = $this->Accountant_model->get_one_customer($data['serviceinvoice'][0]->Customer_CustomerID);
 
     $this->load->view('Accountant/header');

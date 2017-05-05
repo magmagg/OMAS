@@ -136,15 +136,6 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
-	function get_purchase_order_items_byid($id)
-	{
-		$this->db->select('*');
-		$this->db->from('purchasing_order_item');
-		$this->db->where('PO_ID',$id);
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 	function insert_service_invoice($data)
 	{
 		$this->db->insert('service_invoice',$data);
@@ -165,12 +156,37 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	function get_purchase_order_items_byid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order_item');
+		$this->db->where('PO_ID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	function get_service_invoice_byuser_items($SOID)
 	{
 		$this->db->select('*');
-		$this->db->from('service_invoice as so');
-		$this->db->join('service_invoice_item as soi', 'so.PurchaseID = soi.SO_ID');
-		$this->db->where('so.PurchaseID',$SOID);
+		$this->db->from('service_invoice');
+		$this->db->where('ServiceID',$SOID);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_so_id_quantity($id)
+	{
+		$this->db->select('*');
+		$this->db->from('service_invoice_item');
+		$this->db->where('SO_ID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_purchase_order_items()
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order_item');
 		$query = $this->db->get();
 		return $query->result();
 	}

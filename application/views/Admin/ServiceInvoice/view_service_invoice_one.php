@@ -57,6 +57,10 @@
                            </div>
                            <?php $forlabel++; ?>
                          <?php endforeach; ?>
+                         <div align="center">
+                           <button type="button" class="btn btn-danger rejectbutton" id="<?=$SOID?>">Reject</button>
+                           <button type="button" class="btn btn-success acceptbutton" id="<?=$SOID?>">Accept</button>
+                         </div>
                           </div>
                      </form>
                  </div>
@@ -85,11 +89,99 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script>
 
-<!-- Select2 Javascript -->
-<script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script>
+<!-- SweetAlert -->
+<script src="<?=base_url();?>assets/vendor/sweetalert/sweetalert.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.acceptbutton').click(function() {
+        var id = $(this).attr("id");
+        swal({
+                title: "Are you sure?",
+                text: "Accept this Service Invoice?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                confirmButtonText: "Yes!",
+                closeOnConfirm: false,
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?php echo base_url();?>Admin/accept_one_service_invoice/",
+                        data: {
+                          serviceinvoiceid: id
+                        },
+                        success: function(data) {
+                          swal({
+                            title: "Accepted!",
+                            text: "Service Invoice accepted!! Refreshing page...",
+                            type: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            closeOnConfirm: false
+                          });
+                            setTimeout(function() {
+                                window.location.replace("<?=base_url().'Admin/view_service_invoices'?>");
+                            }, 2000);
+
+                        }
+                    });
+                } else {}
+            });
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.rejectbutton').click(function() {
+        var id = $(this).attr("id");
+        swal({
+                title: "Are you sure?",
+                text: "Reject this Service Invoice?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d9534f",
+                confirmButtonText: "Yes!",
+                closeOnConfirm: false,
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?php echo base_url();?>Admin/reject_one_service_invoice/",
+                        data: {
+                          serviceinvoiceid: id
+                        },
+                        success: function(data) {
+                          swal({
+                            title: "Rejected!",
+                            text: "Service Invoice Rejected!! Refreshing page...",
+                            type: "error",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            closeOnConfirm: false
+                          });
+                            setTimeout(function() {
+                                window.location.replace("<?=base_url().'Admin/view_service_invoices'?>");
+                            }, 2000);
+
+                        }
+                    });
+                } else {}
+            });
+    });
+});
+</script>
 
 
 </body>
