@@ -89,7 +89,7 @@ class Login extends CI_Controller
 					}
 					else
 					{
-						$this->session->set_flashdata('error','<div class="alert alert-danger">User not found!!</div>');
+						$this->session->set_flashdata('error','User not found');
 						redirect('Login','refresh');
 					}
 				}

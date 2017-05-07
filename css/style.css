@@ -1,0 +1,327 @@
+@font-face@font-face {
+    font-family: Montserrat;
+    src: url("../font/Montserrat-Regular.otf");
+}
+
+@font-face {
+    font-family: Montserrat-light;
+    src: url("../font/Montserrat-Light.otf");
+}
+
+@font-face {
+    font-family: Montserrat-extralight;
+    src: url("../font/Montserrat-ExtraLight.otf");
+}
+
+
+@font-face {
+    font-family: Montserrat-Thin;
+    src: url("../font/Montserrat-Thin.otf");
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+	overflow-x: hidden;
+}
+
+body.login-pg{
+	padding: 0;
+	margin: 0 0 50px;
+	overflow-x: hidden;
+}
+
+.login-pg{
+	background: url("../images/pattern/halftone.png");
+}
+
+.login-pg h3.panel-title{
+	font-family: Montserrat;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+}
+
+.login-pg .panel-heading{
+	background: #be1e2d;
+}
+
+.div-login-btn{
+	text-align: center;
+}
+
+.login-pg button.btn.btn-mg.btn-success{
+	background: #be1e2d;
+	color: #fff;
+	margin: 0 auto;
+	font-family: Montserrat-light;
+	border: none;
+	padding: 10px 15px;
+	margin-top: 8px;
+	-moz-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+	box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+.login-pg button.btn.btn-mg.btn-success:hover{
+	text-shadow: none;
+	color: #fff;
+	border: none;
+	background: #be1e2d;
+	font-family: Montserrat-light;
+	-moz-box-shadow: inset 0 0 100px 100px #be1e2d;
+    -webkit-box-shadow: inset 0 0 100px 100px #be1e2d;
+	box-shadow: inset 0 0 100px 100px #be1e2d;
+	transition-duration: 0.7s;
+}
+
+.login-pg .checkbox label, .radio label{
+	font-family: Montserrat-light;
+	color: #645b5c;
+}
+
+.login-pg input::-webkit-input-placeholder{
+
+	font-family: Montserrat-Thin;
+	color: #645b5c;
+}
+
+.login-pg input:-ms-input-placeholder{
+
+	font-family: Montserrat-Thin;
+	color: #645b5c;
+}
+
+.login-pg input:-moz-placeholder{
+
+	font-family: Montserrat-Thin;
+	color: #645b5c;
+}
+
+.login-pg input::-moz-placeholder{
+
+	font-family: Montserrat-Thin;
+	color: #645b5c;
+}
+
+.login-pg img.logo{
+	width: 80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.login-pg h5{
+	font-family: Montserrat-light;
+	color: #645b5c;
+	text-align: center;
+	padding: 0;
+	margin: 2px;
+}
+
+.login-pg input{
+	font-family: Montserrat;
+}
+
+.login-pg footer{
+	text-align: center;
+	font-family: Montserrat-light;
+	font-size: 0.750em;
+	color: #645b5c;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.navbar-fixed-top .navbar-inner{
+	background:  url("../images/pattern/halftone.png");
+	border: none;
+	min-height: 60px;
+}
+
+.body-nav.body-nav-horizontal{
+	background: #be1e2d;
+	border: none;
+}
+
+.body-nav.body-nav-horizontal ul li a, .body-nav.body-nav-horizontal ul li button{
+	height: auto;
+	padding-top: 18px;
+}
+
+.body-nav.body-nav-horizontal ul li{
+	border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.body-nav ul li{
+	border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff; 
+}
+
+.body-nav ul li a:hover{
+	background: #19273d;
+	text-decoration: none;
+}
+
+.navbar .brand {
+    float: left;
+    display: block;
+    padding: 10px 20px 10px;
+    margin-left: -20px;
+    font-size: 1em;
+    color: #19273d;
+    text-shadow: none;
+    font-family: Montserrat-extralight;
+}
+
+.navbar .brand img{
+	float: left;
+	 display: block;
+}
+
+.body-nav.body-nav-horizontal.body-nav-fixed{
+	top:60px;
+}
+
+.navbar-fixed-top .navbar-inner p{
+	margin: 0;
+	padding: 0;
+	color: #19273d;
+	font-family: Montserrat-extralight;
+}
+
+.navbar .nav > li > a {
+	text-shadow: none;
+	color: #fff;
+	background: #be1e2d;
+	font-family: Montserrat-light;
+	margin: 7px;
+	border-radius: 5px;
+	-moz-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+	box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+.navbar .nav > li > a:hover{
+	text-shadow: none;
+	color: #fff;
+	background: #be1e2d;
+	font-family: Montserrat-light;
+	margin: 7px;
+	border-radius: 5px;
+	-moz-box-shadow: inset 0 0 100px 100px #be1e2d;
+    -webkit-box-shadow: inset 0 0 100px 100px #be1e2d;
+	box-shadow: inset 0 0 100px 100px #be1e2d;
+	transition-duration: 0.5s;
+}
+
+#page-wrapper{
+	height: auto;
+}
+
+#body-content{
+	padding-top: 120px;
+}
+
+
+.sec-content {
+	padding-top: 5em;
+}
+
+.sec-content h1{
+	font-family: Montserrat-light;
+	color: #645b5c;
+	text-align: center;
+	font-size: 2.3em;
+	line-height: 1em;
+}
+
+.sec-content div.row{
+	margin: 0 ;
+	padding: 0;
+}
+
+.sec-content .dashboard-start{
+	border: 1px solid #c2c2c2;
+	text-align: center;
+	margin : 10px 50px;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.sec-content .dashboard-start img{
+	display:block;
+    margin:auto;
+}
+
+.error { border: 1px solid #b94a48!important; background-color: #fee!important; }
+
+.tooltip_error {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip_error .tooltip_errortext {
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip_error:hover .tooltip_errortext {
+    visibility: visible;
+}
+
+.nav-page{
+	background: #be1e2d;
+	border-bottom: 2px solid #19273d;
+	font-family: Montserrat-light;
+
+}
+
+.nav-page h3{
+	letter-spacing: .1em;
+}
+
+.nav .dropdown-toggle .caret{
+	border-top-color: #fff;
+    border-bottom-color: #fff;
+}
+
+.nav-page .nav.nav-tabs li > a.child,
+.nav-page .nav.nav-pills li > a.child,
+.nav-page .nav.nav-tabs li > button.child,
+.nav-page .nav.nav-pills li > button.child {
+
+	padding: 8px;
+}
+
+
+.active{
+	background: #fff;
+}
+
+.sec-content h1.page-header{
+	font-family: Montserrat-extralight;
+	text-transform: capitalize;
+	color: #000;
+	font-size: 2em;
+
+}
+
+table {
+	font-family: Montserrat-light;
+}
