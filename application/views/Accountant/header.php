@@ -15,7 +15,7 @@
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-   <!--  <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
+  <!--   <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
 
     <!-- DataTables CSS -->
     <link href="<?=base_url();?>assets/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -24,11 +24,11 @@
     <link href="<?=base_url();?>assets/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Sweetalert CSS -->
-    <!-- <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet"> -->
+    <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet">
 
 
     <!-- Custom CSS -->
-   <!--  <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
+  <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
     <link href="<?=base_url();?>css/customize-template.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>css/style.css" rel="stylesheet" type="text/css">
 
