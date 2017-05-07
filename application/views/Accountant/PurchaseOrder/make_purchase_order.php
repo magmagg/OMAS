@@ -1,76 +1,76 @@
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Purchase Order/Invoice</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-            <div class="col-lg-12">
-             <div class="panel panel-default">
-                 <div class="panel-heading">
-                     Make purchase order
-                 </div>
-                 <div class="panel-body">
-                     <div class="row">
-                         <div class="col-lg-12">
-                         <?= $this->session->flashdata('success'); ?>
-                         <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-                            <form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
-                                 <div class="form-group">
-                                  <label>Supplier</label>
-                                   <select class="suppliers" id="supplierselect" name="supplierid" style="width: 100%">
-                                     <option value=""></option>
-                                     <?php foreach($suppliers as $s):?>
-                                     <option value="<?=$s->SupplierID?>"><?=$s->SupplierName?></option>
-                                     <?php endforeach;?>
-                                   </select>
-                                   <p class="help-block" id="sname">Supplier name:</p>
-                                   <p class="help-block" id="saddress">Supplier Address:</p>
-                                   <p class="help-block" id="snum">Supplier #:</p>
-                                 </div>
-                                 <div id="append">
-                                   <div class="row" id="itemsrow">
-                                     <div class="form-group col-lg-3">
-                                       <label class="myformlabel">Item</label>
-                                       <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
-                                       <?php echo form_error('address'); ?>
-                                     </div>
-                                     <div class="form-group col-lg-3">
-                                       <label class="myformlabel">Quantity</label>
-                                       <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
-                                       <?php echo form_error('address'); ?>
-                                     </div>
-                                     <div class="form-group col-lg-3">
-                                       <label class="myformlabel">Unit price</label>
-                                       <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
-                                       <?php echo form_error('address'); ?>
-                                     </div>
-                                     <div class="form-group col-lg-3">
-                                       <label class="myformlabel">Total</label>
-                                       <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
-                                       <?php echo form_error('address'); ?>
-                                     </div>
-                                   </div>
-                                  </div>
-                                 <button type="button" class="btn btn-success" id="cloneme">Add more items</button>
-                                 <p> Prepared by: <?=$this->session->userdata['username']?> </p>
-                                 <button type="submit" class="btn btn-default">Submit Button</button>
-                                 <button type="reset" class="btn btn-default">Reset Button</button>
-                             </form>
+<section class="sec-content">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Purchase Order</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <div class="row">
+  <div class="col-lg-12">
+   <div class="panel panel-default">
+       <div class="panel-heading">
+           Make purchase order
+       </div>
+       <div class="panel-body">
+           <div class="row">
+               <div class="col-lg-12">
+               <?= $this->session->flashdata('success'); ?>
+               <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
+                  <form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
+                       <div class="form-group">
+                        <label>Supplier</label>
+                         <select class="suppliers" id="supplierselect" name="supplierid" style="width: 100%">
+                           <option value=""></option>
+                           <?php foreach($suppliers as $s):?>
+                           <option value="<?=$s->SupplierID?>"><?=$s->SupplierName?></option>
+                           <?php endforeach;?>
+                         </select>
+                         <p class="help-block" id="sname">Supplier name:</p>
+                         <p class="help-block" id="saddress">Supplier Address:</p>
+                         <p class="help-block" id="snum">Supplier #:</p>
+                       </div>
+                       <div id="append">
+                         <div class="row" id="itemsrow">
+                           <div class="form-group col-lg-3">
+                             <label class="myformlabel">Item</label>
+                             <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
+                             <?php echo form_error('address'); ?>
+                           </div>
+                           <div class="form-group col-lg-3">
+                             <label class="myformlabel">Quantity</label>
+                             <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
+                             <?php echo form_error('address'); ?>
+                           </div>
+                           <div class="form-group col-lg-3">
+                             <label class="myformlabel">Unit price</label>
+                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
+                             <?php echo form_error('address'); ?>
+                           </div>
+                           <div class="form-group col-lg-3">
+                             <label class="myformlabel">Total</label>
+                             <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+                             <?php echo form_error('address'); ?>
+                           </div>
                          </div>
-                     </div>
-                     <!-- /.row (nested) -->
-                 </div>
-                 <!-- /.panel-body -->
-             </div>
-             <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-        </div>
+                        </div>
+                       <button type="button" class="btn btn-success" id="cloneme">Add more items</button>
+                       <p> Prepared by: <?=$this->session->userdata['username']?> </p>
+                       <button type="submit" class="btn btn-default">Submit Button</button>
+                       <button type="reset" class="btn btn-default">Reset Button</button>
+                   </form>
+               </div>
+           </div>
+           <!-- /.row (nested) -->
+       </div>
+       <!-- /.panel-body -->
+   </div>
+   <!-- /.panel -->
+  </div>
+  <!-- /.col-lg-12 -->
+  </div>
+<!-- /.row -->
+</section>
         <!-- /#page-wrapper -->
 
     </div>

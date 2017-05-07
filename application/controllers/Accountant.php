@@ -55,6 +55,7 @@ class Accountant extends CI_Controller
     if ($this->form_validation->run() == FALSE)
     {
 		    $this->load->view('Accountant/header');
+        $this->load->view('Accountant/ServiceInvoice/sub_menu');
 		    $this->load->view('Accountant/customers/add_customer');
         $this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
     }
@@ -76,6 +77,7 @@ class Accountant extends CI_Controller
 	{
 		$data['customers'] = $this->Accountant_model->get_customers();
 		$this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/sub_menu');
 		$this->load->view('Accountant/customers/view_customers',$data);
 	}
 
@@ -116,6 +118,7 @@ class Accountant extends CI_Controller
 			$data['customer'] = $this->Accountant_model->get_one_customer($id);
 
 			$this->load->view('Accountant/header');
+      $this->load->view('Accountant/ServiceInvoice/sub_menu');
 			$this->load->view('Accountant/customers/edit_one_customer',$data);
 			$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors! The form has been reset</div>');
 		}
@@ -217,6 +220,7 @@ class Accountant extends CI_Controller
     if ($this->form_validation->run() == FALSE)
     {
         $this->load->view('Accountant/header');
+        $this->load->view('Accountant/PurchaseOrder/sub_menu');
         $this->load->view('Accountant/supplier/add_supplier');
         $this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
     }
@@ -242,6 +246,7 @@ class Accountant extends CI_Controller
 	{
 		$data['suppliers'] = $this->Accountant_model->get_suppliers();
 		$this->load->view('Accountant/header');
+    $this->load->view('Accountant/PurchaseOrder/sub_menu');
 		$this->load->view('Accountant/supplier/view_suppliers',$data);
 	}
 
@@ -299,6 +304,7 @@ class Accountant extends CI_Controller
 			$data['supplier'] = $this->Accountant_model->get_one_supplier($id);
 
 			$this->load->view('Accountant/header');
+      $this->load->view('Accountant/PurchaseOrder/sub_menu');
 			$this->load->view('Accountant/supplier/edit_one_supplier',$data);
 			$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors! The form has been reset</div>');
 		}
@@ -355,6 +361,7 @@ class Accountant extends CI_Controller
 	{
 		$data['suppliers'] = $this->Accountant_model->get_suppliers();
 		$this->load->view('Accountant/header');
+    $this->load->view('Accountant/PurchaseOrder/sub_menu');
 		$this->load->view('Accountant/PurchaseOrder/make_purchase_order',$data);
 	}
 
@@ -402,6 +409,7 @@ class Accountant extends CI_Controller
 		$data['purchaseorders'] = $this->Accountant_model->get_purchase_orders_byuser($this->session->userdata('AccountantID'));
 		$data['suppliers'] = $this->Accountant_model->get_suppliers();
 		$this->load->view('Accountant/header');
+    $this->load->view('Accountant/PurchaseOrder/sub_menu');
 		$this->load->view('Accountant/PurchaseOrder/view_purchase_orders',$data);
 	}
 
@@ -440,6 +448,7 @@ class Accountant extends CI_Controller
       }
     }
 		$this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/sub_menu');
 		$this->load->view('Accountant/ServiceInvoice/make_service_invoice',$data);
 	}
 
@@ -485,6 +494,7 @@ class Accountant extends CI_Controller
     $data['serviceinvoices'] = $this->Accountant_model->get_service_invoice_byuser($this->session->userdata('AccountantID'));
     $data['customers'] = $this->Accountant_model->get_customers();
     $this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/sub_menu');
     $this->load->view('Accountant/ServiceInvoice/view_service_invoices',$data);
   }
 
@@ -512,6 +522,7 @@ class Accountant extends CI_Controller
     $data['customer'] = $this->Accountant_model->get_one_customer($data['serviceinvoice'][0]->Customer_CustomerID);
 
     $this->load->view('Accountant/header');
+    $this->load->view('Accountant/ServiceInvoice/sub_menu');
     $this->load->view('Accountant/ServiceInvoice/view_service_invoice_one',$data);
   }
 

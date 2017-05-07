@@ -1,7 +1,7 @@
-<div id="page-wrapper">
+<section class="sec-content">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Purchase Order/Invoice</h1>
+			<h1 class="page-header">New Service Invoice</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -21,11 +21,11 @@
 									<div class="form-group">
 										<label>Customer</label>
 										<select class="customers" id="customerselect" name="customerid" style="width: 100%">
-                          <option value=""></option>
-                          <?php foreach($customers as $c):?>
-                          <option value="<?=$c->CustomerID?>"><?=$c->CustomerName?></option>
-                          <?php endforeach;?>
-                        </select>
+				                        <option value=""></option>
+				                        <?php foreach($customers as $c):?>
+				                        <option value="<?=$c->CustomerID?>"><?=$c->CustomerName?></option>
+				                        <?php endforeach;?>
+                        				</select>
 										<p class="help-block" id="cname">Customer name:</p>
 										<p class="help-block" id="caddress">Customer Address:</p>
 										<p class="help-block" id="cnum">Customer #:</p>
@@ -76,7 +76,7 @@
 		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
-</div>
+</section>
 <!-- /#page-wrapper -->
 
 </div>
