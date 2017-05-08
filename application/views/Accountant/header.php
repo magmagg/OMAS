@@ -29,13 +29,13 @@
 
     <!-- Custom CSS -->
   <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
-    <link href="<?=base_url();?>css/customize-template.css" rel="stylesheet" type="text/css">
-    <link href="<?=base_url();?>css/style.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url();?>assets/css/customize-template.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
     <link href="<?=base_url();?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <script src="<?=base_url();?>js/style.js"></script>
+    <script src="<?=base_url();?>assets/js/style.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,17 +59,17 @@
                     </button>
                     <a href="dashboard.html" class="brand">
                     <img src="<?php echo base_url()?>images/logo.png" class="img-reponsive" width="35">
-                    Managerial Accounting 
+                    Managerial Accounting
                     <br>
                     For Small Business
                     </a>
-             
+
                     <div id="app-nav-top-bar" class="nav-collapse">
                         <ul class="nav pull-right">
                             <li>
                                 <a href="<?=base_url().'Login/logout'?>">Logout</a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
 
          <div id="body-container">
             <div id="body-content">
-                
+
                     <div class="body-nav body-nav-horizontal body-nav-fixed">
                         <div class="container">
                             <ul class="sidebar">
@@ -113,7 +113,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="<?=base_url();?>Accountant/make_utilities">
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
@@ -125,4 +125,3 @@
                             </ul>
                         </div>
                     </div>
-

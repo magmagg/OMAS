@@ -526,4 +526,12 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/ServiceInvoice/view_service_invoice_one',$data);
   }
 
+	//Utilities
+	function view_utilities()
+	{
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/PurchaseOrder/sub_menu');
+		$this->load->view('Accountant/PurchaseOrder/view_purchase_orders',$data);
+	}
+
 }
