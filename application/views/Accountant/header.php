@@ -11,11 +11,13 @@
 
     <title>OMAS</title>
 
+    <link rel="shortcut icon" href="<?php echo base_url();?>images/favicon.png" />
+
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-  <!--   <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
+    <!--   <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
 
     <!-- DataTables CSS -->
     <link href="<?=base_url();?>assets/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -28,7 +30,7 @@
 
 
     <!-- Custom CSS -->
-  <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
+    <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
     <link href="<?=base_url();?>css/customize-template.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>css/style.css" rel="stylesheet" type="text/css">
 
@@ -47,82 +49,82 @@
 
 <body>
 
-    <div id="wrapper">
+<div id="wrapper">
 
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button class="btn btn-navbar" data-toggle="collapse" data-target="#app-nav-top-bar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="dashboard.html" class="brand">
-                    <img src="<?php echo base_url()?>images/logo.png" class="img-reponsive" width="35">
-                    Managerial Accounting 
-                    <br>
-                    For Small Business
-                    </a>
-             
-                    <div id="app-nav-top-bar" class="nav-collapse">
-                        <ul class="nav pull-right">
-                            <li>
-                                <a href="<?=base_url().'Login/logout'?>">Logout</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button class="btn btn-navbar" data-toggle="collapse" data-target="#app-nav-top-bar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <a href="dashboard.html" class="brand">
+                <img src="<?php echo base_url()?>images/logo.png" class="img-reponsive" width="35">
+                Managerial Accounting 
+                <br>
+                For Small Business
+                </a>
+         
+                <div id="app-nav-top-bar" class="nav-collapse">
+                    <ul class="nav pull-right">
+                        <li>
+                           <a href="<?=base_url().'Login/logout'?>">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
-         <div id="body-container">
-            <div id="body-content">
-                
-                    <div class="body-nav body-nav-horizontal body-nav-fixed">
-                        <div class="container">
-                            <ul class="sidebar">
-                                <li>
-                                    <a href="<?=base_url();?>Accountant/" id="dashboard">
-                                        <i class="icon-dashboard icon-large"></i> Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <i class="icon-hdd icon-large"></i> Inventory
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?=base_url();?>Accountant/view_service_invoices" id="menu_service">
-                                        <i class="icon-book icon-large"></i> Service
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?=base_url();?>Accountant/view_purchase_orders" id="menu_purchase">
-                                        <i class="icon-shopping-cart icon-large"></i> Purchase
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-file icon-large"></i> General Ledger
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bar-chart icon-large"></i> Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-money icon-large"></i> Expenses
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-cogs icon-large"></i> Settings
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<div id="body-container">
+ <div id="body-content">
+
+    <div class="body-nav body-nav-horizontal body-nav-fixed">
+        <div class="container">
+            <ul class="sidebar">
+                <li>
+                    <a href="<?=base_url();?>Accountant/" id="dashboard">
+                        <i class="icon-dashboard icon-large"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="icon-hdd icon-large"></i> Inventory
+                    </a>
+                </li>
+                <li>
+                    <a href="<?=base_url();?>Accountant/view_service_invoices" id="menu_service">
+                        <i class="icon-book icon-large"></i> Service
+                    </a>
+                </li>
+                <li>
+                    <a href="<?=base_url();?>Accountant/view_purchase_orders" id="menu_purchase">
+                        <i class="icon-shopping-cart icon-large"></i> Purchase
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-file icon-large"></i> General Ledger
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-bar-chart icon-large"></i> Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-money icon-large"></i> Expenses
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-cogs icon-large"></i> Settings
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
