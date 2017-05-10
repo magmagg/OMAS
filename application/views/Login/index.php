@@ -21,13 +21,13 @@
     <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet">
 
      <!-- Custom CSS -->
-    <link href="<?=base_url();?>css/style.css" rel="stylesheet">
+    <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?=base_url();?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link href="<?=base_url();?>css/bootstrap-combined.min.css" rel="stylesheet">
-   
+    <link href="<?=base_url();?>assets/css/bootstrap-combined.min.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,7 +46,7 @@
         <br>
         <br>
         <div class="row">
-            
+
             <div class="col-sm-4 col-sm-offset-2">
                 <img src="<?php base_url()?>images/logo.png" class="logo">
                 <h5> Managerial Accounting </h5>
@@ -66,38 +66,38 @@
                                 <div class="form-group">
 
                                     <input
-                                    data-msg-maxlength="Username must be a string with a minimum length of 8 and a maximum length of 15." 
-                                    data-msg-minlength="Username must be a string with a minimum length of 8 and a maximum length of 15." 
-                                    data-msg-required="Username is required." 
-                                    data-rule-maxlength="15" 
-                                    data-rule-minlength="8" 
-                                    data-rule-required="true"  
-                                    class="form-control" 
-                                    type="text" 
-                                    placeholder="Username" 
+                                    data-msg-maxlength="Username must be a string with a minimum length of 8 and a maximum length of 15."
+                                    data-msg-minlength="Username must be a string with a minimum length of 8 and a maximum length of 15."
+                                    data-msg-required="Username is required."
+                                    data-rule-maxlength="15"
+                                    data-rule-minlength="8"
+                                    data-rule-required="true"
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Username"
                                     name="username"
-                                    id="username" 
-                                    autofocus 
+                                    id="username"
+                                    autofocus
                                     required>
                                 </div>
                                 <?php echo form_error('username'); ?>
                                 <div class="form-group">
-                                    <input data-msg-maxlength="Password must be a string with a minimum length of 8 and a maximum length of 15." 
-                                           data-msg-minlength="Password must be a string with a minimum length of 8 and a maximum length of 15." 
-                                           data-msg-required="Password is required." 
-                                           data-rule-maxlength="15" 
-                                           data-rule-minlength="8" 
-                                           data-rule-required="true" 
-                                           class="form-control" 
-                                           placeholder="Password" 
-                                           name="password" 
+                                    <input data-msg-maxlength="Password must be a string with a minimum length of 8 and a maximum length of 15."
+                                           data-msg-minlength="Password must be a string with a minimum length of 8 and a maximum length of 15."
+                                           data-msg-required="Password is required."
+                                           data-rule-maxlength="15"
+                                           data-rule-minlength="8"
+                                           data-rule-required="true"
+                                           class="form-control"
+                                           placeholder="Password"
+                                           name="password"
                                            type="password"
-                                           id="password" 
+                                           id="password"
                                            required>
                                 </div>
                                 <?php echo form_error('password'); ?>
-                                
-                              
+
+
                                 <!-- Change this to a button or input when using this as a form -->
                                 <div class="div-login-btn">
                                 <a href="#">Forgot password?</a>
@@ -136,7 +136,7 @@
 
     <script type="text/javascript">
     $("#loginForm").validate({
-          
+
       showErrors: function(errorMap, errorList) {
           // Clean up any tooltips for valid elements
           $.each(this.validElements(), function (index, element) {
@@ -154,7 +154,7 @@
                   .tooltip(); // Create a new tooltip based on the error messsage we just set in the title
           });
       },
-      
+
    });
   </script>
 

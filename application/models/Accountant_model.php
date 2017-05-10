@@ -191,4 +191,27 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	//Utilities
+	function submit_make_utilities($data)
+	{
+		$this->db->insert('utilities',$data);
+	}
+
+	function get_all_utilities()
+	{
+		$this->db->select('*');
+		$this->db->from('utilities');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_one_utility($id)
+	{
+		$this->db->select('*');
+		$this->db->from('utilities');
+		$this->db->where('UtilitiesID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }
