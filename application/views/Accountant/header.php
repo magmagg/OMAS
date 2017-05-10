@@ -113,7 +113,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?=base_url();?>Accountant/make_utilities">
+                                    <a href="<?=base_url();?>Accountant/view_utilities">
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
