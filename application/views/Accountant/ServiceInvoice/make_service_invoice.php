@@ -99,7 +99,7 @@
 
 <script>
 	//var items = <?php echo json_encode($items); ?>;
-	$(".customers").select2({
+	$("#customerselect").select2({
 		placeholder: "Select a customer"
 	});
 	/*

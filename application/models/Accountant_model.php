@@ -214,4 +214,10 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	function submit_update_utility($utilitiesID, $data)
+	{
+		$this->db->where('UtilitiesID',$utilitiesID);
+		$this->db->update('utilities',$data);
+	}
+
 }
