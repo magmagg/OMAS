@@ -638,4 +638,49 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/Utilities/view_one_utility',$data);
   }
 
+  function submit_update_utility()
+  {
+    $utilitiesID = $this->input->post('id');
+    if($this->input->post('filecheckbox') == 1)
+    {
+      $config['upload_path']          = './uploads/';
+      $config['allowed_types']        = 'doc|docx|pdf';
+      $config['max_size']             = 100;
+
+      $this->load->library('upload', $config);
+
+      if (!$this->upload->do_upload('fileinput'))
+      {
+        $this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+        redirect(base_url().'Accountant/view_one_utility/'.$utilitiesID, 'refresh');
+      }
+      else
+      {
+        $upload_data = $this->upload->data();
+        $file_name = $upload_data['full_path'];
+          if($this->input->post('paidcheckbox') == 1)
+          {
+            $data = array('date_paid'=>$this->input->post('utilitiesdatepaid'),
+                          'utility_doc'=>$file_name,
+                          'Status'=>1
+                         );
+          }
+          else
+          {
+            $data = array('utility_doc'=>$file_name);
+          }
+          $this->Accountant_model->submit_update_utility($utilitiesID, $data);
+      }
+    }
+    else
+    {
+        $data = array('date_paid'=>$this->input->post('utilitiesdatepaid'),
+                      'Status'=>1
+                     );
+      
+      $this->Accountant_model->submit_update_utility($utilitiesID, $data);
+    }
+    redirect(base_url().'Accountant/view_utilities', 'refresh');
+  }
+
 }

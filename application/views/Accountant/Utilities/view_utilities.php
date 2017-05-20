@@ -36,7 +36,7 @@
                             <td><?=$u->date_created?></td>
                             <td>
                               <?php if($u->Status == 0): ?>
-                                <span class="label label-info">Processing</span>
+                                <span class="label label-info">Not yet paid</span>
                               <?php elseif($u->Status == 1): ?>
                                 <span class="label label-success">Paid!</span>
                               <?php endif;?>
