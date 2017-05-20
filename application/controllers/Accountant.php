@@ -526,4 +526,116 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/ServiceInvoice/view_service_invoice_one',$data);
   }
 
+	//Utilities
+	function view_utilities()
+	{
+    $data['utilites'] = $this->Accountant_model->get_all_utilities();
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/Utilities/sub_menu');
+		$this->load->view('Accountant/Utilities/view_utilities',$data);
+	}
+
+  function make_utilities()
+  {
+    $config = array(
+        array(
+                'field' => 'utilitiesname',
+                'label' => 'utilitiesname',
+                'rules' => 'required'
+        ),
+        array(
+                'field' => 'utilitiesdesc',
+                'label' => 'utilitiesdesc',
+                'rules' => 'required'
+        ),
+        array(
+                'field' => 'utilitiesprice',
+                'label' => 'utilitiesprice',
+                'rules' => 'required|numeric'
+        )
+    );
+
+    $this->form_validation->set_rules($config);
+
+    if ($this->form_validation->run() == FALSE)
+    {
+        $this->load->view('Accountant/header');
+        $this->load->view('Accountant/Utilities/sub_menu');
+        $this->load->view('Accountant/Utilities/make_utilities');
+        $this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
+    }
+    else
+    {
+      if($this->input->post('filecheckbox') == 1)
+      {
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'doc|docx|pdf';
+        $config['max_size']             = 100;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('fileinput'))
+        {
+          $this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+            redirect(base_url().'Accountant/make_utilities', 'refresh');
+        }
+        else
+        {
+          $upload_data = $this->upload->data();
+          $file_name = $upload_data['full_path'];
+            if($this->input->post('paidcheckbox') == 1)
+            {
+              $data = array('utility_name'=>$this->input->post('utilitiesname'),
+                            'utility_desc'=>$this->input->post('utilitiesdesc'),
+                            'utility_price'=>$this->input->post('utilitiesprice'),
+                            'date_paid'=>$this->input->post('utilitiesdatepaid'),
+                            'utility_doc'=>$file_name,
+                            'Status'=>1
+                           );
+            }
+            else
+            {
+              $data = array('utility_name'=>$this->input->post('utilitiesname'),
+                            'utility_desc'=>$this->input->post('utilitiesdesc'),
+                            'utility_price'=>$this->input->post('utilitiesprice'),
+                            'utility_doc'=>$file_name
+                             );
+            }
+        }
+      }
+      else
+      {
+        if($this->input->post('paidcheckbox') == 1)
+        {
+          $data = array('utility_name'=>$this->input->post('utilitiesname'),
+                        'utility_desc'=>$this->input->post('utilitiesdesc'),
+                        'utility_price'=>$this->input->post('utilitiesprice'),
+                        'date_paid'=>$this->input->post('utilitiesdatepaid'),
+                        'Status'=>1
+                       );
+        }
+        else
+        {
+          $data = array('utility_name'=>$this->input->post('utilitiesname'),
+                                'utility_desc'=>$this->input->post('utilitiesdesc'),
+                                'utility_price'=>$this->input->post('utilitiesprice')
+                               );
+        }
+      }
+        $this->Accountant_model->submit_make_utilities($data);
+        $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+        redirect(base_url().'Accountant/view_utilities', 'refresh');
+    }
+  }
+
+  function view_one_utility()
+  {
+    $id = $this->uri->segment(3);
+
+    $data['utility'] = $this->Accountant_model->get_one_utility($id);
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Utilities/sub_menu');
+    $this->load->view('Accountant/Utilities/view_one_utility',$data);
+  }
+
 }

@@ -9,9 +9,9 @@
             </header>
         </div>
         <div class="page-nav-options">
-           
+
             <ul class="nav nav-tabs pull-right">
-               
+
                 <li class="dropdown">
                   <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">Order
                     <i class="caret"></i></a>
@@ -30,7 +30,7 @@
                       <li><a href="<?=base_url();?>Accountant/add_supplier" class="child">Create Suppliers</a></li>
                     </ul>
                 </li>
-                  
+
             </ul>
                
             </div>
