@@ -32,33 +32,26 @@
 									</div>
 									<div id="append">
 										<div class="row" id="itemsrow">
-											<div class="form-group col-lg-3">
-												<label class="myformlabel">Item</label>
-												<select class="form-control" placeholder="Item" id="items" name="items[]" style="width: 100%">
-													<option value="">Please select</option>
-															<?php foreach($items as $i): ?>
-																<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
-															<?php endforeach; ?>
-                          </select>
+											<div class="form-group col-lg-3" id="serviceform">
+												<label class="myformlabel">Service</label>
+												<input class="form-control servicefield" name="service[]" id="service" placeholder="Enter service">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Unit price</label>
-												<input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Price" readonly>
-												<?php echo form_error('address'); ?>
+												<input class="form-control unitpricefield" name="serviceunitprice[]" id="unitprice" type="number" placeholder="Price">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Quantity</label>
-												<input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Enter Quantity" value="<?=set_value('address');?>" required>
-												<?php echo form_error('address'); ?>
+												<input class="form-control quantityfield" name="servicequantity[]" id="quantity" type="number" placeholder="Enter Quantity" required>
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Total</label>
 												<input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
-												<?php echo form_error('address'); ?>
 											</div>
 										</div>
 									</div>
-									<button type="button" class="btn btn-success" id="cloneme">Add more items</button>
+								 <button type="button" class="btn btn-success" id="cloneme2">Add items used</button>
+								 <button type="button" class="btn btn-success" id="addservice">Add more service</button>
 									<p> Prepared by:
 										<?=$this->session->userdata['username']?>
 									</p>
@@ -164,21 +157,66 @@
 		var total = $('#unitprice' + currentid).val() * this.value;
 		$('#total' + currentid).val(total);
 	});
+
+	$("form").on('keyup change', '.unitpricefield', function() {
+		var currentid = this.id.slice(-1);
+		if (isNaN(currentid)) {
+			currentid = '';
+		} else {
+
+		}
+		var total = $('#quantity' + currentid).val() * this.value;
+		$('#total' + currentid).val(total);
+	});
 </script>
+
+<div class="form-group col-lg-3" id="itemsdd">
+	<select class="form-control" placeholder="Item" id="items" name="items[]" style="width: 100%">
+		<option value="">Please select</option>
+				<?php foreach($items as $i): ?>
+					<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
+				<?php endforeach; ?>
+		</select>
+</div>
 
 <script>
 	var id = 1;
-	$("#cloneme").click(function() {
+	$("#addservice").click(function() {
 		var clone = $("#itemsrow").clone(true);
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
-		clone.find("#items").attr("id", "items" + id);
+		clone.find("#service").attr("id", "service" + id);
 		clone.find("#quantity").attr("id", "quantity" + id);
 		clone.find("#unitprice").attr("id", "unitprice" + id);
 		clone.find("#total").attr("id", "total" + id);
 		id++;
 		$("#append").append(clone);
 	});
+
+
+  $( "#cloneme2" ).click(function() {
+    var itemsdd = $('#itemsdd').clone();
+    itemsdd.find('#items').attr("id","items"+id);
+    var clone = $("#itemsrow").clone(true);
+    clone.find('input').val('');
+    clone.find(".myformlabel").remove();
+    clone.find("#serviceform").remove();
+
+		clone.find("#quantity").attr("name").replace("quantity[]");
+		clone.find("#unitprice").attr("name").replace("unitprice[]");
+		clone.find("#total").attr("name").replace("total[]");
+
+		clone.find("#unitprice").prop("readonly", true);
+
+    clone.find("#quantity").attr("id","quantity"+id);
+    clone.find("#unitprice").attr("id","unitprice"+id);
+    clone.find("#total").attr("id","total"+id);
+
+
+    id++;
+    $(clone).prepend(itemsdd);
+    $("#append").append(clone);
+  });
 </script>
 
 

@@ -220,4 +220,14 @@ class Accountant_model extends CI_Model
 		$this->db->update('utilities',$data);
 	}
 
+	//inventory
+	function get_purchase_order_items_w_supp()
+	{
+		$this->db->select('poi.*, po.*');
+		$this->db->from('purchasing_order_item as poi');
+		$this->db->join('purchasing_order as po', 'po.PurchaseID = poi.PO_ID');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }
