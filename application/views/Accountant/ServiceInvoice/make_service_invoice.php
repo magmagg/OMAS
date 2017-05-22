@@ -171,7 +171,7 @@
 </script>
 
 <div class="form-group col-lg-3" id="itemsdd">
-	<select class="form-control" placeholder="Item" id="items" name="items[]" style="width: 100%">
+	<select class="form-control items" placeholder="Item" id="" name="items[]" style="width: 100%">
 		<option value="">Please select</option>
 				<?php foreach($items as $i): ?>
 					<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
@@ -195,29 +195,25 @@
 
 
   $( "#cloneme2" ).click(function() {
-    var itemsdd = $('#itemsdd').clone();
-    itemsdd.find('#items').attr("id","items"+id);
     var clone = $("#itemsrow").clone(true);
     clone.find('input').val('');
     clone.find(".myformlabel").remove();
     clone.find("#serviceform").remove();
 
-		clone.find("#quantity").attr("name").replace("quantity[]");
-		clone.find("#unitprice").attr("name").replace("unitprice[]");
-		clone.find("#total").attr("name").replace("total[]");
-
 		clone.find("#unitprice").prop("readonly", true);
 
-    clone.find("#quantity").attr("id","quantity"+id);
-    clone.find("#unitprice").attr("id","unitprice"+id);
+    clone.find("#quantity").attr("id","quantity"+id).attr("name", "quantity[]");
+    clone.find("#unitprice").attr("id","unitprice"+id).attr("name", "unitprice[]");
     clone.find("#total").attr("id","total"+id);
-
-
+		var itemsclone = $('#itemsdd').clone(true);
+		itemsclone.find('.items').attr("id","items"+id);
     id++;
-    $(clone).prepend(itemsdd);
+    $(clone).prepend(itemsclone);
     $("#append").append(clone);
   });
 </script>
+
+
 
 
 </body>
