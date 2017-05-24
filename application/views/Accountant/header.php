@@ -33,6 +33,7 @@
   <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
     <link href="<?=base_url();?>assets/css/customize-template.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url();?>assets/vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
     <link href="<?=base_url();?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -92,7 +93,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="<?=base_url();?>Accountant/Inventory" id="menu_inventory">
                                         <i class="icon-hdd icon-large"></i> Inventory
                                     </a>
                                 </li>

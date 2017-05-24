@@ -465,8 +465,18 @@ class Accountant extends CI_Controller
     $use['quantity'] = list($items) = $this->input->post('quantity');
     $use['total'] = list($items) = $this->input->post('total');
 
+		$use['service'] = list($items) = $this->input->post('service');
+    $use['servicequantity'] = list($items) = $this->input->post('servicequantity');
+    $use['serviceunitprice'] = list($items) = $this->input->post('serviceunitprice');
+    $use['servicetotal'] = list($items) = $this->input->post('servicetotal');
+
     $total = 0;
     foreach($use['total'] as $t)
+    {
+      $total += $t;
+    }
+
+    foreach($use['servicetotal'] as $t)
     {
       $total += $t;
     }
@@ -485,6 +495,15 @@ class Accountant extends CI_Controller
                     'SO_ID'=>$ServiceID);
       $this->Accountant_model->insert_service_invoice_item($data);
     }
+
+		foreach($use['service'] as $key=>$value)
+		{
+			$data = array('service_name'=>$value,
+										'Quantity'=>$use['servicequantity'][$key],
+										'UnitPrice'=>$use['serviceunitprice'][$key],
+										'SO_ID'=>$ServiceID);
+			$this->Accountant_model->insert_service_invoice_service($data);
+		}
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
     redirect(base_url().'Accountant/view_service_invoices');
   }
@@ -503,6 +522,7 @@ class Accountant extends CI_Controller
     $id = $this->uri->segment(3);
     $use['items'] = $this->Accountant_model->get_so_id_quantity($id);
     $data['serviceinvoice'] = $this->Accountant_model->get_service_invoice_byuser_items($id);
+		$data['services'] = $this->Accountant_model->get_service_services($id);
     $data['items']  = array();
     foreach($use['items'] as $p)
     {
@@ -677,10 +697,19 @@ class Accountant extends CI_Controller
         $data = array('date_paid'=>$this->input->post('utilitiesdatepaid'),
                       'Status'=>1
                      );
-      
+
       $this->Accountant_model->submit_update_utility($utilitiesID, $data);
     }
     redirect(base_url().'Accountant/view_utilities', 'refresh');
   }
+
+	function inventory()
+	{
+    $data['inventory'] = $this->Accountant_model->get_purchase_order_items_w_supp();
+    $data['suppliers'] = $this->Accountant_model->get_suppliers();
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Inventory/sub_menu');
+    $this->load->view('Accountant/Inventory/inventory',$data);
+	}
 
 }

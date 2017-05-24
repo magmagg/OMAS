@@ -57,6 +57,37 @@
                            </div>
                            <?php $forlabel++; ?>
                          <?php endforeach; ?>
+                         <?php foreach($services as $s): ?>
+                         <div class="row" id="itemsrow">
+                           <div class="form-group col-lg-3">
+                             <?php if($forlabel == 1): ?>
+                             <label>Item</label>
+                              <?php endif;?>
+                             <input class="form-control" value="<?=$s->service_name?>" readonly>
+                           </div>
+                           <div class="form-group col-lg-3">
+                             <?php if($forlabel == 1): ?>
+                             <label>Quantity</label>
+                             <?php endif;?>
+                             <input class="form-control" value="<?=$s->Quantity?>" readonly>
+
+                           </div>
+                           <div class="form-group col-lg-3">
+                             <?php if($forlabel == 1): ?>
+                             <label>Unit price</label>
+                             <?php endif;?>
+                             <input class="form-control" value="<?=$s->UnitPrice?>" readonly>
+                           </div>
+                           <?php $total = $s->Quantity * $s->UnitPrice ?>
+                           <div class="form-group col-lg-3">
+                             <?php if($forlabel == 1): ?>
+                             <label>Total</label>
+                             <?php endif;?>
+                             <input class="form-control" value="<?=$total?>" readonly>
+                           </div>
+                         </div>
+                         <?php $forlabel++; ?>
+                       <?php endforeach; ?>
                           </div>
                      </form>
                  </div>

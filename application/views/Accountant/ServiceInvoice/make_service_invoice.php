@@ -17,6 +17,7 @@
 						<div class="col-lg-12">
 							<?= $this->session->flashdata('success'); ?>
 								<?php if(validation_errors()){echo $this->session->flashdata('error');}?>
+<<<<<<< HEAD
 							<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
 								<div class="form-group">
 									<label>Customer</label>
@@ -65,6 +66,49 @@
 								<button type="submit" class="btn btn-default">Submit Button</button>
 								<button type="reset" class="btn btn-default">Reset Button</button>
 							</form>
+=======
+								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
+									<div class="form-group">
+										<label>Customer</label>
+										<select class="customers" id="customerselect" name="customerid" style="width: 100%">
+				                        <option value=""></option>
+				                        <?php foreach($customers as $c):?>
+				                        <option value="<?=$c->CustomerID?>"><?=$c->CustomerName?></option>
+				                        <?php endforeach;?>
+                        				</select>
+										<p class="help-block" id="cname">Customer name:</p>
+										<p class="help-block" id="caddress">Customer Address:</p>
+										<p class="help-block" id="cnum">Customer #:</p>
+									</div>
+									<div id="append">
+										<div class="row" id="itemsrow">
+											<div class="form-group col-lg-3" id="serviceform">
+												<label class="myformlabel">Service</label>
+												<input class="form-control servicefield" name="service[]" id="service" placeholder="Enter service">
+											</div>
+											<div class="form-group col-lg-3">
+												<label class="myformlabel">Unit price</label>
+												<input class="form-control unitpricefield" name="serviceunitprice[]" id="unitprice" type="number" placeholder="Price">
+											</div>
+											<div class="form-group col-lg-3">
+												<label class="myformlabel">Quantity</label>
+												<input class="form-control quantityfield" name="servicequantity[]" id="quantity" type="number" placeholder="Enter Quantity" required>
+											</div>
+											<div class="form-group col-lg-3">
+												<label class="myformlabel">Total</label>
+												<input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+											</div>
+										</div>
+									</div>
+								 <button type="button" class="btn btn-success" id="cloneme2">Add items used</button>
+								 <button type="button" class="btn btn-success" id="addservice">Add more service</button>
+									<p> Prepared by:
+										<?=$this->session->userdata['username']?>
+									</p>
+									<button type="submit" class="btn btn-default">Submit Button</button>
+									<button type="reset" class="btn btn-default">Reset Button</button>
+								</form>
+>>>>>>> f369c8ff6eab8beeaf0180ef3d86dea71cd3ec48
 						</div>
 					</div>
 					<!-- /.row (nested) -->
@@ -164,22 +208,63 @@
 		var total = $('#unitprice' + currentid).val() * this.value;
 		$('#total' + currentid).val(total);
 	});
+
+	$("form").on('keyup change', '.unitpricefield', function() {
+		var currentid = this.id.slice(-1);
+		if (isNaN(currentid)) {
+			currentid = '';
+		} else {
+
+		}
+		var total = $('#quantity' + currentid).val() * this.value;
+		$('#total' + currentid).val(total);
+	});
 </script>
+
+<div class="form-group col-lg-3" id="itemsdd">
+	<select class="form-control items" placeholder="Item" id="" name="items[]" style="width: 100%">
+		<option value="">Please select</option>
+				<?php foreach($items as $i): ?>
+					<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
+				<?php endforeach; ?>
+		</select>
+</div>
 
 <script>
 	var id = 1;
-	$("#cloneme").click(function() {
+	$("#addservice").click(function() {
 		var clone = $("#itemsrow").clone(true);
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
-		clone.find("#items").attr("id", "items" + id);
+		clone.find("#service").attr("id", "service" + id);
 		clone.find("#quantity").attr("id", "quantity" + id);
 		clone.find("#unitprice").attr("id", "unitprice" + id);
 		clone.find("#total").attr("id", "total" + id);
 		id++;
 		$("#append").append(clone);
 	});
+
+
+  $( "#cloneme2" ).click(function() {
+    var clone = $("#itemsrow").clone(true);
+    clone.find('input').val('');
+    clone.find(".myformlabel").remove();
+    clone.find("#serviceform").remove();
+
+		clone.find("#unitprice").prop("readonly", true);
+
+    clone.find("#quantity").attr("id","quantity"+id).attr("name", "quantity[]");
+    clone.find("#unitprice").attr("id","unitprice"+id).attr("name", "unitprice[]");
+    clone.find("#total").attr("id","total"+id);
+		var itemsclone = $('#itemsdd').clone(true);
+		itemsclone.find('.items').attr("id","items"+id);
+    id++;
+    $(clone).prepend(itemsclone);
+    $("#append").append(clone);
+  });
 </script>
+
+
 
 
 </body>
