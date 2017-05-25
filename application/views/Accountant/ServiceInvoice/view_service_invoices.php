@@ -7,7 +7,7 @@
     </div>
     <!-- /.row -->
     <div class="row">
-    <div class="col-lg-12">
+      <div class="col-lg-12">
         <?=$this->session->flashdata('success'); ?>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -81,7 +81,7 @@
 <script src="<?=base_url();?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- <script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script> -->
 
 <!-- DataTables JavaScript -->
 <script src="<?=base_url();?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -92,7 +92,7 @@
 <script src="<?=base_url();?>assets/vendor/sweetalert/sweetalert.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
+<!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
@@ -116,30 +116,30 @@ $(document).ready(function() {
                 closeOnConfirm: false,
             },
             function(isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "<?php echo base_url();?>Accountant/delete_one_supplier/",
-                        data: {
-                          supplierID: id
-                        },
-                        success: function(data) {
-                          swal({
-                            title: "Deleted!",
-                            text: "Supplier has been deleted. Refreshing page...",
-                            type: "success",
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, delete it!",
-                            closeOnConfirm: false
-                          });
-                            setTimeout(function() {
-                            }, 2000);
+             if (isConfirm) {
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo base_url();?>Accountant/delete_one_supplier/",
+                    data: {
+                      supplierID: id
+                    },
+                    success: function(data) {
+                      swal({
+                        title: "Deleted!",
+                        text: "Supplier has been deleted. Refreshing page...",
+                        type: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                      });
+                        setTimeout(function() {
+                        }, 2000);
 
-                        }
-                    });
-                } else {}
+                    }
+                });
+             } else {}
             });
     });
 });

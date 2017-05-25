@@ -23,28 +23,42 @@ class Mobile extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Model_Mobile','',TRUE);
+		$this->load->model('Login_model','',TRUE);
 	}
 
 	public function index()
 	{
 		echo "Hello Mobile";
+
+	
+
 	}
 
 	public function Login()
 	{
-		// $success[] = array('loginstatus' => "1");
-		// $fail[] = array('loginstatus' => "0");
+	
 
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
+		/*$username = $this->input->post('username');
+		$password = $this->input->post('password');*/
 
-		$data['login'] = $this->Model_Mobile->validatecredential($username,$password);
-		$noaccount['login'] = array();
 
-		if(count($data['login'])>0)
+		$username = "accountant";
+		$password = "accountant";
+
+		$accountant = $this->Login_model->get_accountant_details($username);
+		$data['login'] = array();
+
+		foreach($accountant as $a)
 		{
-			echo json_encode($data);
+			$hash = $a->password;
 		}
+		if(password_verify($password, $hash))
+		{
+			$data['login'] = $this->Login_model->get_accountant_details($username);
+			echo json_encode($data);
+			
+		}
+
 		
 	}
 
@@ -71,27 +85,109 @@ class Mobile extends CI_Controller {
 
 	public function addPurchase()
 	{
-		$id = (int)$this->input->post('UserID');
+		$userId = (int)$this->input->post('UserID');
 		$total = (float)$this->input->post('Total');
-		$supplier = $this->input->post('Supplier');
-		$item = $this->input->post('Item');
-		$quantity = (int)$this->input->post('Quantity');
-		$price = (float)$this->input->post('Price');
+		$supplierId = $this->input->post('Supplier');
+		$items = $this->input->post('Item');
+		//$quantity = (int)$this->input->post('Quantity');
+		//$price = (float)$this->input->post('Price');
 
-		$this->Model_Mobile->addPO($id,$total,$supplier,$item,$quantity,$price);
+		//$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
 
-	}
+	 //Insert data now
+	    $data = array('Total'=>$total,
+	                  'Accountant_UserID'=>$userId,
+	                  'Supplier_SupplierID'=>$supplierId,
+	                  'Administrator_AdminID'=>1);
+	  
+		$PurchaseID = $this->Model_Mobile->insert_purchase_order($data);
+
+		foreach(explode('|',$items) as $item){
+
+			$name = "";
+			$price = "";
+			$quantity= "";
+			$ctr = 0;
+			foreach(explode('*',$item) as $names){
+
+				switch ($ctr) {
+					case 0:
+						$name = $names;
+						$ctr++;
+						break;
+					case 1:
+						$price = $names;
+						$ctr++;
+						break;
+					case 2:
+						$quantity = $names;
+						$ctr++;
+						break;
+					default:
+						$ctr = 0;
+						break;
+				}
+			}
+
+			echo $name.','.$price.','.$quantity.'<br>';
+			$data = array('ItemName'=>$name,
+                    'Quantity'=>$quantity,
+                    'UnitPrice'=>$price,
+                    'PO_ID'=>$PurchaseID);
+      		$this->Model_Mobile->insert_purchase_order_item($data);
+ 
+	  }
+    }
 
 	public function addService()
 	{
-		$id = (int)$this->input->post('UserID');
+		/*$id = (int)$this->input->post('UserID');
 		$total = (float)$this->input->post('Total');
 		$customer = $this->input->post('Customer');
-		$item = $this->input->post('Item');
-		$quantity = (int)$this->input->post('Quantity');
-		$price = (float)$this->input->post('Price');
+		
+		$items = $this->input->post('Item');*/
+		/*$quantities = (int)$this->input->post('Quantity');
+		$prices = (float)$this->input->post('Price');*/
 
-		$this->Model_Mobile->addSv($id,$total,$customer,$item,$quantity,$price);
+		$id = 1;
+		$total = (float)'100';
+		$customer = 2;
+
+		$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
+
+		foreach(explode('|',$items) as $item){
+
+			$name = "";
+			$price = "";
+			$quantity= "";
+			$ctr = 0;
+			foreach(explode('*',$item) as $names){
+
+				switch ($ctr) {
+					case 0:
+						$name = $names;
+						$ctr++;
+						break;
+					case 1:
+						$price = $names;
+						$ctr++;
+						break;
+					case 2:
+						$quantity = $names;
+						$ctr++;
+						break;
+					default:
+						$ctr = 0;
+						break;
+				}
+			}
+
+			echo $name.','.$price.','.$quantity;
+			//$this->Model_Mobile->addSv($id,$total,$customer,$name,$quantity,$price);
+
+		}
+
+		/*$this->Model_Mobile->addSv($id,$total,$customer,$item,$quantity,$price);*/
 	}
 
 
