@@ -38,12 +38,9 @@ class Mobile extends CI_Controller {
 	{
 	
 
-		/*$username = $this->input->post('username');
-		$password = $this->input->post('password');*/
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
 
-
-		$username = "accountant";
-		$password = "accountant";
 
 		$accountant = $this->Login_model->get_accountant_details($username);
 		$data['login'] = array();
