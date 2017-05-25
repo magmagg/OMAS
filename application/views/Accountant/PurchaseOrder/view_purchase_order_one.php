@@ -1,4 +1,4 @@
-<div id="page-wrapper">
+<section class="sec-content">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Purchase Order/Invoice</h1>
@@ -70,7 +70,7 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-</div>
+</section>
 <!-- /#page-wrapper -->
 
 </div>
