@@ -230,4 +230,32 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	//Balance sheet
+	function insert_balance_table($data)
+	{
+		$this->db->insert('balance',$data);
+		return $this->db->insert_id();
+	}
+
+	function insert_assets($data)
+	{
+		$this->db->insert('assets',$data);
+	}
+
+	function insert_liabilities($data)
+	{
+		$this->db->insert('liabilities',$data);
+	}
+
+	function insert_oequity($data)
+	{
+		$this->db->insert('owners_equity',$data);
+	}
+
+	function insert_balancer($data)
+	{
+		$this->db->insert('balancer',$data);
+	}
+
+
 }

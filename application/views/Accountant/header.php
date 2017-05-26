@@ -109,8 +109,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="icon-bar-chart icon-large"></i> Reports
+                                    <a href="<?=base_url();?>Accountant/balance_sheet" id="menu_balancesheet">
+                                        <i class="icon-bar-chart icon-large"></i> Balance Sheet
                                     </a>
                                 </li>
                                 <li>
