@@ -1,30 +1,30 @@
 <section class="sec-content">
 	<div class="row">
 		<div class="col-lg-12">
+			<?=$this->session->flashdata('success'); ?>
 			<h1 class="page-header">Balance sheet</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
+	<form role="form" method="POST" action="<?=base_url().'Accountant/submit_create_balance_sheet'?>">
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Assets
 				</div>
-
-				<form role="form" method="POST" action="<?=base_url().'Accountant/submit_create_balance_sheet'?>">
 					<div class="panel-body">
 						<div id="assetsappend">
 							<div class="row" id="assetsrow">
 								<div class="col-lg-12">
 										<div class="form-group col-lg-6">
 											<label class="myformlabel">Name</label>
-											<input class="form-control namefield" name="assetname[]" id="assetname" placeholder="Enter asset" required>
+											<input class="form-control" name="assetname[]" placeholder="Enter asset" required>
 										</div>
 										<div class="form-group col-lg-6">
 											<label class="myformlabel">Value</label>
-											<input class="form-control valuefield" name="assetvalue[]" id="assetvalue" type="number" placeholder="Enter Value" required>
+											<input class="form-control" name="assetvalue[]" type="number" placeholder="Enter Value" required>
 										</div>
 									</div>
 							</div>
@@ -52,11 +52,11 @@
 						<div class="col-lg-12">
 							<div class="form-group col-lg-6">
 								<label class="myformlabel">Name</label>
-								<input class="form-control namefield" name="liabilityname[]" id="liabilityname" placeholder="Enter liability" required>
+								<input class="form-control" name="liabilityname[]" placeholder="Enter liability" required>
 							</div>
 							<div class="form-group col-lg-6">
 								<label class="myformlabel">Value</label>
-								<input class="form-control valuefield" name="liabilityvalue[]" id="liabilityvalue" type="number" placeholder="Enter Value" required>
+								<input class="form-control" name="liabilityvalue[]" type="number" placeholder="Enter Value" required>
 							</div>
 						</div>
 					</div>
@@ -88,11 +88,11 @@
 							<div class="col-lg-12">
 								<div class="form-group col-lg-6">
 									<label class="myformlabel">Name</label>
-									<input class="form-control namefield" name="oequityname[]" id="oequityname" placeholder="Enter Owners equity" required>
+									<input class="form-control" name="oequityname[]" placeholder="Enter Owners equity" required>
 								</div>
 								<div class="form-group col-lg-6">
 									<label class="myformlabel">Value</label>
-									<input class="form-control valuefield" name="oequityvalue[]" id="oequityvalue" type="number" placeholder="Enter Value" required>
+									<input class="form-control" name="oequityvalue[]" type="number" placeholder="Enter Value" required>
 								</div>
 							</div>
 						</div>

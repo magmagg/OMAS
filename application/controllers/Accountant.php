@@ -717,7 +717,7 @@ class Accountant extends CI_Controller
 	{
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
-    $this->load->view('Accountant/BalanceSheet/inventory');
+    $this->load->view('Accountant/BalanceSheet/create_balance_sheet');
 	}
 
   function submit_create_balance_sheet()
@@ -773,7 +773,9 @@ class Accountant extends CI_Controller
                   'total_liabilities'=>$liabilitiestotal,
                   'total_equity'=>$oequitytotal);
     $this->Accountant_model->insert_balancer($data);
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
 		redirect(base_url().'Accountant/balance_sheet', 'refresh');
+
   }
 
 }
