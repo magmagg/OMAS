@@ -775,7 +775,29 @@ class Accountant extends CI_Controller
     $this->Accountant_model->insert_balancer($data);
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
 		redirect(base_url().'Accountant/balance_sheet', 'refresh');
+  }
 
+  function view_balance_sheet()
+  {
+    $data['ids'] = $this->Accountant_model->get_balance_ids();
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet',$data);
+  }
+
+  function view_balance_sheet_one()
+  {
+    $id = $this->uri->segment(3);
+
+    $data['assets'] = $this->Accountant_model->get_assets($id);
+    $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
+    $data['oequity'] = $this->Accountant_model->get_oequity($id);
+    $data['balancer'] = $this->Accountant_model->get_balancer($id);
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
   }
 
 }

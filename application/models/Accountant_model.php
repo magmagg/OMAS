@@ -271,5 +271,45 @@ class Accountant_model extends CI_Model
 		$this->db->insert('balancer',$data);
 	}
 
+	function get_balance_ids()
+	{
+		$this->db->select('*');
+		$this->db->from('balance');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_assets()
+	{
+		$this->db->select('*');
+		$this->db->from('assets');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_liabilities()
+	{
+		$this->db->select('*');
+		$this->db->from('liabilities');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_oequity()
+	{
+		$this->db->select('*');
+		$this->db->from('owners_equity');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_balancer()
+	{
+		$this->db->select('*');
+		$this->db->from('balancer');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 
 }

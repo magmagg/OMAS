@@ -12,6 +12,8 @@
 
             <ul class="nav nav-tabs pull-right">
 
+                <li><a href="<?=base_url();?>Accountant/balance_sheet" class="parent">Create</a></li>
+                <li><a href="<?=base_url();?>Accountant/view_balance_sheet" class="parent">View</a></li>
 
             </ul>
 
