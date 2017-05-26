@@ -31,7 +31,7 @@
                         <tr>
                             <td><?=$num?></td>
                             <td><?=$p->PurchaseID?></td>
-                            <td><?=$p->ItemName?></td>lo
+                            <td><?=$p->ItemName?></td>
                             <td>
                               <?php foreach($suppliers as $s)
                               {

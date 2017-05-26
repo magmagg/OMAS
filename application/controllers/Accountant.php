@@ -485,7 +485,8 @@ class Accountant extends CI_Controller
     $data = array('Total'=>$total,
                   'Accountant_UserID'=>$this->session->userdata('AccountantID'),
                   'Customer_CustomerID'=>$this->input->post('customerid'),
-                  'Administrator_AdminID'=>1);
+                  'Administrator_AdminID'=>1,
+                  'Status'=>1);
     $ServiceID = $this->Accountant_model->insert_service_invoice($data);
 
     foreach($use['items'] as $key=>$value)
