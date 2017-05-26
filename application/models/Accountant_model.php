@@ -147,6 +147,11 @@ class Accountant_model extends CI_Model
 		$this->db->insert('service_invoice_item',$data);
 	}
 
+	function insert_service_invoice_service($data)
+	{
+		$this->db->insert('service_invoice_service',$data);
+	}
+
 	function get_service_invoice_byuser($accountantID)
 	{
 		$this->db->select('*');
@@ -187,6 +192,15 @@ class Accountant_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('purchasing_order_item');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_service_services($id)
+	{
+		$this->db->select('*');
+		$this->db->from('service_invoice_service');
+		$this->db->where('SO_ID',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
