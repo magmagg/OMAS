@@ -17,6 +17,7 @@
 						<div class="col-lg-12">
 							<?= $this->session->flashdata('success'); ?>
 								<?php if(validation_errors()){echo $this->session->flashdata('error');}?>
+								
 								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
 									<div class="form-group">
 										<label>Customer</label>
@@ -82,13 +83,13 @@
 <script src="<?=base_url();?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- <script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script> -->
 
 <!-- Select2 Javascript -->
-<script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script>
+<!-- <script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script> -->
 
 <!-- Custom Theme JavaScript -->
-<script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
+<!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
 
 <script>
 	//var items = <?php echo json_encode($items); ?>;

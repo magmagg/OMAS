@@ -40,7 +40,7 @@
             return $query->result_array();
         }
 
-        function addPO($id,$total,$supplier,$item,$quantity,$price)
+       /* function addPO($id,$total,$supplier,$item,$quantity,$price)
         {
               //purchasing_order table
              $purchase_data = array 
@@ -64,6 +64,18 @@
 
             $this->db->insert('purchasing_order_item', $item_data);
 
+        }*/
+
+            //Purchase orders
+        function insert_purchase_order($data)
+        {
+            $this->db->insert('purchasing_order',$data);
+            return $this->db->insert_id();
+        }
+
+        function insert_purchase_order_item($data)
+        {
+            $this->db->insert('purchasing_order_item',$data);
         }
 
         function addSv($id,$total,$customer,$item,$quantity,$price)
@@ -81,9 +93,9 @@
             
             $item_data = array
             (
-                'ItemName' => $item,
+                'ItemID' => $item,
                 'Quantity' => $quantity,
-                'UnitPrice' => $price,
+                
                 'SO_ID' => $insert_id
             );
 

@@ -11,11 +11,13 @@
 
     <title>OMAS</title>
 
+    <link rel="shortcut icon" href="<?php echo base_url();?>images/favicon.png" />
+
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-  <!--   <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
+    <!--   <link href="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"> -->
 
     <!-- DataTables CSS -->
     <link href="<?=base_url();?>assets/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -76,8 +78,10 @@
                 </div>
             </div>
         </div>
+    </div>
 
-         <div id="body-container">
+
+    <div id="body-container">
             <div id="body-content">
 
                     <div class="body-nav body-nav-horizontal body-nav-fixed">

@@ -1,4 +1,4 @@
-<div id="page-wrapper">
+<section class="sec-content">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Purchase Order/Invoice</h1>
@@ -7,8 +7,8 @@
     </div>
     <!-- /.row -->
     <div class="row">
-    <div class="col-lg-12">
-     <div class="panel panel-default">
+     <div class="col-lg-12">
+      <div class="panel panel-default">
          <div class="panel-heading">
              Make purchase order
          </div>
@@ -70,7 +70,7 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-</div>
+</section>
 <!-- /#page-wrapper -->
 
 </div>
@@ -83,13 +83,13 @@
 <script src="<?=base_url();?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- <script src="<?=base_url();?>assets/vendor/metisMenu/metisMenu.min.js"></script> -->
 
 <!-- Select2 Javascript -->
 <script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
+<!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
 
 
 </body>
