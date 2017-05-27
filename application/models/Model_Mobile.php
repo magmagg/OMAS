@@ -12,6 +12,24 @@
             return $query->result_array();
 
         }   
+
+        function stocksList()
+        {
+            $this->db->select('*');
+            $this->db->from('purchasing_order_item');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function soldList()
+        {
+            $where = "service_invoice_item.POI_ItemID = purchasing_order_item.ItemID ";
+            $this->db->select('purchasing_order_item.ItemName AS itemName, purchasing_order_item.ItemDesc AS itemDesc, purchasing_order_item.UnitPrice AS itemPrice, service_invoice_item.Quantity AS Quantity ');
+            $this->db->from('purchasing_order_item,service_invoice_item ');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
         
 
         function supplierName()
@@ -36,6 +54,14 @@
             $this->db->select('*');
             $this->db->from('customer');
             $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function utilitiesList()
+        {
+            $this->db->select('*');
+            $this->db->from('utilities');
             $query = $this->db->get();
             return $query->result_array();
         }
@@ -100,6 +126,20 @@
             );
 
             $this->db->insert('service_invoice_item', $item_data);
+        }
+
+        function addUtils($name,$desc,$price,$date,$user)
+        {
+            $util_data = array
+            (
+                'utility_name' => $name,
+                'utility_desc' => $desc,
+                'utility_price' => $price,
+                'date_paid' => $date,
+                'created_by' => $user
+            );
+
+            $this->db->insert('utilities', $util_data);
         }
 
 	}

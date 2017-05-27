@@ -30,8 +30,6 @@ class Mobile extends CI_Controller {
 	{
 		echo "Hello Mobile";
 
-	
-
 	}
 
 	public function Login()
@@ -66,6 +64,24 @@ class Mobile extends CI_Controller {
 
 	}
 
+	public function Utilities()
+	{
+		$data['utilities'] = $this->Model_Mobile->utilitiesList();
+		echo json_encode($data);
+	}
+
+	public function Stocks()
+	{
+		$data['stocks'] = $this->Model_Mobile->stocksList();
+		echo json_encode($data);
+	}
+
+	public function Sold()
+	{
+		$data['sold'] = $this->Model_Mobile->soldList();
+		echo json_encode($data);
+	}
+
 	public function Customer()
 	{
 		$data['customer'] = $this->Model_Mobile->customerName();
@@ -78,6 +94,17 @@ class Mobile extends CI_Controller {
 
 		$data['details'] = $this->Model_Mobile->customerDetails($customerID);
 		echo json_encode($data);
+	}
+
+	public function addUtilities()
+	{
+		$name = $this->input->post('Util_name');
+		$desc = $this->input->post('Util_desc');
+		$price = (float)$this->input->post('Util_price');
+		$date = $this->input->post('Util_paid');
+		$user = (int)$this->input->post('Util_user');
+
+		$this->Model_Mobile->addUtils($name,$desc,$price,$date,$user);
 	}
 
 	public function addPurchase()
