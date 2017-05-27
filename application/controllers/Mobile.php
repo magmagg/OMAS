@@ -41,20 +41,45 @@ class Mobile extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
+/*		$username = "accountant";
+		$password = "accountant";*/
 
-		$accountant = $this->Login_model->get_accountant_details($username);
-		$data['login'] = array();
 
-		foreach($accountant as $a)
-		{
-			$hash = $a->password;
-		}
-		if(password_verify($password, $hash))
-		{
-			$data['login'] = $this->Login_model->get_accountant_details($username);
+		//Check if admin, get ID if yes
+		$adminID = $this->Login_model->check_if_admin($username,$password);
+
+		if($adminID)
+		{	
+		
+			$data['login'] = array();
+			$data['login']  = $this->Login_model->get_admin_details($adminID);
+
 			echo json_encode($data);
+		} else
+		{	
+
 			
+			$accountant = $this->Login_model->get_accountant_details($username);
+			$data['login'] = array();
+
+			if($accountant != null){
+
+
+				foreach($accountant as $a)
+				{
+					$hash = $a->password;
+				}
+				if(password_verify($password, $hash))
+				{
+					$data['login'] = $this->Login_model->get_accountant_details($username);
+					echo json_encode($data);
+					
+				}
+			} else {
+				echo json_encode($data);
+			}
 		}
+	
 
 		
 	}
