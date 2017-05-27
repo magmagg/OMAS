@@ -108,8 +108,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="icon-file icon-large"></i> General Ledger
+                                    <a href="<?=base_url();?>Accountant/balance_sheet"  id="menu_balancesheet">
+                                        <i class="icon-file icon-large"></i> Balance sheet
                                     </a>
                                 </li>
                                 <li>

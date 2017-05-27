@@ -22,7 +22,6 @@
                             <th>Service Invoice ID</th>
                             <th>Customer</th>
                             <th>Transaction date</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,6 +42,7 @@
                               ?>
                             </td>
                             <td><?=$s->TransactionDate?></td>
+                            <!--
                             <td>
                               <?php if($s->Status == 0): ?>
                                 <span class="label label-info">Processing</span>
@@ -52,6 +52,7 @@
                                 <span class="label label-danger">Rejected</span>
                               <?php endif;?>
                             </td>
+                          -->
                             <td>
                               <a href="<?=base_url().'Accountant/view_one_service_invoice/'.$s->ServiceID?>"><button type="button" class="btn btn-primary">View</button></a>
                             </td>

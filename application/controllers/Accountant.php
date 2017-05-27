@@ -485,7 +485,8 @@ class Accountant extends CI_Controller
     $data = array('Total'=>$total,
                   'Accountant_UserID'=>$this->session->userdata('AccountantID'),
                   'Customer_CustomerID'=>$this->input->post('customerid'),
-                  'Administrator_AdminID'=>1);
+                  'Administrator_AdminID'=>1,
+                  'Status'=>1);
     $ServiceID = $this->Accountant_model->insert_service_invoice($data);
 
     foreach($use['items'] as $key=>$value)
@@ -711,5 +712,93 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/Inventory/sub_menu');
     $this->load->view('Accountant/Inventory/inventory',$data);
 	}
+
+	//Balance sheet
+	function balance_sheet()
+	{
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/create_balance_sheet');
+	}
+
+  function submit_create_balance_sheet()
+  {
+    $data = array('created_by'=>$this->session->userdata('AccountantID'));
+    $balanceid = $this->Accountant_model->insert_balance_table($data);
+
+    $use['assetname'] = list($items) = $this->input->post('assetname');
+    $use['assetvalue'] = list($items) = $this->input->post('assetvalue');
+
+    $use['liabilityname'] = list($items) = $this->input->post('liabilityname');
+    $use['liabilityvalue'] = list($items) = $this->input->post('liabilityvalue');
+
+    $use['oequityname'] = list($items) = $this->input->post('oequityname');
+    $use['oequityvalue'] = list($items) = $this->input->post('oequityvalue');
+
+    $assetstotal = '';
+    $liabilitiestotal = '';
+    $oequitytotal = '';
+
+    foreach($use['assetname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'asset_name'=>$value,
+                    'asset_value'=>$use['assetvalue'][$key],
+                    );
+      $assetstotal += $use['assetvalue'][$key];
+      $this->Accountant_model->insert_assets($data);
+    }
+
+    foreach($use['liabilityname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'liability_name'=>$value,
+                    'liability_value'=>$use['liabilityvalue'][$key],
+                    );
+      $liabilitiestotal += $use['liabilityvalue'][$key];
+      $this->Accountant_model->insert_liabilities($data);
+    }
+
+    foreach($use['oequityname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'owner_name'=>$value,
+                    'owner_value'=>$use['oequityvalue'][$key],
+                    );
+      $oequitytotal += $use['oequityvalue'][$key];
+      $this->Accountant_model->insert_oequity($data);
+    }
+
+    $data = array('balance_id'=>$balanceid,
+                  'total_assets'=>$assetstotal,
+                  'total_liabilities'=>$liabilitiestotal,
+                  'total_equity'=>$oequitytotal);
+    $this->Accountant_model->insert_balancer($data);
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+		redirect(base_url().'Accountant/balance_sheet', 'refresh');
+  }
+
+  function view_balance_sheet()
+  {
+    $data['ids'] = $this->Accountant_model->get_balance_ids();
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet',$data);
+  }
+
+  function view_balance_sheet_one()
+  {
+    $id = $this->uri->segment(3);
+
+    $data['assets'] = $this->Accountant_model->get_assets($id);
+    $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
+    $data['oequity'] = $this->Accountant_model->get_oequity($id);
+    $data['balancer'] = $this->Accountant_model->get_balancer($id);
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+  }
 
 }
