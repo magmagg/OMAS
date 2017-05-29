@@ -40,31 +40,26 @@
             return $query->result_array();
         }
 
-       /* function addPO($id,$total,$supplier,$item,$quantity,$price)
+        function purchase_invoice()
+        {   
+            $this->db->select("PurchaseID");
+            $this->db->where("Status",1);
+            return $this->db->get('purchasing_order')->result_array();
+        }
+
+        function purchase_items($poId)
+        {   
+           
+             $this->db->where_in("PO_ID",$poId);
+
+            return $this->db->get('purchasing_order_item')->result_array();
+        }
+
+        function getPurchaseItemDetails($id)
         {
-              //purchasing_order table
-             $purchase_data = array 
-             (
-                'Accountant_UserID' => $id,
-                'Total' => $total,
-                'Supplier_SupplierID' => $supplier                
-             );
-
-             $this->db->insert('purchasing_order',$purchase_data);
-             $insert_id = $this->db->insert_id();
-
-             //purchasing_order_items table
-            $item_data = array
-            (
-                'ItemName' => $item,
-                'Quantity' => $quantity,
-                'UnitPrice' => $price,
-                'PO_ID' => $insert_id
-            );
-
-            $this->db->insert('purchasing_order_item', $item_data);
-
-        }*/
+            $this->db->where('ItemID',$id);
+            return $this->db->get('purchasing_order_item')->result_array();
+        }
 
             //Purchase orders
         function insert_purchase_order($data)

@@ -24,6 +24,7 @@ class Mobile extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Model_Mobile','',TRUE);
 		$this->load->model('Login_model','',TRUE);
+		$this->load->model('Accountant_model','',TRUE);
 	}
 
 	public function index()
@@ -41,45 +42,26 @@ class Mobile extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-/*		$username = "accountant";
-		$password = "accountant";*/
+
+		$accountant = $this->Login_model->get_accountant_details($username);
+		$data['login'] = array();
+
+		if($accountant != null){
 
 
-		//Check if admin, get ID if yes
-		$adminID = $this->Login_model->check_if_admin($username,$password);
-
-		if($adminID)
-		{	
-		
-			$data['login'] = array();
-			$data['login']  = $this->Login_model->get_admin_details($adminID);
-
-			echo json_encode($data);
-		} else
-		{	
-
-			
-			$accountant = $this->Login_model->get_accountant_details($username);
-			$data['login'] = array();
-
-			if($accountant != null){
-
-
-				foreach($accountant as $a)
-				{
-					$hash = $a->password;
-				}
-				if(password_verify($password, $hash))
-				{
-					$data['login'] = $this->Login_model->get_accountant_details($username);
-					echo json_encode($data);
-					
-				}
-			} else {
-				echo json_encode($data);
+			foreach($accountant as $a)
+			{
+				$hash = $a->password;
 			}
+			if(password_verify($password, $hash))
+			{
+				$data['login'] = $this->Login_model->get_accountant_details($username);
+				echo json_encode($data);
+				
+			}
+		} else {
+			echo json_encode($data);
 		}
-	
 
 		
 	}
@@ -105,14 +87,38 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function PurchaseOrderItems()
+	{	
+
+
+		$PO_IDS = array();
+		$purchase_invoice = $this->Model_Mobile->purchase_invoice();
+		foreach ($purchase_invoice as $purchase_id) {
+			
+			foreach($purchase_id as $id){
+				$PO_IDS[] = $id;
+
+			}
+		}
+		
+		$data['purchase_items'] = $this->Model_Mobile->purchase_items($PO_IDS);
+		echo json_encode($data);
+	}
+
+	public function PurchaseOrderItemDetails()
+	{
+		$itemNameId = (int)$this->input->post('ID');
+
+		$data['details'] = $this->Model_Mobile->getPurchaseItemDetails($itemNameId);
+		echo json_encode($data);
+	}
+
 	public function addPurchase()
 	{
 		$userId = (int)$this->input->post('UserID');
 		$total = (float)$this->input->post('Total');
 		$supplierId = $this->input->post('Supplier');
 		$items = $this->input->post('Item');
-		//$quantity = (int)$this->input->post('Quantity');
-		//$price = (float)$this->input->post('Price');
 
 		//$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
 
@@ -163,23 +169,28 @@ class Mobile extends CI_Controller {
 
 	public function addService()
 	{
-		/*$id = (int)$this->input->post('UserID');
+		$userId = (int)$this->input->post('UserID');
 		$total = (float)$this->input->post('Total');
-		$customer = $this->input->post('Customer');
-		
-		$items = $this->input->post('Item');*/
-		/*$quantities = (int)$this->input->post('Quantity');
-		$prices = (float)$this->input->post('Price');*/
+		$customer = $this->input->post('Customer');		
+		$items = $this->input->post('Item');
 
-		$id = 1;
-		$total = (float)'100';
-		$customer = 2;
 
-		$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
+		/*$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
+		$userId = (int)1;
+		$total = (float)123;
+		$customer = 1;	*/
+
+		//Insert data now
+		$data = array('Total'=>$total,
+		              'Accountant_UserID'=>$userId,
+		              'Customer_CustomerID'=>$customer,
+		              'Administrator_AdminID'=>1,
+		              'Status'=>1);
+		$ServiceID = $this->Accountant_model->insert_service_invoice($data);
 
 		foreach(explode('|',$items) as $item){
 
-			$name = "";
+			$id = "";
 			$price = "";
 			$quantity= "";
 			$ctr = 0;
@@ -187,7 +198,7 @@ class Mobile extends CI_Controller {
 
 				switch ($ctr) {
 					case 0:
-						$name = $names;
+						$id = $names;
 						$ctr++;
 						break;
 					case 1:
@@ -204,12 +215,17 @@ class Mobile extends CI_Controller {
 				}
 			}
 
-			echo $name.','.$price.','.$quantity;
-			//$this->Model_Mobile->addSv($id,$total,$customer,$name,$quantity,$price);
+			/*echo "itemId"." ".$id."<br>";
+			echo "price"." ".$price."<br>";
+			echo "Quantity"." ".$quantity."<br>";*/
+			//echo $ServiceID."<br>";
+      		$data = array('POI_ItemID'=>$id,
+                    'Quantity'=>$quantity,
+                    'SO_ID'=>$ServiceID);
+      		$this->Accountant_model->insert_service_invoice_item($data);
 
 		}
 
-		/*$this->Model_Mobile->addSv($id,$total,$customer,$item,$quantity,$price);*/
 	}
 
 
