@@ -801,4 +801,112 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
   }
 
+	//OtherExpenses
+	function make_other_expenses()
+	{
+		$config = array(
+				array(
+								'field' => 'name',
+								'label' => 'sname',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'desc',
+								'label' => 'desc',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'price',
+								'label' => 'price',
+								'rules' => 'required|numeric'
+				)
+		);
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->load->view('Accountant/header');
+				$this->load->view('Accountant/Utilities/sub_menu');
+				$this->load->view('Accountant/Utilities/make_other_expenses');
+				$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
+		}
+		else
+		{
+			if($this->input->post('filecheckbox') == 1)
+			{
+				$config['upload_path']          = './uploads/';
+				$config['allowed_types']        = 'doc|docx|pdf';
+				$config['max_size']             = 100;
+
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload('fileinput'))
+				{
+					$this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+						redirect(base_url().'Accountant/make_utilities', 'refresh');
+				}
+				else
+				{
+					$upload_data = $this->upload->data();
+					$file_name = $upload_data['full_path'];
+						if($this->input->post('paidcheckbox') == 1)
+						{
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'date_paid'=>$this->input->post('datepaid'),
+														'other_doc'=>$file_name,
+														'Status'=>1
+													 );
+						}
+						else
+						{
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'other_doc'=>$file_name
+														 );
+						}
+				}
+			}
+			else
+			{
+				if($this->input->post('paidcheckbox') == 1)
+				{
+					$data = array('name'=>$this->input->post('name'),
+												'desc'=>$this->input->post('desc'),
+												'value'=>$this->input->post('price'),
+												'date_paid'=>$this->input->post('datepaid'),
+												'Status'=>1
+											 );
+				}
+				else
+				{
+					$data = array('name'=>$this->input->post('name'),
+																'desc'=>$this->input->post('desc'),
+																'value'=>$this->input->post('price')
+															 );
+				}
+			}
+        $table = $this->input->post('table');
+				$this->Accountant_model->submit_other_expenses($data,$table);
+				$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+				redirect(base_url().'Accountant/view_other_expenses', 'refresh');
+		}
+	}
+
+	function view_other_expenses()
+	{
+		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training');
+    foreach($data['expenses'] as $e)
+    {
+      $data[$e] = $this->Accountant_model->get_other_expenses($e);
+    }
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/Utilities/sub_menu');
+		$this->load->view('Accountant/Utilities/view_other_expenses',$data);
+
+	}
+
 }

@@ -311,5 +311,19 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	//OtherExpenses
+	function submit_other_expenses($data,$table)
+	{
+		$this->db->insert($table,$data);
+	}
+
+	function get_other_expenses($table)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 
 }
