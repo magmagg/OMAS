@@ -1,48 +1,210 @@
 <section class="sec-content">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Utilities</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <!-- /.row -->
-    <div class="row">
-    <div class="col-lg-12">
-        <?=$this->session->flashdata('success'); ?>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                All utilities
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Utility ID</th>
-                            <th>Name</th>
-                            <th>Date created</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php $num = 1; ?>
-                      <?php foreach($expenses as $e): ?>
-                        <?php foreach($e as $table):?>
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Utilities</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<?=$this->session->flashdata('success'); ?>
 
-                        <?php endforeach;?>
-                      <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <!-- /.table-responsive -->
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-    </div>
-    <!-- /.col-lg-12 -->
-  </div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Pill Tabs
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<!-- Nav tabs -->
+						<ul class="nav nav-pills">
+							<?php $count = 1; ?>
+							<?php foreach($expenses as $e): ?>
+								<?php if($count == 1): ?>
+									<li class="active"><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									</li>
+								<?php else: ?>
+									<li><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									</li>
+								<?php endif; ?>
+								<?php $count++;?>
+							<?php endforeach; ?>
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<?php $count = 1; ?>
+							<?php foreach($expenses as $key=>$value): ?>
+								<?php if($count == 1): ?>
+									<div class="tab-pane fade in active" id="<?=$value?>">
+										<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+										    <thead>
+										        <tr>
+										            <th>#</th>
+										            <th>Utility ID</th>
+										            <th>Name</th>
+										            <th>Date created</th>
+										            <th>Status</th>
+										            <th>Action</th>
+										        </tr>
+										    </thead>
+										    <tbody>
+										      <?php $num = 1; ?>
+													<?php foreach($other_expenses as $e): ?>
+														<tr>
+														<td> <?=$num?> </td>
+														<td> <?=$e->other_expenseID?> </td>
+														<td> <?=$e->name?> </td>
+														<td> <?=$e->date_created?> </td>
+														<td> <?=$e->Status?> </td>
+														<td> Action </td>
+													</tr>
+													<?php $num++ ;?>
+													<?php endforeach; ?>
+										    </tbody>
+										</table>
+									</div>
+								<?php else: ?>
+									<div class="tab-pane fade" id="<?=$value?>">
+										<table width="100%" class="table table-striped table-bordered table-hover" id="table<?=$value?>">
+										    <thead>
+										        <tr>
+										            <th>#</th>
+										            <th>Utility ID</th>
+										            <th>Name</th>
+										            <th>Date created</th>
+										            <th>Status</th>
+										            <th>Action</th>
+										        </tr>
+										    </thead>
+										    <tbody>
+										      <?php if($key == 1): ?>
+														<?php foreach($rent as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->rentID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 2): ?>
+														<?php foreach($insurance as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->insuranceID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 3): ?>
+														<?php foreach($fees as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->feesID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 4): ?>
+														<?php foreach($wages as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->wagesID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 5): ?>
+														<?php foreach($interest as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->interestID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 6): ?>
+														<?php foreach($supplies as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->suppliesID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 7): ?>
+														<?php foreach($maintenance as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->maintenanceID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 8): ?>
+														<?php foreach($travel as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->travelID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 9): ?>
+														<?php foreach($entertainment as $e):?>
+															<tr>
+																<td> <?=$num?> </td>
+																<td> <?=$e->entertainmentID?> </td>
+																<td> <?=$e->name?> </td>
+																<td> <?=$e->date_created?> </td>
+																<td> <?=$e->Status?> </td>
+																<td> Action </td>
+															</tr>
+														<?php endforeach; ?>
+													<?php elseif($key == 10): ?>
+															<?php foreach($training as $e):?>
+																<tr>
+																	<td> <?=$num?> </td>
+																	<td> <?=$e->trainingID?> </td>
+																	<td> <?=$e->name?> </td>
+																	<td> <?=$e->date_created?> </td>
+																	<td> <?=$e->Status?> </td>
+																	<td> Action </td>
+																</tr>
+															<?php endforeach; ?>
+													<?php endif;?>
+
+										    </tbody>
+										</table>
+									</div>
+								<?php endif; ?>
+								<?php $count++; ?>
+							<?php endforeach; ?>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
 </section>
 <!-- /#page-wrapper -->
 
@@ -68,12 +230,23 @@
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
-$(document).ready(function() {
-    $('#dataTables-example').DataTable({
-        responsive: true
-    });
-});
+	$(document).ready(function() {
+		$('#dataTables-example').DataTable({
+			responsive: true
+		});
+	});
 </script>
+
+<script>
+<?php foreach($expenses as $e): ?>
+$(document).ready(function() {
+	$('#table<?=$e?>').DataTable({
+		responsive: true
+	});
+});
+<?php endforeach; ?>
+</script>
+
 
 </body>
 
