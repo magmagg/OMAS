@@ -325,5 +325,20 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	function get_one_expense($data, $table)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->where($data);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function submit_update_expense($data,$id,$idname,$table)
+	{
+		$this->db->where($idname,$id);
+		$this->db->update($table,$data);
+	}
+
 
 }

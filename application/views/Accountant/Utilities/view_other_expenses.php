@@ -56,8 +56,16 @@
 														<td> <?=$e->other_expenseID?> </td>
 														<td> <?=$e->name?> </td>
 														<td> <?=$e->date_created?> </td>
-														<td> <?=$e->Status?> </td>
-														<td> Action </td>
+														<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+														<td>
+                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->other_expenseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                            </td>
 													</tr>
 													<?php $num++ ;?>
 													<?php endforeach; ?>
@@ -85,8 +93,16 @@
 																<td> <?=$e->rentID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->rentID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 2): ?>
@@ -96,8 +112,16 @@
 																<td> <?=$e->insuranceID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->insuranceID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 3): ?>
@@ -107,8 +131,16 @@
 																<td> <?=$e->feesID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->feesID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 4): ?>
@@ -118,8 +150,16 @@
 																<td> <?=$e->wagesID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->wagesID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 5): ?>
@@ -129,8 +169,16 @@
 																<td> <?=$e->interestID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->interestID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 6): ?>
@@ -140,8 +188,16 @@
 																<td> <?=$e->suppliesID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+														<td>
+															<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->suppliesID?>"><button type="button" class="btn btn-primary">View</button></a>
+														</td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 7): ?>
@@ -151,8 +207,16 @@
 																<td> <?=$e->maintenanceID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->maintenanceID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 8): ?>
@@ -162,8 +226,16 @@
 																<td> <?=$e->travelID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->travelID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 9): ?>
@@ -173,8 +245,16 @@
 																<td> <?=$e->entertainmentID?> </td>
 																<td> <?=$e->name?> </td>
 																<td> <?=$e->date_created?> </td>
-																<td> <?=$e->Status?> </td>
-																<td> Action </td>
+																<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																<td>
+		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->entertainmentID?>"><button type="button" class="btn btn-primary">View</button></a>
+		                            </td>
 															</tr>
 														<?php endforeach; ?>
 													<?php elseif($key == 10): ?>
@@ -184,8 +264,16 @@
 																	<td> <?=$e->trainingID?> </td>
 																	<td> <?=$e->name?> </td>
 																	<td> <?=$e->date_created?> </td>
-																	<td> <?=$e->Status?> </td>
-																	<td> Action </td>
+																	<td>
+														  <?php if($e->Status == 0): ?>
+														    <span class="label label-info">Not yet paid</span>
+														  <?php elseif($e->Status == 1): ?>
+														    <span class="label label-success">Paid!</span>
+														  <?php endif;?>
+														</td>
+																	<td>
+			                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->trainingID?>"><button type="button" class="btn btn-primary">View</button></a>
+			                            </td>
 																</tr>
 															<?php endforeach; ?>
 													<?php endif;?>
