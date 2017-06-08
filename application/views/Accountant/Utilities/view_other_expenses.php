@@ -276,6 +276,25 @@
 			                            </td>
 																</tr>
 															<?php endforeach; ?>
+														<?php elseif($key == 11): ?>
+																<?php foreach($utilities as $e):?>
+																	<tr>
+																		<td> <?=$num?> </td>
+																		<td> <?=$e->UtilitiesID?> </td>
+																		<td> <?=$e->name?> </td>
+																		<td> <?=$e->date_created?> </td>
+																		<td>
+																<?php if($e->Status == 0): ?>
+																	<span class="label label-info">Not yet paid</span>
+																<?php elseif($e->Status == 1): ?>
+																	<span class="label label-success">Paid!</span>
+																<?php endif;?>
+															</td>
+																		<td>
+																			<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->UtilitiesID?>"><button type="button" class="btn btn-primary">View</button></a>
+																		</td>
+																	</tr>
+																<?php endforeach; ?>
 													<?php endif;?>
 
 										    </tbody>

@@ -735,6 +735,24 @@ class Accountant extends CI_Controller
     $use['oequityname'] = list($items) = $this->input->post('oequityname');
     $use['oequityvalue'] = list($items) = $this->input->post('oequityvalue');
 
+    if($this->input->post('assetcurrent') == NULL)
+    {
+      $assetcurrent = 0;
+    }
+    else
+    {
+      $assetcurrent = $this->input->post('assetcurrent');
+    }
+
+    if($this->input->post('liabilitycurrent') == NULL)
+    {
+      $liabilitycurrent = 0;
+    }
+    else
+    {
+      $liabilitycurrent = $this->input->post('liabilitycurrent');
+    }
+
     $assetstotal = '';
     $liabilitiestotal = '';
     $oequitytotal = '';
@@ -744,6 +762,7 @@ class Accountant extends CI_Controller
       $data = array('balance_id'=>$balanceid,
                     'asset_name'=>$value,
                     'asset_value'=>$use['assetvalue'][$key],
+                    'asset_current'=>$assetcurrent,
                     );
       $assetstotal += $use['assetvalue'][$key];
       $this->Accountant_model->insert_assets($data);
@@ -754,6 +773,7 @@ class Accountant extends CI_Controller
       $data = array('balance_id'=>$balanceid,
                     'liability_name'=>$value,
                     'liability_value'=>$use['liabilityvalue'][$key],
+                    'liability_current'=>$liabilitycurrent,
                     );
       $liabilitiestotal += $use['liabilityvalue'][$key];
       $this->Accountant_model->insert_liabilities($data);
@@ -898,7 +918,7 @@ class Accountant extends CI_Controller
 
 	function view_other_expenses()
 	{
-		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training');
+		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities');
     foreach($data['expenses'] as $e)
     {
       $data[$e] = $this->Accountant_model->get_other_expenses($e);
@@ -979,6 +999,12 @@ class Accountant extends CI_Controller
       $data['table'] = 'training';
       $use = array('trainingID'=>$id);
     }
+    else if($table =='utilities')
+    {
+      $data['idname'] = 'UtilitiesID';
+      $data['table'] = 'utilities';
+      $use = array('UtilitiesID'=>$id);
+    }
 
 
 
@@ -1013,6 +1039,8 @@ class Accountant extends CI_Controller
           $idname = 'entertainmentID';
     else if($table =='training')
           $idname = 'trainingID';
+    else if($table =='utilities')
+          $idname = 'UtilitiesID';
 
     $id = $this->input->post('id');
     if($this->input->post('filecheckbox') == 1)

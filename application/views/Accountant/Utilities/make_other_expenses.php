@@ -33,6 +33,7 @@
                             <option value="travel">Travel</option>
                             <option value="entertainment">Media & Entertainment</option>
                             <option value="training">Training</option>
+                            <option value="utilities">Utilitiy</option>
                         </select>
                     </div>
                      <div class="form-group">
