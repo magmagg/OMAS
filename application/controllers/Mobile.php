@@ -214,5 +214,214 @@ class Mobile extends CI_Controller {
 		/*$this->Model_Mobile->addSv($id,$total,$customer,$item,$quantity,$price);*/
 	}
 
+	function balanceList()
+	{
+		$data['balance'] = $this->Model_Mobile->balanceSheet();
+		echo json_encode($data);
+	}
+
+	function balanceTotal()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['balanceTotal'] = $this->Model_Mobile->balanceTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function assets()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['assets'] = $this->Model_Mobile->assetTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function liabilities()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['liabilities'] = $this->Model_Mobile->liabilitiesTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function ownersEquity()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['equity'] = $this->Model_Mobile->ownersTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function entertainment()
+	{
+		$data['entertainment'] = $this->Model_Mobile->expenseET();
+		echo json_encode($data);
+	}
+
+	function fees()
+	{
+		$data['fees'] = $this->Model_Mobile->expenseFees();
+		echo json_encode($data);
+	}
+
+	function insurance()
+	{
+		$data['insurance'] = $this->Model_Mobile->expenseInsurance();
+		echo json_encode($data);
+	}
+
+	function interest()
+	{
+		$data['interest'] = $this->Model_Mobile->expenseInterest();
+		echo json_encode($data);
+	}
+
+	function maintenance()
+	{
+		$data['maintenance'] = $this->Model_Mobile->expenseMaintenance();
+		echo json_encode($data);
+	}
+
+	function others()
+	{
+		$data['others'] = $this->Model_Mobile->expenseOthers();
+		echo json_encode($data);
+	}
+
+	function rent()
+	{
+		$data['rent'] = $this->Model_Mobile->expenseRent();
+		echo json_encode($data);
+	}
+
+	function supplies()
+	{
+		$data['supplies'] = $this->Model_Mobile->expenseSupplies();
+		echo json_encode($data);
+	}
+
+	function training()
+	{
+		$data['training'] = $this->Model_Mobile->expenseTraining();
+		echo json_encode($data);
+	}
+
+	function travel()
+	{
+		$data['travel'] = $this->Model_Mobile->expenseTravel();
+		echo json_encode($data);
+	}
+
+	function wages()
+	{
+		$data['wages'] = $this->Model_Mobile->expenseWages();
+		echo json_encode($data);
+	}
+
+	//Services Reports
+
+	function serviceMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyService($year);
+		echo json_encode($data);
+	}
+
+	function serviceQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyService($year);
+		echo json_encode($data);
+	}
+
+	function serviceSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiService($year);
+		echo json_encode($data);
+	}
+
+	function serviceAnnual()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['annual'] = $this->Model_Mobile->AnnualService($year);
+		echo json_encode($data);
+	}
+
+	//Purchasing Reports
+
+	function purchaseMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyPurchase($year);
+		echo json_encode($data);
+	}
+
+	function purchaseQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyPurchase($year);
+		echo json_encode($data);
+	}
+
+	function purchaseSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiPurchase($year);
+		echo json_encode($data);
+	}
+
+	function purchaseAnnual()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['annual'] = $this->Model_Mobile->AnnualPurchase($year);
+		echo json_encode($data);
+	}
+
+	//Inventory Reports
+
+	function inventoryMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyInventory($year);
+		echo json_encode($data);
+	}
+
+	function inventoryQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyInventory($year);
+		echo json_encode($data);
+	}
+
+	function inventorySemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiInventory($year);
+		echo json_encode($data);
+	}
+
+	function inventoryAnnual()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['annual'] = $this->Model_Mobile->AnnualInventory($year);
+		echo json_encode($data);
+	}
 
 }

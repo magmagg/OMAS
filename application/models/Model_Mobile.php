@@ -142,6 +142,358 @@
             $this->db->insert('utilities', $util_data);
         }
 
+        function balanceSheet()
+        {
+            $this->db->select('*');
+            $this->db->from('balance');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function balanceTotal($balanceID)
+        {
+            $where = "balance_id = '$balanceID'";
+            $this->db->select('*');
+            $this->db->from('balancer');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function assetTotal($balanceID)
+        {
+            $where = "balance_id = '$balanceID'";
+            $this->db->select('*');
+            $this->db->from('assets');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function liabilitiesTotal($balanceID)
+        {
+            $where = "balance_id = '$balanceID'";
+            $this->db->select('*');
+            $this->db->from('liabilities');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function ownersTotal($balanceID)
+        {
+            $where = "balance_id = '$balanceID'";
+            $this->db->select('*');
+            $this->db->from('owners_equity');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseET()
+        {
+            $this->db->select('*');
+            $this->db->from('entertainment');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseFees()
+        {
+            $this->db->select('*');
+            $this->db->from('fees');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseInsurance()
+        {
+            $this->db->select('*');
+            $this->db->from('insurance');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseInterest()
+        {
+            $this->db->select('*');
+            $this->db->from('interest');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseMaintenance()
+        {
+            $this->db->select('*');
+            $this->db->from('maintenance');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseOthers()
+        {
+            $this->db->select('*');
+            $this->db->from('other_expenses');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseRent()
+        {
+            $this->db->select('*');
+            $this->db->from('rent');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseSupplies()
+        {
+            $this->db->select('*');
+            $this->db->from('supplies');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseTraining()
+        {
+            $this->db->select('*');
+            $this->db->from('training');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseTravel()
+        {
+            $this->db->select('*');
+            $this->db->from('travel');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function expenseWages()
+        {
+            $this->db->select('count(*) as count');
+            $this->db->from('wages');
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        //Services Reports
+
+        function MonthlyService($year)
+        {
+
+            $group = "Month(TransactionDate)";
+            $select = "Month(TransactionDate) as month, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyService($year)
+        {
+
+            $group = "Quarter(TransactionDate)";
+            $select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiService($year)
+        {
+
+            $group = "Month(TransactionDate)>6";
+            $select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualService($year)
+        {
+
+            $group = "Year(TransactionDate)";
+            $select = "Year(TransactionDate) as Annual, count(*) as counted";
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        //Purchase Reports
+
+        function MonthlyPurchase($year)
+        {
+
+            $group = "Month(TransactionDate)";
+            $select = "Month(TransactionDate) as month, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyPurchase($year)
+        {
+
+            $group = "Quarter(TransactionDate)";
+            $select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiPurchase($year)
+        {
+
+            $group = "Month(TransactionDate)>6";
+            $select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualPurchase($year)
+        {
+
+            $group = "Year(TransactionDate)";
+            $select = "Year(TransactionDate) as Annual, count(*) as counted";
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        //Inventory Reports
+
+        function MonthlyInventory($year)
+        {
+
+            $group = "Month(TransactionDate)";
+            $select = "Month(TransactionDate) as month, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyInventory($year)
+        {
+
+            $group = "Quarter(TransactionDate)";
+            $select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiInventory($year)
+        {
+
+            $group = "Month(TransactionDate)>6";
+            $select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualInventory($year)
+        {
+
+            $group = "Year(TransactionDate)";
+            $select = "Year(TransactionDate) as Annual, count(*) as counted";
+
+            $this->db->select($select);
+            $this->db->from('purchasing_order');
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
 	}
 
 ?>
