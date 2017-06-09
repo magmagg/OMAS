@@ -279,36 +279,69 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
-	function get_assets()
+	function get_assets($id)
 	{
 		$this->db->select('*');
 		$this->db->from('assets');
+		$this->db->where('balance_id',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function get_liabilities()
+	function get_liabilities($id)
 	{
 		$this->db->select('*');
 		$this->db->from('liabilities');
+		$this->db->where('balance_id',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function get_oequity()
+	function get_oequity($id)
 	{
 		$this->db->select('*');
 		$this->db->from('owners_equity');
+		$this->db->where('balance_id',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function get_balancer()
+	function get_balancer($id)
 	{
 		$this->db->select('*');
 		$this->db->from('balancer');
+		$this->db->where('balance_id',$id);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	//OtherExpenses
+	function submit_other_expenses($data,$table)
+	{
+		$this->db->insert($table,$data);
+	}
+
+	function get_other_expenses($table)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function get_one_expense($data, $table)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->where($data);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function submit_update_expense($data,$id,$idname,$table)
+	{
+		$this->db->where($idname,$id);
+		$this->db->update($table,$data);
 	}
 
 

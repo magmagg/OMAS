@@ -735,6 +735,24 @@ class Accountant extends CI_Controller
     $use['oequityname'] = list($items) = $this->input->post('oequityname');
     $use['oequityvalue'] = list($items) = $this->input->post('oequityvalue');
 
+    if($this->input->post('assetcurrent') == NULL)
+    {
+      $assetcurrent = 0;
+    }
+    else
+    {
+      $assetcurrent = $this->input->post('assetcurrent');
+    }
+
+    if($this->input->post('liabilitycurrent') == NULL)
+    {
+      $liabilitycurrent = 0;
+    }
+    else
+    {
+      $liabilitycurrent = $this->input->post('liabilitycurrent');
+    }
+
     $assetstotal = '';
     $liabilitiestotal = '';
     $oequitytotal = '';
@@ -744,6 +762,7 @@ class Accountant extends CI_Controller
       $data = array('balance_id'=>$balanceid,
                     'asset_name'=>$value,
                     'asset_value'=>$use['assetvalue'][$key],
+                    'asset_current'=>$assetcurrent,
                     );
       $assetstotal += $use['assetvalue'][$key];
       $this->Accountant_model->insert_assets($data);
@@ -754,6 +773,7 @@ class Accountant extends CI_Controller
       $data = array('balance_id'=>$balanceid,
                     'liability_name'=>$value,
                     'liability_value'=>$use['liabilityvalue'][$key],
+                    'liability_current'=>$liabilitycurrent,
                     );
       $liabilitiestotal += $use['liabilityvalue'][$key];
       $this->Accountant_model->insert_liabilities($data);
@@ -799,6 +819,270 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
     $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+  }
+
+	//OtherExpenses
+	function make_other_expenses()
+	{
+		$config = array(
+				array(
+								'field' => 'name',
+								'label' => 'sname',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'desc',
+								'label' => 'desc',
+								'rules' => 'required'
+				),
+				array(
+								'field' => 'price',
+								'label' => 'price',
+								'rules' => 'required|numeric'
+				)
+		);
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->load->view('Accountant/header');
+				$this->load->view('Accountant/Utilities/sub_menu');
+				$this->load->view('Accountant/Utilities/make_other_expenses');
+				$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
+		}
+		else
+		{
+			if($this->input->post('filecheckbox') == 1)
+			{
+				$config['upload_path']          = './uploads/';
+				$config['allowed_types']        = 'doc|docx|pdf';
+				$config['max_size']             = 100;
+
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload('fileinput'))
+				{
+					$this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+						redirect(base_url().'Accountant/make_utilities', 'refresh');
+				}
+				else
+				{
+					$upload_data = $this->upload->data();
+					$file_name = $upload_data['full_path'];
+						if($this->input->post('paidcheckbox') == 1)
+						{
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'date_paid'=>$this->input->post('datepaid'),
+														'other_doc'=>$file_name,
+														'Status'=>1
+													 );
+						}
+						else
+						{
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'other_doc'=>$file_name
+														 );
+						}
+				}
+			}
+			else
+			{
+				if($this->input->post('paidcheckbox') == 1)
+				{
+					$data = array('name'=>$this->input->post('name'),
+												'desc'=>$this->input->post('desc'),
+												'value'=>$this->input->post('price'),
+												'date_paid'=>$this->input->post('datepaid'),
+												'Status'=>1
+											 );
+				}
+				else
+				{
+					$data = array('name'=>$this->input->post('name'),
+																'desc'=>$this->input->post('desc'),
+																'value'=>$this->input->post('price')
+															 );
+				}
+			}
+        $table = $this->input->post('table');
+				$this->Accountant_model->submit_other_expenses($data,$table);
+				$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+				redirect(base_url().'Accountant/view_other_expenses', 'refresh');
+		}
+	}
+
+	function view_other_expenses()
+	{
+		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities');
+    foreach($data['expenses'] as $e)
+    {
+      $data[$e] = $this->Accountant_model->get_other_expenses($e);
+    }
+		$this->load->view('Accountant/header');
+		$this->load->view('Accountant/Utilities/sub_menu');
+		$this->load->view('Accountant/Utilities/view_other_expenses',$data);
+	}
+
+  function view_one_expense()
+  {
+    $table = $this->uri->segment(3);
+    $id = $this->uri->segment(4);
+
+    if($table == 'other_expenses')
+    {
+      $data['idname'] = 'other_expenseID';
+      $data['table'] = 'other_expenses';
+      $use = array('other_expenseID'=>$id);
+    }
+    else if($table =='rent')
+    {
+      $data['idname'] = 'rentID';
+      $data['table'] = 'rent';
+      $use = array('rentID'=>$id);
+    }
+    else if($table =='insurance')
+    {
+      $data['idname'] = 'insuranceID';
+      $data['table'] = 'insurance';
+      $use = array('insuranceID'=>$id);
+    }
+    else if($table =='fees')
+    {
+      $data['idname'] = 'feesID';
+      $data['table'] = 'fees';
+      $use = array('feesID'=>$id);
+    }
+    else if($table =='wages')
+    {
+      $data['idname'] = 'wagesID';
+      $data['table'] = 'wages';
+      $use = array('wagesID'=>$id);
+    }
+    else if($table =='interest')
+    {
+      $data['idname'] = 'interestID';
+      $data['table'] = 'interest';
+      $use = array('interestID'=>$id);
+    }
+    else if($table =='supplies')
+    {
+      $data['idname'] = 'suppliesID';
+      $data['table'] = 'supplies';
+      $use = array('suppliesID'=>$id);
+    }
+    else if($table =='maintenance')
+    {
+      $data['idname'] = 'maintenanceID';
+      $data['table'] = 'maintenance';
+      $use = array('maintenanceID'=>$id);
+    }
+    else if($table =='travel')
+    {
+      $data['idname'] = 'travelID';
+      $data['table'] = 'travel';
+      $use = array('travelID'=>$id);
+    }
+    else if($table =='entertainment')
+    {
+      $data['idname'] = 'entertainmentID';
+      $data['table'] = 'entertainment';
+      $use = array('entertainmentID'=>$id);
+    }
+    else if($table =='training')
+    {
+      $data['idname'] = 'trainingID';
+      $data['table'] = 'training';
+      $use = array('trainingID'=>$id);
+    }
+    else if($table =='utilities')
+    {
+      $data['idname'] = 'UtilitiesID';
+      $data['table'] = 'utilities';
+      $use = array('UtilitiesID'=>$id);
+    }
+
+
+
+    $data['expense'] = $this->Accountant_model->get_one_expense($use, $table);
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Utilities/sub_menu');
+    $this->load->view('Accountant/Utilities/view_one_expense',$data);
+  }
+
+  function submit_update_expense()
+  {
+    $table = $this->input->post('table');
+    if($table == 'other_expenses')
+          $idname = 'other_expenseID';
+    else if($table =='rent')
+          $idname = 'rentID';
+    else if($table =='insurance')
+          $idname = 'insuranceID';
+    else if($table =='fees')
+          $idname = 'feesID';
+    else if($table =='wages')
+          $idname = 'wagesID';
+    else if($table =='interest')
+          $idname = 'interestID';
+    else if($table =='supplies')
+          $idname = 'suppliesID';
+    else if($table =='maintenance')
+          $idname = 'maintenanceID';
+    else if($table =='travel')
+          $idname = 'travelID';
+    else if($table =='entertainment')
+          $idname = 'entertainmentID';
+    else if($table =='training')
+          $idname = 'trainingID';
+    else if($table =='utilities')
+          $idname = 'UtilitiesID';
+
+    $id = $this->input->post('id');
+    if($this->input->post('filecheckbox') == 1)
+    {
+      $config['upload_path']          = './uploads/';
+      $config['allowed_types']        = 'doc|docx|pdf';
+      $config['max_size']             = 100;
+
+      $this->load->library('upload', $config);
+
+      if (!$this->upload->do_upload('fileinput'))
+      {
+        $this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+        redirect(base_url().'Accountant/view_one_expense/'.$table.'/'.$id, 'refresh');
+      }
+      else
+      {
+        $upload_data = $this->upload->data();
+        $file_name = $upload_data['full_path'];
+          if($this->input->post('paidcheckbox') == 1)
+          {
+            $data = array('date_paid'=>$this->input->post('expensedatepaid'),
+                          'other_doc'=>$file_name,
+                          'Status'=>1
+                         );
+          }
+          else
+          {
+            $data = array('other_doc'=>$file_name);
+          }
+          $this->Accountant_model->submit_update_expense($data,$id,$idname,$table);
+      }
+    }
+    else
+    {
+        $data = array('date_paid'=>$this->input->post('expensedatepaid'),
+                      'Status'=>1
+                     );
+
+      $this->Accountant_model->submit_update_expense($data,$id,$idname,$table);
+    }
+    redirect(base_url().'Accountant/view_other_expenses', 'refresh');
   }
 
 }

@@ -30,6 +30,16 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="form-group col-lg-12">
+									<label class="radio-inline">
+											<input type="radio" name="assetcurrent" value="1">Current
+									</label>
+									<label class="radio-inline">
+											<input type="radio" name="assetcurrent" value="2">Non-Current
+									</label>
+							</div>
+						</div>
+						<div class="row">
 							<div class="form-group col-lg-6">
 								<button type="button" class="btn btn-success" id="cloneasset">Add more assets</button>
 							</div>
@@ -60,6 +70,16 @@
 							</div>
 						</div>
 					</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-lg-12">
+								<label class="radio-inline">
+										<input type="radio" name="liabilitycurrent" value="1">Current
+								</label>
+								<label class="radio-inline">
+										<input type="radio" name="liabilitycurrent" value="2">Non-Current
+								</label>
+						</div>
 					</div>
 					<!-- /.row (nested) -->
 					<div class="row">

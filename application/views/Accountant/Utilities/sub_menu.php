@@ -19,6 +19,14 @@
                       <li><a href="<?=base_url();?>Accountant/make_utilities" class="child">Create Utilities</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">Other Expenses
+                    <i class="caret"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?=base_url();?>Accountant/view_other_expenses" class="child">View Expenses</a></li>
+                      <li><a href="<?=base_url();?>Accountant/make_other_expenses" class="child">Create Other expenses</a></li>
+                    </ul>
+                </li>
             </ul>
 
             </div>
