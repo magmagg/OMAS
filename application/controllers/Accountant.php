@@ -1085,4 +1085,12 @@ class Accountant extends CI_Controller
     redirect(base_url().'Accountant/view_other_expenses', 'refresh');
   }
 
+  //Reports
+  function reports()
+  {
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Reports/sub_menu');
+    $this->load->view('Accountant/Reports/view_reports');
+  }
+
 }

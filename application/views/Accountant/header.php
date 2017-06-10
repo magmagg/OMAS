@@ -113,12 +113,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="<?=base_url();?>Accountant/reports" id="menu_reports">
                                         <i class="icon-bar-chart icon-large"></i> Reports
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?=base_url();?>Accountant/view_utilities" id="menu_utilities">
+                                    <a href="<?=base_url();?>Accountant/view_other_expenses" id="menu_utilities">
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
