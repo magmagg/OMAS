@@ -173,12 +173,9 @@ class Mobile extends CI_Controller {
 		$total = (float)$this->input->post('Total');
 		$customer = $this->input->post('Customer');		
 		$items = $this->input->post('Item');
+		$service_items = $this->input->post('service_items');
 
 
-		/*$items = "1*50.0*1|2*60.0*2|3*70.0*3|4*80.0*4";
-		$userId = (int)1;
-		$total = (float)123;
-		$customer = 1;	*/
 
 		//Insert data now
 		$data = array('Total'=>$total,
@@ -215,14 +212,45 @@ class Mobile extends CI_Controller {
 				}
 			}
 
-			/*echo "itemId"." ".$id."<br>";
-			echo "price"." ".$price."<br>";
-			echo "Quantity"." ".$quantity."<br>";*/
-			//echo $ServiceID."<br>";
       		$data = array('POI_ItemID'=>$id,
                     'Quantity'=>$quantity,
                     'SO_ID'=>$ServiceID);
       		$this->Accountant_model->insert_service_invoice_item($data);
+
+		}
+
+		foreach(explode('|',$service_items) as $service_item){
+
+			$name = "";
+			$price = "";
+			$quantity= "";
+			$ctr = 0;
+			foreach(explode('*',$service_item) as $names){
+
+				switch ($ctr) {
+					case 0:
+						$name = $names;
+						$ctr++;
+						break;
+					case 1:
+						$price = $names;
+						$ctr++;
+						break;
+					case 2:
+						$quantity = $names;
+						$ctr++;
+						break;
+					default:
+						$ctr = 0;
+						break;
+				}
+			}
+
+      		$data = array('service_name'=>$name,
+                    'Quantity'=>$quantity,
+                    'UnitPrice'=>$price,
+                    'SO_ID'=>$ServiceID);
+      		$this->Accountant_model->insert_service_invoice_service($data);
 
 		}
 
