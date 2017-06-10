@@ -11,7 +11,7 @@
             $query = $this->db->get();
             return $query->result_array();
 
-        }   
+        }
 
         function stocksList()
         {
@@ -30,7 +30,7 @@
             $query = $this->db->get();
             return $query->result_array();
         }
-        
+
 
         function supplierName()
         {
@@ -69,11 +69,11 @@
        /* function addPO($id,$total,$supplier,$item,$quantity,$price)
         {
               //purchasing_order table
-             $purchase_data = array 
+             $purchase_data = array
              (
                 'Accountant_UserID' => $id,
                 'Total' => $total,
-                'Supplier_SupplierID' => $supplier                
+                'Supplier_SupplierID' => $supplier
              );
 
              $this->db->insert('purchasing_order',$purchase_data);
@@ -106,22 +106,22 @@
 
         function addSv($id,$total,$customer,$item,$quantity,$price)
         {
-            $service_data = array 
+            $service_data = array
              (
                 'Accountant_UserID' => $id,
                 'Total' => $total,
-                'Customer_CustomerID' => $customer                
+                'Customer_CustomerID' => $customer
              );
 
              $this->db->insert('service_invoice',$service_data);
              $insert_id = $this->db->insert_id();
 
-            
+
             $item_data = array
             (
                 'ItemID' => $item,
                 'Quantity' => $quantity,
-                
+
                 'SO_ID' => $insert_id
             );
 
@@ -288,7 +288,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('service_invoice');
@@ -307,7 +307,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('service_invoice');
@@ -360,7 +360,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('purchasing_order');
@@ -379,7 +379,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('purchasing_order');
@@ -432,7 +432,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('purchasing_order');
@@ -451,7 +451,7 @@
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
-        
+
 
             $this->db->select($select);
             $this->db->from('purchasing_order');
@@ -493,6 +493,8 @@
             return $query->result_array();
 
         }
+
+
 
 	}
 

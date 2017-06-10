@@ -1146,6 +1146,40 @@ class Accountant extends CI_Controller
 		echo json_encode($this->Accountant_model->AnnualPurchase());
 	}
 
+	//Expenses
+	function YearExpense()
+	{
+		$table = $this->input->post('table');
+		echo json_encode($this->Accountant_model->AnnualExpense($table));
+	}
+
+	function MonthlyExpense()
+	{
+		$table = $this->input->post('table');
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->MonthlyExpense($year,$table));
+	}
+
+	function QuarterlyExpense()
+	{
+		$table = $this->input->post('table');
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->QuarterlyExpense($year,$table));
+	}
+
+	function SemiExpense()
+	{
+		$table = $this->input->post('table');
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->SemiExpense($year,$table));
+	}
+
+	function AnnualExpense()
+	{
+		$table = $this->input->post('table');
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->AnnualExpense($year,$table));
+	}
 
 
 }

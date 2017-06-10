@@ -488,5 +488,76 @@ class Accountant_model extends CI_Model
 
 	}
 
+	//Expense Reports
+	function MonthlyExpense($year, $table)
+	{
+
+			$group = "Month(date_created)";
+			$select = "Month(date_created) as month, count(*) as counted";
+
+
+			$where = "YEAR(date_created) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from($table);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function QuarterlyExpense($year, $table)
+	{
+
+			$group = "Quarter(date_created)";
+			$select = "Quarter(date_created) as Quarter, count(*) as counted";
+
+
+			$where = "YEAR(date_created) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from($table);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function SemiExpense($year, $table)
+	{
+
+			$group = "Month(date_created)>6";
+			$select = "Month(date_created)>6 as Semi, count(*) as counted";
+
+
+			$where = "YEAR(date_created) ='".$year."'";
+
+			$this->db->select($select);
+			$this->db->from($table);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function AnnualExpense($table)
+	{
+
+			$group = "Year(date_created)";
+			$select = "Year(date_created) as Annual, count(*) as counted";
+
+			$this->db->select($select);
+			$this->db->from($table);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
 
 }

@@ -133,6 +133,252 @@
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
+
+
+
+
+		<!-- NEXT ROW -->
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						View service invoice
+					</div>
+					<div class="panel-body">
+						<ul class="nav nav-pills">
+							<li class="active"><a href="#monthly" data-toggle="tab">Monthly</a></li>
+							<li><a href="#quarter" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#semianual" data-toggle="tab">Semi Annually</a></li>
+							<li><a href="#anual" data-toggle="tab">Annually</a></li>
+						</ul>
+						<div class="tab-content">
+
+							<div class="tab-pane fade in active" id="monthly">
+								<div class="form-group">
+									<select id="yearselectmonthlyservice" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($serviceyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="monthlyservices"></div>
+							</div>
+
+							<div class="tab-pane fade" id="quarter">
+								<div class="form-group">
+									<select id="yearselectquarterservice" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($serviceyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="quarterservices"></div>
+							</div>
+
+							<div class="tab-pane fade" id="semianual">
+								<div class="form-group">
+									<select id="yearselectsemiservice" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($serviceyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="semiservices"></div>
+							</div>
+
+							<div class="tab-pane fade" id="anual">
+								<div class="ct-chart ct-golden-section" id="anualservices"></div>
+							</div>
+
+						</div>
+
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-12 -->
+
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Purchase
+					</div>
+					<div class="panel-body">
+						<ul class="nav nav-pills">
+							<li class="active"><a href="#monthlyp" data-toggle="tab">Monthly</a></li>
+							<li><a href="#quarterp" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#semianualp" data-toggle="tab">Semi Annually</a></li>
+							<li><a href="#anualp" data-toggle="tab">Annually</a></li>
+						</ul>
+						<div class="tab-content">
+
+							<div class="tab-pane fade in active" id="monthlyp">
+								<div class="form-group">
+									<select id="ysmonthlyp" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($purchaseyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="monthlypchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="quarterp">
+								<div class="form-group">
+									<select id="ysquarterp" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($purchaseyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="quarterpchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="semianualp">
+								<div class="form-group">
+									<select id="yssemip" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($purchaseyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="semipchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="anualp">
+								<div class="ct-chart ct-golden-section" id="anualpchart"></div>
+							</div>
+
+						</div>
+
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- NEXT ROW -->
+
+		<!-- LAST ROW -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Purchase
+					</div>
+					<div class="panel-body">
+						<ul class="nav nav-pills">
+							<li class="active"><a href="#monthlyex" data-toggle="tab">Monthly</a></li>
+							<li><a href="#quarterex" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#semianualex" data-toggle="tab">Semi Annually</a></li>
+							<li><a href="#anualex" data-toggle="tab">Annually</a></li>
+						</ul>
+						<div class="tab-content">
+
+							<div class="tab-pane fade in active" id="monthlyex">
+								<div class="form-group">
+									<select id="selectexm" name="table" style="width:100%">
+											<option value="other_expenses">Other expenses</option>
+											<option value="rent">Rent</option>
+											<option value="insurance">Insurance</option>
+											<option value="fees">Fees</option>
+											<option value="wages">Wages</option>
+											<option value="interest">Interest</option>
+											<option value="supplies">Supplies</option>
+											<option value="maintenance">Maintenance</option>
+											<option value="travel">Travel</option>
+											<option value="entertainment">Media & Entertainment</option>
+											<option value="training">Training</option>
+											<option value="utilities">Utilitiy</option>
+									</select>
+									<select id="ysmonthlyex" style="width: 100%" disabled>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="monthlyexchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="quarterex">
+								<div class="form-group">
+									<select id="selectexq" name="table" style="width:100%">
+											<option value="other_expenses">Other expenses</option>
+											<option value="rent">Rent</option>
+											<option value="insurance">Insurance</option>
+											<option value="fees">Fees</option>
+											<option value="wages">Wages</option>
+											<option value="interest">Interest</option>
+											<option value="supplies">Supplies</option>
+											<option value="maintenance">Maintenance</option>
+											<option value="travel">Travel</option>
+											<option value="entertainment">Media & Entertainment</option>
+											<option value="training">Training</option>
+											<option value="utilities">Utilitiy</option>
+									</select>
+									<select id="ysquarterex" style="width: 100%" disabled>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="quarterexchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="semianualex">
+								<div class="form-group">
+									<select id="selectexsemi" name="table" style="width:100%">
+											<option value="other_expenses">Other expenses</option>
+											<option value="rent">Rent</option>
+											<option value="insurance">Insurance</option>
+											<option value="fees">Fees</option>
+											<option value="wages">Wages</option>
+											<option value="interest">Interest</option>
+											<option value="supplies">Supplies</option>
+											<option value="maintenance">Maintenance</option>
+											<option value="travel">Travel</option>
+											<option value="entertainment">Media & Entertainment</option>
+											<option value="training">Training</option>
+											<option value="utilities">Utilitiy</option>
+									</select>
+									<select id="yssemiex" style="width: 100%" disabled>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="semiexchart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="anualp">
+								<div class="form-group">
+									<select id="selectexsemi" name="table" style="width:100%">
+											<option value="other_expenses">Other expenses</option>
+											<option value="rent">Rent</option>
+											<option value="insurance">Insurance</option>
+											<option value="fees">Fees</option>
+											<option value="wages">Wages</option>
+											<option value="interest">Interest</option>
+											<option value="supplies">Supplies</option>
+											<option value="maintenance">Maintenance</option>
+											<option value="travel">Travel</option>
+											<option value="entertainment">Media & Entertainment</option>
+											<option value="training">Training</option>
+											<option value="utilities">Utilitiy</option>
+									</select>
+
+								</div>
+								<div class="ct-chart ct-golden-section" id="anualexchart"></div>
+							</div>
+
+						</div>
+
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+		</div>
+		<!-- LAST ROW -->
 	</div>
 	<!-- /.row -->
 	<!-- /.col-lg-12 -->
@@ -193,7 +439,6 @@
 	labelanuals.push('<?=$sy->Annual?>');
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
-	console.log(labelanuals);
 	var danual = {
 		labels: [labelanuals],
 		series: [seriesanuals]
@@ -270,7 +515,6 @@
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
-				console.log(data1);
 				$.each(data1, function(index, value) {
 					seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].counted);
 				});
@@ -313,7 +557,6 @@
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
-				console.log(data1);
 				$.each(data1, function(index, value) {
 					seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
 				});
@@ -369,7 +612,6 @@
 	labelanuals.push('<?=$sy->Annual?>');
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
-	console.log(labelanuals);
 	var danual = {
 		labels: [labelanuals],
 		series: [seriesanuals]
@@ -446,7 +688,6 @@
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
-				console.log(data1);
 				$.each(data1, function(index, value) {
 					seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].counted);
 				});
@@ -489,7 +730,6 @@
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
-				console.log(data1);
 				$.each(data1, function(index, value) {
 					seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
 				});
@@ -522,6 +762,248 @@
 </script>
 <!-- Purchase -->
 
+<!-- Expenses -->
+<script>
+//Datas
+	var dmonthly = {
+		labels: [],
+		series: [[]]
+	};
+  var dquarter = {
+    labels: [],
+    series: [[]]
+  };
+	var dsemi = {
+		labels: [],
+		series: [[]]
+	};
+	//Datas
+	//AnualData
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($serviceyears as $sy): ?>
+	labelanuals.push('<?=$sy->Annual?>');
+	seriesanuals.push(<?=$sy->counted?>);
+	<?php endforeach?>
+	var danual = {
+		labels: [labelanuals],
+		series: [seriesanuals]
+	};
+	var options = {
+		seriesBarDistance: 10,
+		reverseData: true,
+		horizontalBars: true,
+		axisY: {
+			offset: 70
+		},
+		width: 600,
+ 		height: 300
+	}
+
+	var bcmonthlyex = new Chartist.Bar('#monthlyexchart', dmonthly, options);
+  var bcquarterex = new Chartist.Bar('#quarterexchart', dquarter, options);
+  var bcsemiex = new Chartist.Bar('#semiexchart', dsemi, options);
+  var bcanualex = new Chartist.Bar('#anualexchart', danual, options);
+</script>
+
+<script>
+$('#selectexm').change(function() {
+	var table = this.value;
+	$("#ysmonthex").html('');
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/YearExpense',
+		data: {
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				$("#ysmonthlyex").attr("disabled", false);
+				$('#ysmonthlyex').append('<option value="">'+'</option>');
+				$('#ysmonthlyex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
+			});
+		}
+	});
+
+});
+
+$('#ysmonthlyex').change(function() {
+	var table = $("#selectexm").val();
+	var year = this.value;
+	var seriesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/MonthlyExpense',
+		data: {
+			'year': year,
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].month - 1, 1, data1[index].counted);
+			});
+			console.log(seriesdata);
+			//New chart
+			var data = {
+				labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				series: [
+					seriesdata
+				]
+			};
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300
+			}
+
+			bcmonthlyex.detach();
+			bcmonthlyex = new Chartist.Bar('#monthlyexchart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+
+//Quarter
+$('#selectexq').change(function() {
+	var table = this.value;
+	$("#ysquarterex").html('');
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/YearExpense',
+		data: {
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				$("#ysquarterex").attr("disabled", false);
+				$('#ysquarterex').append('<option value="">'+'</option>');
+				$('#ysquarterex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
+			});
+		}
+	});
+
+});
+
+$('#ysquarterex').change(function() {
+	var year = this.value;
+	var table = $("#selectexq").val();
+	var seriesdata = [0, 0, 0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/QuarterlyExpense',
+		data: {
+			'year': year,
+			'table':table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].counted);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+				series: [
+					seriesdata
+				]
+			};
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300
+			}
+
+			bcquarterex.detach();
+			bcquarterex = new Chartist.Bar('#quarterexchart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+
+//Semi
+$('#selectexsemi').change(function() {
+	var table = this.value;
+	$("#yssemiex").html('');
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/YearExpense',
+		data: {
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				$("#yssemiex").attr("disabled", false);
+				$('#yssemiex').append('<option value="">'+'</option>');
+				$('#yssemiex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
+			});
+		}
+	});
+});
+
+$('#yssemiex').change(function() {
+	var year = this.value;
+	var table = $("#selectexsemi").val();
+	var seriesdata = [0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/SemiExpense',
+		data: {
+			'year': year,
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Jan - June', 'Jul - Dec'],
+				series: [
+					seriesdata
+				]
+			};
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				onlyInteger: true
+			}
+
+			bcsemiex.detach();
+			bcsemiex = new Chartist.Bar('#semiexchart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+</script>
 
 
 </body>
