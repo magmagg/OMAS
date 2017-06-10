@@ -32,6 +32,7 @@
     <!-- Custom CSS -->
   <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
     <link href="<?=base_url();?>assets/css/customize-template.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url();?>assets/vendor/chartist/chartist.min.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
 

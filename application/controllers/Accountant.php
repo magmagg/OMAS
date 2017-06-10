@@ -1088,9 +1088,64 @@ class Accountant extends CI_Controller
   //Reports
   function reports()
   {
+		$data['serviceyears'] = $this->Accountant_model->AnnualService();
+		$data['purchaseyears'] = $this->Accountant_model->AnnualPurchase();
+
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/Reports/sub_menu');
-    $this->load->view('Accountant/Reports/view_reports');
+    $this->load->view('Accountant/Reports/view_reports',$data);
   }
+
+	//Services
+	function MonthlyService()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->MonthlyService($year));
+	}
+
+	function QuarterlyService()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->QuarterlyService($year));
+	}
+
+	function SemiService()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->SemiService($year));
+	}
+
+	function AnnualService()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->AnnualService());
+	}
+
+	//Purchase
+	function MonthlyPurchase()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->MonthlyPurchase($year));
+	}
+
+	function QuarterlyPurchase()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->QuarterlyPurchase($year));
+	}
+
+	function SemiPurchase()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->SemiPurchase($year));
+	}
+
+	function AnnualPurchase()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->AnnualPurchase());
+	}
+
+
 
 }

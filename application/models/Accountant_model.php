@@ -344,5 +344,149 @@ class Accountant_model extends CI_Model
 		$this->db->update($table,$data);
 	}
 
+	//Services Reports
+
+	function MonthlyService($year)
+	{
+
+			$group = "Month(TransactionDate)";
+			$select = "Month(TransactionDate) as month, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function QuarterlyService($year)
+	{
+
+			$group = "Quarter(TransactionDate)";
+			$select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function SemiService($year)
+	{
+
+			$group = "Month(TransactionDate)>6";
+			$select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function AnnualService()
+	{
+
+			$group = "Year(TransactionDate)";
+			$select = "Year(TransactionDate) as Annual, count(*) as counted";
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+
+	//Purchase Reports
+
+	function MonthlyPurchase($year)
+	{
+
+			$group = "Month(TransactionDate)";
+			$select = "Month(TransactionDate) as month, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('purchasing_order');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function QuarterlyPurchase($year)
+	{
+
+			$group = "Quarter(TransactionDate)";
+			$select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('purchasing_order');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function SemiPurchase($year)
+	{
+
+			$group = "Month(TransactionDate)>6";
+			$select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+			$this->db->select($select);
+			$this->db->from('purchasing_order');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function AnnualPurchase()
+	{
+
+			$group = "Year(TransactionDate)";
+			$select = "Year(TransactionDate) as Annual, count(*) as counted";
+
+			$this->db->select($select);
+			$this->db->from('purchasing_order');
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+
 
 }
