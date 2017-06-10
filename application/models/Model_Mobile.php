@@ -427,15 +427,19 @@
         function MonthlyInventory($year)
         {
 
-            $group = "Month(TransactionDate)";
-            $select = "Month(TransactionDate) as month, count(*) as counted";
+            $group = "Month(service_invoice.TransactionDate)";
+            $select = "sum(service_invoice_item.Quantity) as Quantity,  Month(service_invoice.TransactionDate) as month";
+            $from = "service_invoice_item, service_invoice";
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
 
+            $where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
 
             $this->db->select($select);
-            $this->db->from('purchasing_order');
+            $this->db->from($from);
             $this->db->where($where);
             $this->db->group_by($group);
             $query = $this->db->get();
@@ -446,15 +450,19 @@
         function QuarterlyInventory($year)
         {
 
-            $group = "Quarter(TransactionDate)";
-            $select = "Quarter(TransactionDate) as Quarter, count(*) as counted";
+            $group = "Quarter(service_invoice.TransactionDate)";
+            $select = "sum(service_invoice_item.Quantity) as Quantity,  Quarter(service_invoice.TransactionDate) as month";
+            $from = "service_invoice_item, service_invoice";
 
 
             $where = "YEAR(TransactionDate) ='".$year."'";
 
+            $where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
 
             $this->db->select($select);
-            $this->db->from('purchasing_order');
+            $this->db->from($from);
             $this->db->where($where);
             $this->db->group_by($group);
             $query = $this->db->get();
@@ -465,14 +473,17 @@
         function SemiInventory($year)
         {
 
-            $group = "Month(TransactionDate)>6";
-            $select = "Month(TransactionDate)>6 as Semi, count(*) as counted";
+            $group = "Month(service_invoice.TransactionDate)>6";
+            $select = "sum(service_invoice_item.Quantity) as Quantity,  Month(service_invoice.TransactionDate)>6 as month";
+            $from = "service_invoice_item, service_invoice";
 
 
-            $where = "YEAR(TransactionDate) ='".$year."'";
+            $where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) = 2017";
+
 
             $this->db->select($select);
-            $this->db->from('purchasing_order');
+            $this->db->from($from);
             $this->db->where($where);
             $this->db->group_by($group);
             $query = $this->db->get();
@@ -483,11 +494,17 @@
         function AnnualInventory($year)
         {
 
-            $group = "Year(TransactionDate)";
-            $select = "Year(TransactionDate) as Annual, count(*) as counted";
+            $group = "Year(service_invoice.TransactionDate)";
+            $select = "sum(service_invoice_item.Quantity) as Quantity,  Year(service_invoice.TransactionDate) as year";
+            $from = "service_invoice_item, service_invoice";
+
+
+            $where = "service_invoice_item.SO_ID = service_invoice.ServiceID";
+
 
             $this->db->select($select);
-            $this->db->from('purchasing_order');
+            $this->db->from($from);
+            $this->db->where($where);
             $this->db->group_by($group);
             $query = $this->db->get();
             return $query->result_array();
