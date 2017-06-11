@@ -21,7 +21,7 @@
                 <form role="form" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Expense type</label>
-                        <select name="table" required>
+                        <select name="table" id="select" required>
                             <option value="other_expenses">Other expenses</option>
                             <option value="rent">Rent</option>
                             <option value="insurance">Insurance</option>
@@ -34,6 +34,7 @@
                             <option value="entertainment">Media & Entertainment</option>
                             <option value="training">Training</option>
                             <option value="utilities">Utilitiy</option>
+                            <option value="depreciation">Depreciation</option>
                         </select>
                     </div>
                      <div class="form-group">
@@ -62,7 +63,7 @@
                          <label>Choose file:</label>
                          <input type="file" name="fileinput" id="userfile" />
                      </div>
-                     <div class="form-group">
+                     <div class="form-group" id="checkboxdiv">
                          <div class="checkbox">
                              <label>
                                  <input type="checkbox" id="paidcheckbox" name="paidcheckbox" value="1">Paid already?
@@ -72,6 +73,10 @@
                      <div class="form-group" id="datepaid">
                          <label>Date paid</label>
                          <input name="datepaid" type="date" id="datepicker">
+                     </div>
+                     <div class="form-group" id="fiscalyear">
+                       <label> Fiscal year</label>
+                       <select name="yearpicker" id="yearpicker"></select>
                      </div>
                      <button type="submit" class="btn btn-default">Submit Button</button>
                      <button type="reset" class="btn btn-default">Reset Button</button>
@@ -106,6 +111,7 @@
 <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
 
 <script>
+  $( "#fiscalyear" ).hide();
 $(document).ready(function() {
     $('#datepaid').hide();
     $('#paidcheckbox').change(function() {
@@ -134,7 +140,27 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<script>
+for (i = new Date().getFullYear(); i > 1900; i--)
+{
+    $('#yearpicker').append($('<option />').val(i).html(i));
+}
+</script>
+<script>
+$('#select').change(function() {
+  if(this.value == 'depreciation'){
+      $( "#fiscalyear" ).show();
+      $( "#datepaid" ).hide();
+      $( "#checkboxdiv" ).hide();
+      $("#fiscalyear").prop('required',true);
+  }
+  else{
+      $( "#fiscalyear" ).hide();
+      $( "#checkboxdiv" ).show();
+      $("#fiscalyear").prop('required',false);
+}
+});
+</script>
 </body>
 
 </html>

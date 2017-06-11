@@ -853,6 +853,48 @@ class Accountant extends CI_Controller
 		}
 		else
 		{
+			if($this->input->post('table') == 'depreciation')
+			{
+
+					if($this->input->post('filecheckbox') == 1)
+					{
+						$config['upload_path']          = './uploads/';
+						$config['allowed_types']        = 'doc|docx|pdf';
+						$config['max_size']             = 100;
+
+						$this->load->library('upload', $config);
+
+						if (!$this->upload->do_upload('fileinput'))
+						{
+							$this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
+								redirect(base_url().'Accountant/make_other_expenses', 'refresh');
+						}
+						else
+						{
+							$upload_data = $this->upload->data();
+							$file_name = $upload_data['full_path'];
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'fiscal_year'=>$this->input->post('yearpicker'),
+														'other_doc'=>$file_name
+														 );
+
+						}
+					}
+					else
+					{
+							$data = array('name'=>$this->input->post('name'),
+														'desc'=>$this->input->post('desc'),
+														'value'=>$this->input->post('price'),
+														'fiscal_year'=>$this->input->post('yearpicker'),
+														 );
+					}
+		        $table = $this->input->post('table');
+						$this->Accountant_model->submit_other_expenses($data,$table);
+						$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+						redirect(base_url().'Accountant/view_other_expenses', 'refresh');
+			}
 			if($this->input->post('filecheckbox') == 1)
 			{
 				$config['upload_path']          = './uploads/';
@@ -864,7 +906,7 @@ class Accountant extends CI_Controller
 				if (!$this->upload->do_upload('fileinput'))
 				{
 					$this->session->set_flashdata('error1','<div class="alert alert-danger">Error with file upload, Please try again</div>');
-						redirect(base_url().'Accountant/make_utilities', 'refresh');
+						redirect(base_url().'Accountant/make_other_expenses', 'refresh');
 				}
 				else
 				{
@@ -918,7 +960,7 @@ class Accountant extends CI_Controller
 
 	function view_other_expenses()
 	{
-		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities');
+		$data['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities','depreciation');
     foreach($data['expenses'] as $e)
     {
       $data[$e] = $this->Accountant_model->get_other_expenses($e);
@@ -1005,6 +1047,12 @@ class Accountant extends CI_Controller
       $data['table'] = 'utilities';
       $use = array('UtilitiesID'=>$id);
     }
+		else if($table =='depreciation')
+		{
+			$data['idname'] = 'depreciationID';
+			$data['table'] = 'depreciation';
+			$use = array('depreciationID'=>$id);
+		}
 
 
 
@@ -1090,6 +1138,7 @@ class Accountant extends CI_Controller
   {
 		$data['serviceyears'] = $this->Accountant_model->AnnualService();
 		$data['purchaseyears'] = $this->Accountant_model->AnnualPurchase();
+		$data['inventoryyears'] = $this->Accountant_model->AnnualInventory();
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/Reports/sub_menu');
@@ -1177,8 +1226,45 @@ class Accountant extends CI_Controller
 	function AnnualExpense()
 	{
 		$table = $this->input->post('table');
+		echo json_encode($this->Accountant_model->AnnualExpense($table));
+	}
+
+	//Inventory
+	function MonthlyInventory()
+	{
 		$year = $this->input->post('year');
-		echo json_encode($this->Accountant_model->AnnualExpense($year,$table));
+		echo json_encode($this->Accountant_model->MonthlyInventory($year));
+	}
+
+	function QuarterlyInventory()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->QuarterlyInventory($year));
+	}
+
+	function SemiInventory()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->SemiInventory($year));
+	}
+
+	function AnnualInventory()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->AnnualInventory($year));
+	}
+
+	//Revenue
+	function QuarterlyRevenue()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->QuarterlyRevenue($year));
+	}
+
+	function SemiRevenue()
+	{
+		$year = $this->input->post('year');
+		echo json_encode($this->Accountant_model->SemiRevenue($year));
 	}
 
 

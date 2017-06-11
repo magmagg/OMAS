@@ -295,6 +295,19 @@
 																		</td>
 																	</tr>
 																<?php endforeach; ?>
+															<?php elseif($key == 12): ?>
+																	<?php foreach($depreciation as $e):?>
+																		<tr>
+																			<td> <?=$num?> </td>
+																			<td> <?=$e->depreciationID?> </td>
+																			<td> <?=$e->name?> </td>
+																			<td> <?=$e->date_created?> </td>
+																			<td> <?=$e->fiscal_year?> </td>
+																			<td>
+																				<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->depreciationID?>"><button type="button" class="btn btn-primary">View</button></a>
+																			</td>
+																		</tr>
+																	<?php endforeach; ?>
 													<?php endif;?>
 
 										    </tbody>

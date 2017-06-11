@@ -142,55 +142,54 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						View service invoice
+						Inventory
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
-							<li class="active"><a href="#monthly" data-toggle="tab">Monthly</a></li>
-							<li><a href="#quarter" data-toggle="tab">Quarterly</a></li>
-							<li><a href="#semianual" data-toggle="tab">Semi Annually</a></li>
-							<li><a href="#anual" data-toggle="tab">Annually</a></li>
+							<li class="active"><a href="#monthlyi" data-toggle="tab">Monthly</a></li>
+							<li><a href="#quarteri" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#semianuali" data-toggle="tab">Semi Annually</a></li>
+							<li><a href="#anuali" data-toggle="tab">Annually</a></li>
 						</ul>
 						<div class="tab-content">
-
-							<div class="tab-pane fade in active" id="monthly">
+							<div class="tab-pane fade in active" id="monthlyi">
 								<div class="form-group">
-									<select id="yearselectmonthlyservice" style="width: 100%">
+									<select id="ysmonthlyi" style="width: 100%">
 										 <option value=""></option>
-										 <?php foreach($serviceyears as $sy): ?>
-											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php foreach($inventoryyears as $sy): ?>
+											 <option value="<?=$sy->year?>"><?=$sy->year?></option>
 										 <?php endforeach; ?>
 									 </select>
 								</div>
-								<div class="ct-chart ct-golden-section" id="monthlyservices"></div>
+								<div class="ct-chart ct-golden-section" id="monthlyichart"></div>
 							</div>
 
-							<div class="tab-pane fade" id="quarter">
+							<div class="tab-pane fade" id="quarteri">
 								<div class="form-group">
-									<select id="yearselectquarterservice" style="width: 100%">
+									<select id="ysquarteri" style="width: 100%">
 										 <option value=""></option>
-										 <?php foreach($serviceyears as $sy): ?>
-											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php foreach($inventoryyears as $sy): ?>
+											 <option value="<?=$sy->year?>"><?=$sy->year?></option>
 										 <?php endforeach; ?>
 									 </select>
 								</div>
-								<div class="ct-chart ct-golden-section" id="quarterservices"></div>
+								<div class="ct-chart ct-golden-section" id="quarterichart"></div>
 							</div>
 
-							<div class="tab-pane fade" id="semianual">
+							<div class="tab-pane fade" id="semianuali">
 								<div class="form-group">
-									<select id="yearselectsemiservice" style="width: 100%">
+									<select id="yssemii" style="width: 100%">
 										 <option value=""></option>
-										 <?php foreach($serviceyears as $sy): ?>
-											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php foreach($inventoryyears as $sy): ?>
+											 <option value="<?=$sy->year?>"><?=$sy->year?></option>
 										 <?php endforeach; ?>
 									 </select>
 								</div>
-								<div class="ct-chart ct-golden-section" id="semiservices"></div>
+								<div class="ct-chart ct-golden-section" id="semiichart"></div>
 							</div>
 
-							<div class="tab-pane fade" id="anual">
-								<div class="ct-chart ct-golden-section" id="anualservices"></div>
+							<div class="tab-pane fade" id="anuali">
+								<div class="ct-chart ct-golden-section" id="anualichart"></div>
 							</div>
 
 						</div>
@@ -209,51 +208,34 @@
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
-							<li class="active"><a href="#monthlyp" data-toggle="tab">Monthly</a></li>
-							<li><a href="#quarterp" data-toggle="tab">Quarterly</a></li>
-							<li><a href="#semianualp" data-toggle="tab">Semi Annually</a></li>
-							<li><a href="#anualp" data-toggle="tab">Annually</a></li>
+							<li class="active"><a href="#quarterpie" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#semianualpie" data-toggle="tab">Semi Annually</a></li>
 						</ul>
 						<div class="tab-content">
 
-							<div class="tab-pane fade in active" id="monthlyp">
+
+							<div class="tab-pane fade in active" id="quarterpie">
 								<div class="form-group">
-									<select id="ysmonthlyp" style="width: 100%">
+									<select id="ysquarterpie" style="width: 100%">
 										 <option value=""></option>
-										 <?php foreach($purchaseyears as $sy): ?>
+										 <?php foreach($serviceyears as $sy): ?>
 											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
 										 <?php endforeach; ?>
 									 </select>
 								</div>
-								<div class="ct-chart ct-golden-section" id="monthlypchart"></div>
+								<div class="ct-chart ct-golden-section" id="quarterpiechart"></div>
 							</div>
 
-							<div class="tab-pane fade" id="quarterp">
+							<div class="tab-pane fade" id="semianualpie">
 								<div class="form-group">
-									<select id="ysquarterp" style="width: 100%">
+									<select id="yssemipie" style="width: 100%">
 										 <option value=""></option>
-										 <?php foreach($purchaseyears as $sy): ?>
+										 <?php foreach($serviceyears as $sy): ?>
 											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
 										 <?php endforeach; ?>
 									 </select>
 								</div>
-								<div class="ct-chart ct-golden-section" id="quarterpchart"></div>
-							</div>
-
-							<div class="tab-pane fade" id="semianualp">
-								<div class="form-group">
-									<select id="yssemip" style="width: 100%">
-										 <option value=""></option>
-										 <?php foreach($purchaseyears as $sy): ?>
-											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
-										 <?php endforeach; ?>
-									 </select>
-								</div>
-								<div class="ct-chart ct-golden-section" id="semipchart"></div>
-							</div>
-
-							<div class="tab-pane fade" id="anualp">
-								<div class="ct-chart ct-golden-section" id="anualpchart"></div>
+								<div class="ct-chart ct-golden-section" id="semipiechart"></div>
 							</div>
 
 						</div>
@@ -349,9 +331,9 @@
 								<div class="ct-chart ct-golden-section" id="semiexchart"></div>
 							</div>
 
-							<div class="tab-pane fade" id="anualp">
+							<div class="tab-pane fade" id="anualex">
 								<div class="form-group">
-									<select id="selectexsemi" name="table" style="width:100%">
+									<select id="selectexannual" name="table" style="width:100%">
 											<option value="other_expenses">Other expenses</option>
 											<option value="rent">Rent</option>
 											<option value="insurance">Insurance</option>
@@ -400,7 +382,10 @@
 
 <script src="<?=base_url();?>assets/vendor/chartist/chartist.min.js"></script>
 
+<script src="<?=base_url();?>assets/vendor/flot/jquery.flot.js"></script>
+<script src="<?=base_url();?>assets/vendor/flot/jquery.flot.pie.js"></script>
 
+<script src="<?=base_url();?>assets/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
 <!-- SweetAlert -->
 <script src="<?=base_url();?>assets/vendor/sweetalert/sweetalert.min.js"></script>
 
@@ -440,7 +425,7 @@
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
 	var danual = {
-		labels: [labelanuals],
+		labels: labelanuals,
 		series: [seriesanuals]
 	};
 	var options = {
@@ -484,6 +469,9 @@
 						seriesdata
 					]
 				};
+
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
+				console.log(seriesdata);
 				var options = {
 					seriesBarDistance: 10,
 					reverseData: true,
@@ -492,7 +480,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcmonthlyservices.detach();
@@ -519,6 +511,7 @@
 					seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].counted);
 				});
 
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
 				//New chart
 				var data = {
 					labels: ['Q1', 'Q2', 'Q3', 'Q4'],
@@ -534,7 +527,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcquarterservices.detach();
@@ -561,6 +558,7 @@
 					seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
 				});
 
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
 				//New chart
 				var data = {
 					labels: ['Jan - June', 'Jul - Dec'],
@@ -576,7 +574,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcsemiservices.detach();
@@ -613,7 +615,7 @@
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
 	var danual = {
-		labels: [labelanuals],
+		labels: labelanuals,
 		series: [seriesanuals]
 	};
 	var options = {
@@ -624,7 +626,11 @@
 			offset: 70
 		},
 		width: 600,
- 		height: 300
+ 		height: 300,
+		high: 5,
+		low: 0,
+	 scaleMinSpace: 20,
+	 onlyInteger: true
 	}
 
 	var bcmonthlyp = new Chartist.Bar('#monthlypchart', dmonthly, options);
@@ -657,6 +663,7 @@
 						seriesdata
 					]
 				};
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
 				var options = {
 					seriesBarDistance: 10,
 					reverseData: true,
@@ -665,7 +672,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcmonthlyservices.detach();
@@ -699,6 +710,7 @@
 						seriesdata
 					]
 				};
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
 				var options = {
 					seriesBarDistance: 10,
 					reverseData: true,
@@ -707,7 +719,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcquarterservices.detach();
@@ -741,6 +757,7 @@
 						seriesdata
 					]
 				};
+				var maxValueInArray = Math.max.apply(Math, seriesdata);
 				var options = {
 					seriesBarDistance: 10,
 					reverseData: true,
@@ -749,7 +766,11 @@
 						offset: 70
 					},
 					width: 600,
-			 		height: 300
+			 		height: 300,
+					high: maxValueInArray,
+					low: 0,
+				 scaleMinSpace: 20,
+				 onlyInteger: true
 				}
 
 				bcsemiservices.detach();
@@ -779,15 +800,10 @@
 	};
 	//Datas
 	//AnualData
-	var labelanuals = [];
-	var seriesanuals = [];
-	<?php foreach($serviceyears as $sy): ?>
-	labelanuals.push('<?=$sy->Annual?>');
-	seriesanuals.push(<?=$sy->counted?>);
-	<?php endforeach?>
+
 	var danual = {
-		labels: [labelanuals],
-		series: [seriesanuals]
+		labels: [],
+		series: [[]]
 	};
 	var options = {
 		seriesBarDistance: 10,
@@ -797,7 +813,11 @@
 			offset: 70
 		},
 		width: 600,
- 		height: 300
+ 		height: 300,
+		high: 5,
+		low: 0,
+	 scaleMinSpace: 20,
+	 onlyInteger: true
 	}
 
 	var bcmonthlyex = new Chartist.Bar('#monthlyexchart', dmonthly, options);
@@ -818,9 +838,9 @@ $('#selectexm').change(function() {
 		},
 		success: function(data) {
 			var data1 = JSON.parse(data);
+			$('#ysmonthlyex').append('<option value="">'+'</option>');
 			$.each(data1, function(index, value) {
 				$("#ysmonthlyex").attr("disabled", false);
-				$('#ysmonthlyex').append('<option value="">'+'</option>');
 				$('#ysmonthlyex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
 			});
 		}
@@ -853,6 +873,7 @@ $('#ysmonthlyex').change(function() {
 					seriesdata
 				]
 			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
 			var options = {
 				seriesBarDistance: 10,
 				reverseData: true,
@@ -861,7 +882,11 @@ $('#ysmonthlyex').change(function() {
 					offset: 70
 				},
 				width: 600,
-				height: 300
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
 			}
 
 			bcmonthlyex.detach();
@@ -884,9 +909,9 @@ $('#selectexq').change(function() {
 		},
 		success: function(data) {
 			var data1 = JSON.parse(data);
+			$('#ysquarterex').append('<option value="">'+'</option>');
 			$.each(data1, function(index, value) {
 				$("#ysquarterex").attr("disabled", false);
-				$('#ysquarterex').append('<option value="">'+'</option>');
 				$('#ysquarterex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
 			});
 		}
@@ -919,6 +944,7 @@ $('#ysquarterex').change(function() {
 					seriesdata
 				]
 			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
 			var options = {
 				seriesBarDistance: 10,
 				reverseData: true,
@@ -927,7 +953,11 @@ $('#ysquarterex').change(function() {
 					offset: 70
 				},
 				width: 600,
-				height: 300
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
 			}
 
 			bcquarterex.detach();
@@ -950,9 +980,9 @@ $('#selectexsemi').change(function() {
 		},
 		success: function(data) {
 			var data1 = JSON.parse(data);
+			$('#yssemiex').append('<option value="">'+'</option>');
 			$.each(data1, function(index, value) {
 				$("#yssemiex").attr("disabled", false);
-				$('#yssemiex').append('<option value="">'+'</option>');
 				$('#yssemiex').append('<option value="' + data1[index].Annual + '">' + data1[index].Annual + '</option>');
 			});
 		}
@@ -984,6 +1014,7 @@ $('#yssemiex').change(function() {
 					seriesdata
 				]
 			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
 			var options = {
 				seriesBarDistance: 10,
 				reverseData: true,
@@ -993,7 +1024,10 @@ $('#yssemiex').change(function() {
 				},
 				width: 600,
 				height: 300,
-				onlyInteger: true
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
 			}
 
 			bcsemiex.detach();
@@ -1003,8 +1037,375 @@ $('#yssemiex').change(function() {
 	});
 
 });
+
+$('#selectexannual').change(function() {
+	var table = this.value;
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/AnnualExpense',
+		data: {
+			'table': table
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			var labelanuals = [];
+			var seriesanuals = [];
+			$.each(data1, function(index, value) {
+				labelanuals.push(data1[index].Annual);
+				seriesanuals.push(data1[index].counted);
+			});
+			var danual = {
+				labels: labelanuals,
+				series: [seriesanuals]
+			};
+
+			var maxValueInArray = Math.max.apply(Math, seriesanuals);
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
+			}
+
+			bcanualex.detach();
+			bcanualex = new Chartist.Bar('#anualexchart', danual, options);
+			//Done new chart
+		}
+	});
+
+});
 </script>
 
+<!-- Inventory -->
+<script>
+//Datas
+	var dmonthly = {
+		labels: [],
+		series: [[]]
+	};
+  var dquarter = {
+    labels: [],
+    series: [[]]
+  };
+	var dsemi = {
+		labels: [],
+		series: [[]]
+	};
+	//Datas
+	//AnualData
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($inventoryyears as $sy): ?>
+	labelanuals.push(<?=$sy->year?>);
+	seriesanuals.push(<?=$sy->Quantity?>);
+	<?php endforeach?>
+	var danual = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	var options = {
+		seriesBarDistance: 10,
+		reverseData: true,
+		horizontalBars: true,
+		axisY: {
+			offset: 70
+		},
+		width: 600,
+ 		height: 300,
+		high: 5,
+		low: 0,
+	 scaleMinSpace: 20,
+	 onlyInteger: true
+	}
+
+	var bcmonthlyi = new Chartist.Bar('#monthlyichart', dmonthly, options);
+  var bcquarteri = new Chartist.Bar('#quarterichart', dquarter, options);
+  var bcsemii = new Chartist.Bar('#semiichart', dsemi, options);
+  var bcanuali = new Chartist.Bar('#anualichart', danual, options);
+</script>
+<script>
+$('#ysmonthlyi').change(function() {
+	var year = this.value;
+	var seriesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/MonthlyInventory',
+		data: {
+			'year': year
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].month - 1, 1, data1[index].Quantity);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				series: [
+					seriesdata
+				]
+			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
+			}
+			bcmonthlyi.detach();
+			bcmonthlyi = new Chartist.Bar('#monthlyichart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+
+$('#ysquarteri').change(function() {
+	var year = this.value;
+	var seriesdata = [0, 0, 0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/QuarterlyInventory',
+		data: {
+			'year': year
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].Quantity);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+				series: [
+					seriesdata
+				]
+			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
+			}
+
+			bcquarteri.detach();
+			bcquarteri = new Chartist.Bar('#quarterichart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+
+$('#yssemii').change(function() {
+	var year = this.value;
+	var seriesdata = [0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/SemiInventory',
+		data: {
+			'year': year
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].Quantity);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Jan - June', 'Jul - Dec'],
+				series: [
+					seriesdata
+				]
+			};
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
+			}
+
+			bcsemii.detach();
+			bcsemii = new Chartist.Bar('#semiichart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+</script>
+<!--Inventory-->
+
+<!-- pie chart revenue -->
+<script>
+var data = {
+  series: [0,0,0]
+};
+
+var sum = function(a, b) { return a + b };
+
+var quarterpiechart = new Chartist.Pie('#quarterpiechart', data, {
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+  },width: 600,height: 300
+});
+//Anual
+var data = {
+  series: [0,0,0]
+};
+
+var sum = function(a, b) { return a + b };
+
+var semipiechart = new Chartist.Pie('#semipiechart', data, {
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+  },width:600,height: 300
+});
+</script>
+
+<script>
+$('#ysquarterpie').change(function() {
+		var year = this.value;
+		var seriesdata = [];
+		var labeldata = [];
+		var newdata = [];
+		//alert(id);
+		$.ajax({
+			type: 'POST',
+			url: '<?=base_url();?>Accountant/QuarterlyRevenue',
+			data: {
+				'year': year
+			},
+			success: function(data) {
+				var data1 = JSON.parse(data);
+				$.each(data1, function(index, value) {
+					seriesdata.push(data1[index].sum);
+					labeldata.push('Q'+data1[index].Quarter+":"+data1[index].sum);
+				});
+				console.log(labeldata);
+				var data = {
+					labels: labeldata,
+				  series: seriesdata
+				};
+				var options = {
+				  labelInterpolationFnc: function(value) {
+				    return value[0]
+				  },width:600,height: 300
+
+				};
+				var responsiveOptions = [
+				  ['screen and (min-width: 640px)', {
+				    chartPadding: 30,
+				    labelOffset: 100,
+				    labelDirection: 'explode',
+				    labelInterpolationFnc: function(value) {
+				      return value;
+				    }
+				  }],
+				  ['screen and (min-width: 1024px)', {
+				    labelOffset: 80,
+				    chartPadding: 20
+				  }]
+				];
+				console.log(data);
+				var sum = function(a, b) { return a + b };
+				quarterpiechart.detach();
+				quarterpiechart = new Chartist.Pie('#quarterpiechart', data, options, responsiveOptions);
+			}
+		});
+});
+
+$('#yssemipie').change(function() {
+		var year = this.value;
+		var seriesdata = [];
+		var labeldata = [];
+		var newdata = [];
+		//alert(id);
+		$.ajax({
+			type: 'POST',
+			url: '<?=base_url();?>Accountant/SemiRevenue',
+			data: {
+				'year': year
+			},
+			success: function(data) {
+				var data1 = JSON.parse(data);
+				$.each(data1, function(index, value) {
+					seriesdata.push(data1[index].sum);
+					var quarter = parseInt(data1[index].Semi);
+					var final = quarter+1;
+					labeldata.push('Q'+final+":"+data1[index].sum);
+				});
+				console.log(labeldata);
+				var data = {
+					labels: labeldata,
+				  series: seriesdata
+				};
+				var options = {
+				  labelInterpolationFnc: function(value) {
+				    return value[0]
+				  },width:600,height: 300
+				};
+				var responsiveOptions = [
+				  ['screen and (min-width: 640px)', {
+				    chartPadding: 30,
+				    labelOffset: 100,
+				    labelDirection: 'explode',
+				    labelInterpolationFnc: function(value) {
+				      return value;
+				    }
+				  }],
+				  ['screen and (min-width: 1024px)', {
+				    labelOffset: 80,
+				    chartPadding: 20
+				  }]
+				];
+				console.log(data);
+				var sum = function(a, b) { return a + b };
+				semipiechart.detach();
+				semipiechart = new Chartist.Pie('#semipiechart', data, options, responsiveOptions);
+			}
+		});
+});
+</script>
+<!-- pie chart -->
 
 </body>
 

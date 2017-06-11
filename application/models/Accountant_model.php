@@ -559,5 +559,132 @@ class Accountant_model extends CI_Model
 
 	}
 
+	//Inventory Reports
+
+	function MonthlyInventory($year)
+	{
+
+			$group = "Month(service_invoice.TransactionDate)";
+			$select = "sum(service_invoice_item.Quantity) as Quantity,  Month(service_invoice.TransactionDate) as month";
+			$from = "service_invoice_item, service_invoice";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+			$where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from($from);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function QuarterlyInventory($year)
+	{
+
+			$group = "Quarter(service_invoice.TransactionDate)";
+			$select = "sum(service_invoice_item.Quantity) as Quantity,  Quarter(service_invoice.TransactionDate) as month";
+			$from = "service_invoice_item, service_invoice";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+			$where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from($from);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function SemiInventory($year)
+	{
+
+			$group = "Month(service_invoice.TransactionDate)>6";
+			$select = "sum(service_invoice_item.Quantity) as Quantity,  Month(service_invoice.TransactionDate)>6 as month";
+			$from = "service_invoice_item, service_invoice";
+
+
+			$where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from($from);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function AnnualInventory()
+	{
+
+			$group = "Year(service_invoice.TransactionDate)";
+			$select = "sum(service_invoice_item.Quantity) as Quantity,  Year(service_invoice.TransactionDate) as year";
+			$from = "service_invoice_item, service_invoice";
+
+
+			$where = "service_invoice_item.SO_ID = service_invoice.ServiceID";
+
+
+			$this->db->select($select);
+			$this->db->from($from);
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+
+	//Revenue
+	function QuarterlyRevenue($year)
+	{
+
+			$group = "Quarter(TransactionDate)";
+			$select = "Quarter(TransactionDate) as Quarter, sum(total) as sum";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function SemiRevenue($year)
+	{
+
+			$group = "Month(TransactionDate)>6";
+			$select = "Month(TransactionDate)>6 as Semi, sum(total) as sum";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
 
 }
