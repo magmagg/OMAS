@@ -24,9 +24,13 @@
         function soldList()
         {
             $where = "service_invoice_item.POI_ItemID = purchasing_order_item.ItemID ";
-            $this->db->select('purchasing_order_item.ItemName AS itemName, purchasing_order_item.ItemDesc AS itemDesc, purchasing_order_item.UnitPrice AS itemPrice, service_invoice_item.Quantity AS Quantity ');
+
+            $group = "purchasing_order_item.ItemName";
+
+            $this->db->select('purchasing_order_item.ItemName AS itemName, purchasing_order_item.ItemDesc AS itemDesc, purchasing_order_item.UnitPrice AS itemPrice, sum(service_invoice_item.Quantity) AS Quantity ');
             $this->db->from('purchasing_order_item,service_invoice_item ');
             $this->db->where($where);
+            $this->db->group_by($group);
             $query = $this->db->get();
             return $query->result_array();
         }
@@ -528,7 +532,118 @@ YEAR(service_invoice.TransactionDate) = 2017";
 
         }
 
+        //Expense Reports
 
+        function MonthlyExpense($year,$expense)
+        {
+
+            $group = "Month(date_created)";
+            $select = "Month(date_created) as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyExpense($year,$expense)
+        {
+
+            $group = "Quarter(date_created)";
+            $select = "Quarter(date_created) as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiExpense($year,$expense)
+        {
+
+            $group = "Month(date_created)>6";
+            $select = "Month(date_created)>6 as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualExpense($year,$expense)
+        {
+
+            $group = "Year(date_created)";
+            $select = "Year(date_created) as year, sum(value) as counted";
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        //Revenue Reports
+
+        function QuarterlyRevenue($year)
+        {
+
+            $group = "Quarter(TransactionDate)";
+            $select = "sum(total) as total, Quarter(TransactionDate) quarter";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiRevenue($year)
+        {
+
+            $group = "Month(TransactionDate)>6";
+            $select = "Month(TransactionDate)>6 as month, sum(total) as total";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
 
 	}
 ?>

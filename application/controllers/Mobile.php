@@ -503,6 +503,62 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//Expenses Reports
+
+	function expenseMonthly()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseSemi()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['semi'] = $this->Model_Mobile->SemiExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseAnnual()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['annual'] = $this->Model_Mobile->AnnualExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	//Revenue Reports
+
+	function revenueQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyRevenue($year);
+		echo json_encode($data);
+	}
+
+	function revenueSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiRevenue($year);
+		echo json_encode($data);
+	}
+
     
 }
 
