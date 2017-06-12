@@ -254,7 +254,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Purchase
+						Expenses
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
@@ -268,6 +268,7 @@
 							<div class="tab-pane fade in active" id="monthlyex">
 								<div class="form-group">
 									<select id="selectexm" name="table" style="width:100%">
+											<option value=""></option>
 											<option value="other_expenses">Other expenses</option>
 											<option value="rent">Rent</option>
 											<option value="insurance">Insurance</option>
@@ -282,6 +283,7 @@
 											<option value="utilities">Utilitiy</option>
 									</select>
 									<select id="ysmonthlyex" style="width: 100%" disabled>
+										<option value=""></option>
 									 </select>
 								</div>
 								<div class="ct-chart ct-golden-section" id="monthlyexchart"></div>
@@ -290,6 +292,7 @@
 							<div class="tab-pane fade" id="quarterex">
 								<div class="form-group">
 									<select id="selectexq" name="table" style="width:100%">
+											<option value=""></option>
 											<option value="other_expenses">Other expenses</option>
 											<option value="rent">Rent</option>
 											<option value="insurance">Insurance</option>
@@ -304,6 +307,7 @@
 											<option value="utilities">Utilitiy</option>
 									</select>
 									<select id="ysquarterex" style="width: 100%" disabled>
+										<option value=""></option>
 									 </select>
 								</div>
 								<div class="ct-chart ct-golden-section" id="quarterexchart"></div>
@@ -312,6 +316,7 @@
 							<div class="tab-pane fade" id="semianualex">
 								<div class="form-group">
 									<select id="selectexsemi" name="table" style="width:100%">
+											<option value=""></option>
 											<option value="other_expenses">Other expenses</option>
 											<option value="rent">Rent</option>
 											<option value="insurance">Insurance</option>
@@ -326,6 +331,7 @@
 											<option value="utilities">Utilitiy</option>
 									</select>
 									<select id="yssemiex" style="width: 100%" disabled>
+										<option value=""></option>
 									 </select>
 								</div>
 								<div class="ct-chart ct-golden-section" id="semiexchart"></div>
@@ -334,6 +340,7 @@
 							<div class="tab-pane fade" id="anualex">
 								<div class="form-group">
 									<select id="selectexannual" name="table" style="width:100%">
+											<option value=""></option>
 											<option value="other_expenses">Other expenses</option>
 											<option value="rent">Rent</option>
 											<option value="insurance">Insurance</option>
@@ -396,9 +403,63 @@
 <!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
 
 <script>
-	$("#yearselectmonthlyservice").select2({
-		placeholder: "Select a supplier"
-	});
+$("#yearselectmonthlyservice").select2({
+	placeholder: "Select year"
+});
+$("#yearselectquarterservice").select2({
+	placeholder: "Select year"
+});
+$("#yearselectsemiservice").select2({
+	placeholder: "Select year"
+});
+$("#ysmonthlyp").select2({
+	placeholder: "Select year"
+});
+$("#ysquarterp").select2({
+	placeholder: "Select year"
+});
+$("#yssemip").select2({
+	placeholder: "Select year"
+});
+$("#ysmonthlyi").select2({
+	placeholder: "Select year"
+});
+$("#ysquarteri").select2({
+	placeholder: "Select year"
+});
+$("#yssemii").select2({
+	placeholder: "Select year"
+});
+$("#ysquarterpie").select2({
+	placeholder: "Select year"
+});
+$("#yssemipie").select2({
+	placeholder: "Select year"
+});
+
+$("#selectexm").select2({
+	placeholder: "Select Expense"
+});
+$("#selectexq").select2({
+	placeholder: "Select Expense"
+});
+$("#selectexsemi").select2({
+	placeholder: "Select Expense"
+});
+$("#selectexannual").select2({
+	placeholder: "Select Expense"
+});
+
+$("#ysmonthlyex").select2({
+	placeholder: "Select expense first, then year"
+});
+$("#ysquarterex").select2({
+	placeholder: "Select expense first, then year"
+});
+$("#yssemiex").select2({
+	placeholder: "Select expense first, then year"
+});
+
 </script>
 
 <!-- Services -->
@@ -829,7 +890,7 @@
 <script>
 $('#selectexm').change(function() {
 	var table = this.value;
-	$("#ysmonthex").html('');
+	$('#ysmonthlyex').empty();
 	$.ajax({
 		type: 'POST',
 		url: '<?=base_url();?>Accountant/YearExpense',
@@ -900,7 +961,7 @@ $('#ysmonthlyex').change(function() {
 //Quarter
 $('#selectexq').change(function() {
 	var table = this.value;
-	$("#ysquarterex").html('');
+	$('#ysquarterex').empty();
 	$.ajax({
 		type: 'POST',
 		url: '<?=base_url();?>Accountant/YearExpense',
@@ -971,7 +1032,7 @@ $('#ysquarterex').change(function() {
 //Semi
 $('#selectexsemi').change(function() {
 	var table = this.value;
-	$("#yssemiex").html('');
+	$('#yssemiex').empty();
 	$.ajax({
 		type: 'POST',
 		url: '<?=base_url();?>Accountant/YearExpense',
@@ -1277,7 +1338,7 @@ $('#yssemii').change(function() {
 <!-- pie chart revenue -->
 <script>
 var data = {
-  series: [0,0,0]
+  series: [1,1,1]
 };
 
 var sum = function(a, b) { return a + b };
@@ -1289,7 +1350,7 @@ var quarterpiechart = new Chartist.Pie('#quarterpiechart', data, {
 });
 //Anual
 var data = {
-  series: [0,0,0]
+  series: [1,1,1]
 };
 
 var sum = function(a, b) { return a + b };
@@ -1373,7 +1434,6 @@ $('#yssemipie').change(function() {
 					var final = quarter+1;
 					labeldata.push('Q'+final+":"+data1[index].sum);
 				});
-				console.log(labeldata);
 				var data = {
 					labels: labeldata,
 				  series: seriesdata
@@ -1397,10 +1457,9 @@ $('#yssemipie').change(function() {
 				    chartPadding: 20
 				  }]
 				];
-				console.log(data);
-				var sum = function(a, b) { return a + b };
 				semipiechart.detach();
 				semipiechart = new Chartist.Pie('#semipiechart', data, options, responsiveOptions);
+
 			}
 		});
 });

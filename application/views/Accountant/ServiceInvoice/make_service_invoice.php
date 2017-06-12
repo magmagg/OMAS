@@ -17,7 +17,7 @@
 						<div class="col-lg-12">
 							<?= $this->session->flashdata('success'); ?>
 								<?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-								
+
 								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
 									<div class="form-group">
 										<label>Customer</label>
@@ -35,11 +35,11 @@
 										<div class="row" id="itemsrow">
 											<div class="form-group col-lg-3" id="serviceform">
 												<label class="myformlabel">Service</label>
-												<input class="form-control servicefield" name="service[]" id="service" placeholder="Enter service">
+												<input class="form-control servicefield" name="service[]" id="service" placeholder="Enter service" required>
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Unit price</label>
-												<input class="form-control unitpricefield" name="serviceunitprice[]" id="unitprice" type="number" placeholder="Price">
+												<input class="form-control unitpricefield" name="serviceunitprice[]" id="unitprice" type="number" placeholder="Price" required>
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Quantity</label>
@@ -88,10 +88,20 @@
 <!-- Select2 Javascript -->
 <!-- <script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script> -->
 
-<!-- Custom Theme JavaScript -->
-<!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
 
+<script src="<?=base_url();?>assets/vendor/select2/select2.full.min.js"></script>
+<div id="itemsdd">
+	<div class="form-group col-lg-3" id="itemsddd">
+	<select class="form-control items" placeholder="Item" id="" name="items[]" style="width: 100%" onchange="changeminmax(this)">
+		<option value="">Please select</option>
+				<?php foreach($items as $i): ?>
+					<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
+				<?php endforeach; ?>
+		</select>
+	</div>
+</div>
 <script>
+$("#itemsdd").hide();
 	//var items = <?php echo json_encode($items); ?>;
 	$("#customerselect").select2({
 		placeholder: "Select a customer"
@@ -171,15 +181,6 @@
 	});
 </script>
 
-<div class="form-group col-lg-3" id="itemsdd">
-	<select class="form-control items" placeholder="Item" id="" name="items[]" style="width: 100%">
-		<option value="">Please select</option>
-				<?php foreach($items as $i): ?>
-					<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
-				<?php endforeach; ?>
-		</select>
-</div>
-
 <script>
 	var id = 1;
 	$("#addservice").click(function() {
@@ -206,15 +207,47 @@
     clone.find("#quantity").attr("id","quantity"+id).attr("name", "quantity[]");
     clone.find("#unitprice").attr("id","unitprice"+id).attr("name", "unitprice[]");
     clone.find("#total").attr("id","total"+id);
-		var itemsclone = $('#itemsdd').clone(true);
-		itemsclone.find('.items').attr("id","items"+id);
+
+		var orig = $("#itemsdd").find("#itemsddd");
+		var cloned = $(orig).clone().show();
+		cloned.find('.items').attr("id","items"+id);
+
+		//var itemsclone = $('#itemsdd').clone(true);
+		//itemsclone.find('.items').attr("id","items"+id);
     id++;
-    $(clone).prepend(itemsclone);
+    $(clone).prepend(cloned);
     $("#append").append(clone);
   });
 </script>
+<script>
+function changeminmax(sel)
+{
+	var itemid = sel.value;
+	var selectid = sel.id;
+	var selectidnumber = selectid[selectid.length -1];
+	$("#quantity"+selectidnumber).attr({
+       "max" : 10,        // substitute your own
+       "min" : 1          // values (or variables) here
+    });
 
-
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/get_max_item_value',
+		data: {
+			'itemid': itemid
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			console.log(data1[0].quantity);
+			$("#quantity"+selectidnumber).val(1);
+			$("#quantity"+selectidnumber).attr({
+					 "max" : data1[0].quantity,        // substitute your own
+					 "min" : 1          // values (or variables) here
+				});
+		}
+	});
+}
+</script>
 
 
 </body>

@@ -7,11 +7,12 @@ class Admin extends CI_Controller
 	{
     parent::__construct();
     $this->load->model('Admin_model');
+		$this->load->model('Accountant_model');
   }
 
   function index()
   {
-		$this->load->view('Admin/header');
+		$this->load->view('Admin/header1');
 		$this->load->view('Admin/index');
   }
 

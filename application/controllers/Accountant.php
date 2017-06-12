@@ -8,6 +8,7 @@ class Accountant extends CI_Controller
     parent::__construct();
 
     $this->load->model('Accountant_model');
+    $this->load->model('Admin_model');
   }
 
   function index()
@@ -386,11 +387,26 @@ class Accountant extends CI_Controller
     }
 
     //Insert data now
-    $data = array('Total'=>$total,
-                  'Accountant_UserID'=>$this->session->userdata('AccountantID'),
-                  'Supplier_SupplierID'=>$this->input->post('supplierid'),
-                  'Administrator_AdminID'=>1);
-    $PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+		//Admin is logged in
+		if($this->session->userdata('logged_in_admin') == true)
+		{
+			$data = array('Total'=>$total,
+	                  'Accountant_UserID'=>$this->session->userdata('AccountantID'),
+	                  'Supplier_SupplierID'=>$this->input->post('supplierid'),
+	                  'Administrator_AdminID'=>$this->session->userdata('AccountantID'),
+										'Status'=>1);
+	    $PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+
+		}
+		else
+		{
+			$data = array('Total'=>$total,
+										'Accountant_UserID'=>$this->session->userdata('AccountantID'),
+										'Supplier_SupplierID'=>$this->input->post('supplierid'),
+										'Administrator_AdminID'=>1);
+			$PurchaseID = $this->Accountant_model->insert_purchase_order($data);
+
+		}
 
     foreach($use['items'] as $key=>$value)
     {
@@ -406,7 +422,14 @@ class Accountant extends CI_Controller
 
 	function view_purchase_orders()
 	{
-		$data['purchaseorders'] = $this->Accountant_model->get_purchase_orders_byuser($this->session->userdata('AccountantID'));
+		if($this->session->userdata('logged_in_admin') == true)
+		{
+			$data['purchaseorders'] = $this->Admin_model->get_purchase_orders();
+		}
+		else
+		{
+			$data['purchaseorders'] = $this->Accountant_model->get_purchase_orders_byuser($this->session->userdata('AccountantID'));
+		}
 		$data['suppliers'] = $this->Accountant_model->get_suppliers();
 		$this->load->view('Accountant/header');
     $this->load->view('Accountant/PurchaseOrder/sub_menu');
@@ -511,7 +534,14 @@ class Accountant extends CI_Controller
 
   function view_service_invoices()
   {
-    $data['serviceinvoices'] = $this->Accountant_model->get_service_invoice_byuser($this->session->userdata('AccountantID'));
+		if($this->session->userdata('logged_in_admin') == true)
+		{
+			$data['serviceinvoices'] = $this->Admin_model->get_service_invoices();
+		}
+		else
+		{
+			$data['serviceinvoices'] = $this->Accountant_model->get_service_invoice_byuser($this->session->userdata('AccountantID'));
+		}
     $data['customers'] = $this->Accountant_model->get_customers();
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/ServiceInvoice/sub_menu');
@@ -546,6 +576,12 @@ class Accountant extends CI_Controller
     $this->load->view('Accountant/ServiceInvoice/sub_menu');
     $this->load->view('Accountant/ServiceInvoice/view_service_invoice_one',$data);
   }
+
+	function get_max_item_value()
+	{
+		$itemid = $this->input->post('itemid');
+		echo json_encode($this->Accountant_model->get_max_item_value($itemid));
+	}
 
 	//Utilities
 	function view_utilities()

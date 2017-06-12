@@ -54,7 +54,7 @@ class Login extends CI_Controller
 					$data['admin'] = $this->Login_model->get_admin_details($adminID);
 					foreach($data['admin'] as $a)
 					{
-						$sessiondata = array('AdminID'=>$a->AdminID,
+						$sessiondata = array('AccountantID'=>$a->AdminID,
 																'username'=>$a->username,
 																'email'=>$a->email,
 																'create_time'=>$a->create_time,

@@ -205,6 +205,15 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+	function get_max_item_value($itemid)
+	{
+		$this->db->select('quantity');
+		$this->db->from('purchasing_order_item');
+		$this->db->where('itemid',$itemid);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	//Utilities
 	function submit_make_utilities($data)
 	{

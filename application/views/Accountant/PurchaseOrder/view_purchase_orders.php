@@ -53,7 +53,11 @@
                               <?php endif;?>
                             </td>
                             <td>
+                              <?php if($this->session->userdata('logged_in_admin') == true):?>
+                              <a href="<?=base_url().'Admin/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <?php else:?>
                               <a href="<?=base_url().'Accountant/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <?php endif; ?>
                             </td>
                         </tr>
                       <?php $num++; ?>
