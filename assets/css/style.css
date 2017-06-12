@@ -325,3 +325,7 @@ body.login-pg{
 table {
 	font-family: Montserrat-light;
 }
+
+i {
+	text-decoration: none;
+}

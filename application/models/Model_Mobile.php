@@ -58,6 +58,13 @@
             return $query->result_array();
         }
 
+        function purchase_invoice()
+        {   
+            $this->db->select("PurchaseID");
+            $this->db->where("Status",1);
+            return $this->db->get('purchasing_order')->result_array();
+        }
+
         function utilitiesList()
         {
             $this->db->select('*');
@@ -66,7 +73,7 @@
             return $query->result_array();
         }
 
-       /* function addPO($id,$total,$supplier,$item,$quantity,$price)
+       function addPO($id,$total,$supplier,$item,$quantity,$price)
         {
               //purchasing_order table
              $purchase_data = array
@@ -75,22 +82,32 @@
                 'Total' => $total,
                 'Supplier_SupplierID' => $supplier
              );
+        }
 
-             $this->db->insert('purchasing_order',$purchase_data);
-             $insert_id = $this->db->insert_id();
+        function getNextInvoiceNum()
+        {
+            return $this->db->select('*')->order_by('ServiceID',"desc")->limit(1)->get('service_invoice')->result_array();
+        }
 
-             //purchasing_order_items table
-            $item_data = array
-            (
-                'ItemName' => $item,
-                'Quantity' => $quantity,
-                'UnitPrice' => $price,
-                'PO_ID' => $insert_id
-            );
+         function getNextPurchaseNum()
+        {
+            return $this->db->select('*')->order_by('PurchaseID',"desc")->limit(1)->get('purchasing_order')->result_array();
+        }
 
-            $this->db->insert('purchasing_order_item', $item_data);
 
-        }*/
+        function purchase_items($poId)
+        {   
+           
+             $this->db->where_in("PO_ID",$poId);
+
+            return $this->db->get('purchasing_order_item')->result_array();
+        }
+
+        function getPurchaseItemDetails($id)
+        {
+            $this->db->where('ItemID',$id);
+            return $this->db->get('purchasing_order_item')->result_array();
+        }
 
             //Purchase orders
         function insert_purchase_order($data)
@@ -514,5 +531,4 @@ YEAR(service_invoice.TransactionDate) = 2017";
 
 
 	}
-
 ?>
