@@ -32,6 +32,7 @@
     <!-- Custom CSS -->
   <!--   <link href="<?=base_url();?>assets/dist/css/sb-admin-2.css" rel="stylesheet"> -->
     <link href="<?=base_url();?>assets/css/customize-template.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url();?>assets/vendor/chartist/chartist.min.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
 
@@ -113,12 +114,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="<?=base_url();?>Accountant/reports" id="menu_reports">
                                         <i class="icon-bar-chart icon-large"></i> Reports
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?=base_url();?>Accountant/view_utilities" id="menu_utilities">
+                                    <a href="<?=base_url();?>Accountant/view_other_expenses" id="menu_utilities">
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
