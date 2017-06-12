@@ -52,6 +52,7 @@ class Admin extends CI_Controller
 		if ($this->form_validation->run() == FALSE)
 		{
 				$this->load->view('Admin/header');
+				$this->load->view('Admin/Accountants/sub_menu');
 				$this->load->view('Admin/accountants/add_accountant');
 				$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
 		}
@@ -72,6 +73,7 @@ class Admin extends CI_Controller
 	{
 		$data['accountants'] = $this->Admin_model->get_accountants();
 		$this->load->view('Admin/header');
+		$this->load->view('Admin/Accountants/sub_menu');
 		$this->load->view('Admin/Accountants/view_accountants',$data);
 	}
 

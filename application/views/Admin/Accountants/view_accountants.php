@@ -1,7 +1,7 @@
-<div id="page-wrapper">
+<section class="sec-content">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Accountants</h1>
+            <h1 class="page-header">Users</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -10,7 +10,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                All accountants
+                All users
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -45,7 +45,7 @@
     </div>
     <!-- /.col-lg-12 -->
   </div>
-</div>
+</section>
 <!-- /#page-wrapper -->
 
 </div>
