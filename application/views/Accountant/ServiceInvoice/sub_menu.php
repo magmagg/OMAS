@@ -11,7 +11,7 @@
         <div class="page-nav-options">
            
             <ul class="nav nav-tabs pull-right">
-                <li><a href="#" class="parent">Estimates</a></li>
+              <!--   <li><a href="#" class="parent">Estimates</a></li> -->
                 <li class="dropdown">
                   <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">Invoices
                     <i class="caret"></i></a>

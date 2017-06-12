@@ -123,14 +123,15 @@
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-cogs icon-large"></i> Settings
-                                    </a>
-                                </li>
+                              
                                 <li>
                                     <a href="<?=base_url();?>Admin/view_accountants">
-                                        <i class="icon-cogs icon-large"></i> Accountants
+                                        <i class="icon-user icon-large"></i> Users
+                                    </a>
+                                </li>
+                                  <li>
+                                    <a href="#">
+                                        <i class="icon-cogs icon-large"></i> Settings
                                     </a>
                                 </li>
                             </ul>

@@ -2,7 +2,7 @@
 
 
     <section class="sec-content">
-    <h1>Hi Shana Stevenson</h1>
+    <h1>Hi <?php echo  $this->session->userdata("username"); ?></h1>
     <h1>How would you like to start?</h1>
     <br>
     <div class="row">

@@ -123,19 +123,20 @@
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
+                             
+                                <?php if($this->session->userdata('logged_in_admin') == true): ?>
+                                  <li>
+                                      <a href="<?=base_url();?>Admin/view_accountants" id="menu_users">
+                                          <i class="icon-user icon-large"></i> Users
+                                      </a>
+                                  </li>
+                                <?php else: ?>
+                                <?php endif; ?>
                                 <li>
                                     <a href="#">
                                         <i class="icon-cogs icon-large"></i> Settings
                                     </a>
                                 </li>
-                                <?php if($this->session->userdata('logged_in_admin') == true): ?>
-                                  <li>
-                                      <a href="<?=base_url();?>Admin/view_accountants">
-                                          <i class="icon-cogs icon-large"></i> Accountants
-                                      </a>
-                                  </li>
-                                <?php else: ?>
-                                <?php endif; ?>
                             </ul>
                         </div>
                     </div>

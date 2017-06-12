@@ -1,7 +1,7 @@
-<div id="page-wrapper">
+<section class="sec-content">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Add Customer</h1>
+            <h1 class="page-header">Add User</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -10,7 +10,7 @@
 <div class="col-lg-12">
  <div class="panel panel-default">
      <div class="panel-heading">
-         Basic Form Elements
+        Fill Out Form To Create User
      </div>
      <div class="panel-body">
          <div class="row">
@@ -52,7 +52,7 @@
 <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-</div>
+</section>
 <!-- /#page-wrapper -->
 
 </div>
