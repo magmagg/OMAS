@@ -14,10 +14,10 @@
 	 </div>
 	 <!-- /.row -->
 	 <div class="row">
-		 <div class="col-xs-2 col-md-2">
+		 <div class="col-xs-3 col-md-3">
       </div>
-      <div class="col-xs-8 col-md-8">
-				<table style="width:100%" border="1px">
+      <div class="col-xs-6 col-md-6">
+				<table style="width:100%">
 			  <tr>
 			    <td>Assets</td>
 					<td></td>
@@ -90,10 +90,65 @@
 					<td></td>
 					<td><?=number_format($total_equity)?></td>
 				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Total liabilities</td>
+					<td></td>
+					<td><?=number_format($total_liabilities)?></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Total Owners Equity</td>
+					<td></td>
+					<td><?=number_format($total_equity)?></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><?=number_format($total_equity+$total_liabilities)?></td>
+				</tr>
+				<tr>
+					<td>Total Assets</td>
+					<td></td>
+					<td><?=number_format($total_assets)?></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Liabilities + Owners Equity</td>
+					<td></td>
+					<td><?=number_format($total_equity+$total_liabilities)?></td>
+					<td></td>
+				</tr>
 
+				<?php $total = $total_equity + $total_liabilities; ?>
+				<tr>
+					<td>Total</td>
+					<td></td>
+					<td></td>
+					<td><?=$total - $total_assets?></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<?php if($total == $total_assets):?>
+							<td>Balanced</td>
+					<?php elseif($total > $total_assets):?>
+							<td>Greater liabilities</td>
+					<?php elseif($total < $total_assets):?>
+							<td>Greater Assets</td>
+					<?php endif; ?>
+				</tr>
 			</table>
       </div>
-			<div class="col-xs-2 col-md-2 text-right">
+			<div class="col-xs-3 col-md-3 text-right">
 
 </div>
 
