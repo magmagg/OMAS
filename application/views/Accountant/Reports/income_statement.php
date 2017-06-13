@@ -58,8 +58,8 @@
 
 						 <div class="form-group" id="picksemi">
 							 <select id="semipicker">
-							 <option value="0">1st half</option>
-							 <option value="1">2nd half</option>
+							 <option value="1">1st half</option>
+							 <option value="2">2nd half</option>
 							 </select>
 						 </div>
 

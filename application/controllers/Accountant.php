@@ -1461,7 +1461,7 @@ class Accountant extends CI_Controller
     {
         $totalexpenses += $u['Total'];
     }
-    $data['totalexpense'] = $totalexpenses;
+    $data['totalexpense'] = array('totalexpenses'=>$totalexpenses);
 
     echo json_encode($data);
 
