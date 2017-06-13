@@ -9,20 +9,15 @@
             </header>
         </div>
         <div class="page-nav-options">
-           
+
             <ul class="nav nav-tabs pull-right">
               <!--   <li><a href="#" class="parent">Estimates</a></li> -->
-                <li class="dropdown">
-                  <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">Users
-                    <i class="caret"></i></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="<?=base_url();?>Admin/view_accountants">View Users</a></li>
-                      <li><a href="<?=base_url();?>Admin/add_accountant">Create Users</a></li>
-                    </ul>
-                </li>
-                  
+              <li><a href="<?=base_url();?>Admin/view_accountants" class="parent">View Users</a></li>
+
+                      <li><a href="<?=base_url();?>Admin/add_accountant" class="parent">Create Users</a></li>
+
             </ul>
-               
+
             </div>
         </div>
     </div>
