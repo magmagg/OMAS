@@ -16,32 +16,33 @@
 				</div>
 					<div class="panel-body">
 						<div id="assetsappend">
-							<?php foreach($assets as $a): ?>
 							<div class="row">
-									<div class="form-group col-lg-6">
-										<?php if($count == 1): ?>
-										<label class="myformlabel">Name</label>
-										<?php endif; ?>
-										<input class="form-control" value="<?=$a->asset_name?>" readonly>
-									</div>
-									<div class="form-group col-lg-6">
-										<?php if($count == 1): ?>
-										<label class="myformlabel">Value</label>
-										<?php endif; ?>
-										<input class="form-control" value="₱ <?=number_format($a->asset_value)?>" readonly>
-									</div>
-							</div>
-							<div class="row" id="assetsrow">
 								<div class="col-lg-12">
+									<?php $count = 1; ?>
+									<?php foreach($assets as $a): ?>
+											<div class="form-group col-lg-6">
+												<?php if($count == 1): ?>
+												<label class="myformlabel">Name</label>
+												<?php endif; ?>
+												<input class="form-control" value="<?=$a->asset_name?>" readonly>
+											</div>
+											<div class="form-group col-lg-6">
+												<?php if($count == 1): ?>
+												<label class="myformlabel">Value</label>
+												<?php endif; ?>
+												<input class="form-control" value="₱ <?=number_format($a->asset_value)?>" readonly>
+											</div>
+									<?php $count++; ?>
+									<?php endforeach; ?>
+									<div class="row" id="assetsrow">
 										<div class="form-group col-lg-6">
-											<label class="myformlabel">Name</label>
 											<input class="form-control" name="assetname[]" placeholder="Enter asset" required>
 										</div>
 										<div class="form-group col-lg-6">
-											<label class="myformlabel">Value</label>
 											<input class="form-control" name="assetvalue[]" type="number" placeholder="Enter Value" required>
 										</div>
 									</div>
+								</div>
 							</div>
 						</div>
 						<div class="row">
