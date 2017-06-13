@@ -10,7 +10,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Service invoice
+					Service invoice, Sales Count
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills">
@@ -73,7 +73,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Purchase
+					Purchase reports, Procurement count
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills">
@@ -142,7 +142,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Inventory
+						Inventory, Used items from inventory
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
@@ -671,8 +671,8 @@ $("#yssemiex").select2({
 	//AnualData
 	var labelanuals = [];
 	var seriesanuals = [];
-	<?php foreach($serviceyears as $sy): ?>
-	labelanuals.push('<?=$sy->Annual?>');
+	<?php foreach($purchaseyears as $sy): ?>
+	labelanuals.push(<?=$sy->Annual?>);
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
 	var danual = {
@@ -688,7 +688,6 @@ $("#yssemiex").select2({
 		},
 		width: 600,
  		height: 300,
-		high: 5,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
@@ -807,8 +806,9 @@ $("#yssemiex").select2({
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
+				console.log(data1);
 				$.each(data1, function(index, value) {
-					seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
+					seriesdata.splice(data1[index].Semi, 1, data1[index].counted);
 				});
 
 				//New chart
@@ -1065,7 +1065,7 @@ $('#yssemiex').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
+				seriesdata.splice(data1[index].Semi, 1, data1[index].counted);
 			});
 
 			//New chart
@@ -1181,7 +1181,6 @@ $('#selectexannual').change(function() {
 		},
 		width: 600,
  		height: 300,
-		high: 5,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
@@ -1216,6 +1215,7 @@ $('#ysmonthlyi').change(function() {
 					seriesdata
 				]
 			};
+			console.log(seriesdata);
 			var maxValueInArray = Math.max.apply(Math, seriesdata);
 			var options = {
 				seriesBarDistance: 10,
@@ -1252,9 +1252,9 @@ $('#ysquarteri').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].Quantity);
-			});
+				seriesdata.splice(data1[index].month - 1, 1, data1[index].Quantity);
 
+			});
 			//New chart
 			var data = {
 				labels: ['Q1', 'Q2', 'Q3', 'Q4'],
@@ -1299,7 +1299,7 @@ $('#yssemii').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].Quantity);
+				seriesdata.splice(data1[index].month, 1, data1[index].Quantity);
 			});
 
 			//New chart

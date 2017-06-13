@@ -520,6 +520,15 @@ class Accountant extends CI_Controller
                     'Quantity'=>$use['quantity'][$key],
                     'SO_ID'=>$ServiceID);
       $this->Accountant_model->insert_service_invoice_item($data);
+
+      $use['itemquant'] = $this->Accountant_model->get_quantity_by_itemid($value);
+      foreach($use['itemquant'] as $q)
+      {
+        $origquant = $q->Quantity;
+      }
+      $newquant = $origquant - $use['quantity'][$key];
+      $data = array('Quantity'=>$newquant);
+      $this->Accountant_model->subtract_quantity($data,$value);
     }
 
 		foreach($use['service'] as $key=>$value)
@@ -1184,7 +1193,7 @@ class Accountant extends CI_Controller
 
       $this->Accountant_model->submit_update_expense($data,$id,$idname,$table);
     }
-    redirect(base_url().'Accountant/view_other_expenses', 'refresh');
+    redirect(base_url().'Accountant/view_one_expense/'.$table.'/'.$id, 'refresh');
   }
 
   //Reports
@@ -1283,7 +1292,7 @@ class Accountant extends CI_Controller
 		echo json_encode($this->Accountant_model->AnnualExpense($table));
 	}
 
-	//Inventory
+  //Inventory
 	function MonthlyInventory()
 	{
 		$year = $this->input->post('year');

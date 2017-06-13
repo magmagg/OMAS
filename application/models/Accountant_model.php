@@ -170,6 +170,21 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+
+	function get_quantity_by_itemid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order_item');
+		$this->db->where('ItemID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	function subtract_quantity($data,$value)
+	{
+			$this->db->where('ItemID',$value);
+			$this->db->update('purchasing_order_item',$data);
+	}
+
 	function get_service_invoice_byuser_items($SOID)
 	{
 		$this->db->select('*');
