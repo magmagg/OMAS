@@ -368,6 +368,14 @@ class Accountant_model extends CI_Model
 		$this->db->update($table,$data);
 	}
 
+	function get_fiscal_years_used()
+	{
+		$this->db->select('fiscal_year');
+		$this->db->from('depreciation');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	//Services Reports
 
 	function MonthlyService($year)

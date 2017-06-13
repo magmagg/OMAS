@@ -54,9 +54,9 @@
                             </td>
                             <td>
                               <?php if($this->session->userdata('logged_in_admin') == true):?>
-                              <a href="<?=base_url().'Admin/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Admin/view_one_purchase_order/'.$p->PurchaseID?>')">View</button></a>
                               <?php else:?>
-                              <a href="<?=base_url().'Accountant/view_one_purchase_order/'.$p->PurchaseID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_purchase_order/'.$p->PurchaseID?>')">View</button>
                               <?php endif; ?>
                             </td>
                         </tr>

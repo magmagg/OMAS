@@ -36,13 +36,6 @@
 								<input class="form-control" value="No" readonly>
 							<?php endif; ?>
 							</div>
-							<?php if($e['other_doc'] == ''): ?>
-							<?php else: ?>
-							<div class="form-group">
-								<label>File</label>
-								<a href="<?=base_url();?>Accountant/download_file/<?=$e[$idname]?>/<?=$table?>"><button class="btn btn-primary">Download file</button></a>
-							</div>
-							<?php endif; ?>
 							<?php if($table == 'depreciation'):?>
 							<div class="form-group" id="fiscalyear">
 								<label>Fiscal year</label>
@@ -50,6 +43,14 @@
 							</div>
 							<?php else: ?>
 							<?php endif; ?>
+							<?php if($e['other_doc'] == ''): ?>
+							<?php else: ?>
+							<div class="form-group">
+								<label>File</label>
+								<a href="<?=base_url();?>Accountant/download_file/<?=$e[$idname]?>/<?=$table?>"><button class="btn btn-primary">Download file</button></a>
+							</div>
+							<?php endif; ?>
+
 
 							<?php if($e['Status'] == 1):?>
 							<form role="form" method="POST" action="<?=base_url()?>Accountant/submit_update_expense" enctype="multipart/form-data">
@@ -84,6 +85,8 @@
 									<label>Choose file:</label>
 									<input type="file" name="fileinput" id="userfile" />
 								</div>
+								<?php if($table == 'depreciation'):?>
+								<?php else: ?>
 								<div class="form-group" id="checkboxdiv">
 										<div class="checkbox">
 												<label>
@@ -95,6 +98,7 @@
 									<label>Date paid</label>
 									<input name="expensedatepaid" type="date" id="datepicker">
 								</div>
+							<?php endif; ?>
 								<button type="submit" id="submitbutton" class="btn btn-default" disabled>Update</button>
 							</form>
 							<?php endif; ?>

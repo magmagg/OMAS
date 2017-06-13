@@ -1238,6 +1238,11 @@ class Accountant extends CI_Controller
     }
   }
 
+	function get_fiscal_years_used()
+	{
+		echo json_encode($this->Accountant_model->get_fiscal_years_used());
+	}
+
   //Reports
   function reports()
   {
