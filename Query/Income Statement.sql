@@ -368,8 +368,85 @@
 		and YEAR(date_created) = 2016;   
     
     
-    
-    
+-- ANNUAL. values are integer. 
+
+	-- Revenue
+		select sum(Total) as Total
+		from service_invoice
+		Where Quarter(TransactionDate) = 1
+		and YEAR(TransactionDate) = 2016;
+
+	-- Cost of Services
+
+	-- Begin Inventory
+		SELECT sum(total) as Total
+		FROM purchasing_order
+		where YEAR(TransactionDate) = 2016;
+
+
+		-- End Inventory
+		SELECT sum(Total)
+		FROM service_invoice
+		where YEAR(TransactionDate) = 2016;
+
+		
+	-- Expenses
+		
+	-- Entertainment
+		SELECT sum(value)
+		FROM entertainment
+		where YEAR(date_created) = 2016;
+		
+	-- fees
+		SELECT sum(value)
+		FROM fees
+		where Quarter(date_created) = 1
+		and YEAR(date_created) = 2016;
+		
+	-- insurance
+		SELECT sum(value)
+		FROM insurance
+		where YEAR(date_created) = 2016;
+		
+	-- interest
+		SELECT sum(value)
+		FROM interest
+		where YEAR(date_created) = 2016;
+
+	-- maintenance
+		SELECT sum(value)
+		FROM maintenance
+		where YEAR(date_created) = 2016;
+		
+	-- other_expenses
+		SELECT sum(value)
+		FROM other_expenses
+		where YEAR(date_created) = 2016;
+		
+	-- rent
+		SELECT sum(value)
+		FROM rent
+		where YEAR(date_created) = 2016;
+		
+	-- supplies
+		SELECT sum(value)
+		FROM supplies
+		where YEAR(date_created) = 2016;
+		
+	-- training
+		SELECT sum(value)
+		FROM training
+		where YEAR(date_created) = 2016;
+
+	-- travel
+		SELECT sum(value)
+		FROM travel
+		where YEAR(date_created) = 2016;
+		
+	-- wages
+		SELECT sum(value)
+		FROM wages
+		where YEAR(date_created) = 2016;
     
     
     

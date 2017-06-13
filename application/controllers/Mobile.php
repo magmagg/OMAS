@@ -644,6 +644,80 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//INCOME STATEMENT
+
+	function statementRevenue()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+		$year = 2016;
+		$month = 1;
+		$duration = "semi";
+
+		$data['income'] = $this->Model_Mobile->MonthlyIncome($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeInventoryBegin()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 2;
+		$duration = "annual";
+
+		$data['begin'] = $this->Model_Mobile->MonthlyStatementInventory($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeInventoryEnd()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 0;
+		$duration = "semi";
+
+		$data['end'] = $this->Model_Mobile->MonthlyStatementInventoryEnd($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeExpenses()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 0;
+		$table = "fees";
+		$duration = "annual";
+
+		$data['expense'] = $this->Model_Mobile->MonthlyStatementExpenses($year,$month,$table,$duration);
+		echo json_encode($data);
+	}
+
     
 }
 
