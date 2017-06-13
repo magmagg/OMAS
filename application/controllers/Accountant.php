@@ -176,7 +176,7 @@ class Accountant extends CI_Controller
         array(
                 'field' => 'suppliername',
                 'label' => 'suppliername',
-                'rules' => 'required'
+                'rules' => 'required|is_unique[supplier.SupplierName]'
         ),
 				array(
 								'field' => 'address',
@@ -238,7 +238,7 @@ class Accountant extends CI_Controller
 
         $this->Accountant_model->submit_add_supplier($data);
         $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!</div>');
-				redirect(base_url().'Accountant/add_supplier', 'refresh');
+				redirect(base_url().'Accountant/view_suppliers', 'refresh');
 
     }
   }
@@ -376,6 +376,7 @@ class Accountant extends CI_Controller
 	function submit_make_purchase_order()
 	{
     $use['items'] = list($items) = $this->input->post('item');
+    $use['itemdesc'] = list($items) = $this->input->post('itemdesc');
     $use['quantity'] = list($items) = $this->input->post('quantity');
     $use['unitprice'] = list($items) = $this->input->post('unitprice');
     $use['total'] = list($items) = $this->input->post('total');
@@ -412,6 +413,7 @@ class Accountant extends CI_Controller
     {
       $data = array('ItemName'=>$value,
                     'Quantity'=>$use['quantity'][$key],
+                    'ItemDesc'=>$use['itemdesc'][$key],
                     'UnitPrice'=>$use['unitprice'][$key],
                     'PO_ID'=>$PurchaseID);
       $this->Accountant_model->insert_purchase_order_item($data);
@@ -518,6 +520,15 @@ class Accountant extends CI_Controller
                     'Quantity'=>$use['quantity'][$key],
                     'SO_ID'=>$ServiceID);
       $this->Accountant_model->insert_service_invoice_item($data);
+
+      $use['itemquant'] = $this->Accountant_model->get_quantity_by_itemid($value);
+      foreach($use['itemquant'] as $q)
+      {
+        $origquant = $q->Quantity;
+      }
+      $newquant = $origquant - $use['quantity'][$key];
+      $data = array('Quantity'=>$newquant);
+      $this->Accountant_model->subtract_quantity($data,$value);
     }
 
 		foreach($use['service'] as $key=>$value)
@@ -851,6 +862,22 @@ class Accountant extends CI_Controller
     $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
     $data['oequity'] = $this->Accountant_model->get_oequity($id);
     $data['balancer'] = $this->Accountant_model->get_balancer($id);
+    $data['balancesheetid'] = $id;
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+  }
+
+  function edit_one_balance_sheet()
+  {
+    $id = $this->uri->segment(3);
+
+    $data['assets'] = $this->Accountant_model->get_assets($id);
+    $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
+    $data['oequity'] = $this->Accountant_model->get_oequity($id);
+    $data['balancer'] = $this->Accountant_model->get_balancer($id);
+    $data['balancesheetid'] = $id;
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
@@ -1166,8 +1193,55 @@ class Accountant extends CI_Controller
 
       $this->Accountant_model->submit_update_expense($data,$id,$idname,$table);
     }
-    redirect(base_url().'Accountant/view_other_expenses', 'refresh');
+    redirect(base_url().'Accountant/view_one_expense/'.$table.'/'.$id, 'refresh');
   }
+
+  function download_file()
+  {
+    $this->load->helper('download');
+
+    $id = $this->uri->segment(3);
+    $table = $this->uri->segment(4);
+    if($table == 'other_expenses')
+      $use = array('other_expenseID'=>$id);
+    else if($table =='rent')
+      $use = array('rentID'=>$id);
+    else if($table =='insurance')
+      $use = array('insuranceID'=>$id);
+    else if($table =='fees')
+      $use = array('feesID'=>$id);
+    else if($table =='wages')
+      $use = array('wagesID'=>$id);
+    else if($table =='interest')
+      $use = array('interestID'=>$id);
+    else if($table =='supplies')
+      $use = array('suppliesID'=>$id);
+    else if($table =='maintenance')
+      $use = array('maintenanceID'=>$id);
+    else if($table =='travel')
+      $use = array('travelID'=>$id);
+    else if($table =='entertainment')
+      $use = array('entertainmentID'=>$id);
+    else if($table =='training')
+      $use = array('trainingID'=>$id);
+    else if($table =='utilities')
+      $use = array('UtilitiesID'=>$id);
+		else if($table =='depreciation')
+			$use = array('depreciationID'=>$id);
+
+
+
+    $data['expense'] = $this->Accountant_model->get_one_expense($use, $table);
+    foreach($data['expense'] as $e)
+    {
+      force_download($e['other_doc'], NULL);
+    }
+  }
+
+	function get_fiscal_years_used()
+	{
+		echo json_encode($this->Accountant_model->get_fiscal_years_used());
+	}
 
   //Reports
   function reports()
@@ -1175,6 +1249,7 @@ class Accountant extends CI_Controller
 		$data['serviceyears'] = $this->Accountant_model->AnnualService();
 		$data['purchaseyears'] = $this->Accountant_model->AnnualPurchase();
 		$data['inventoryyears'] = $this->Accountant_model->AnnualInventory();
+    $data['yearlyrevenue'] = $this->Accountant_model->YearlyRevenue();
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/Reports/sub_menu');
@@ -1265,7 +1340,7 @@ class Accountant extends CI_Controller
 		echo json_encode($this->Accountant_model->AnnualExpense($table));
 	}
 
-	//Inventory
+  //Inventory
 	function MonthlyInventory()
 	{
 		$year = $this->input->post('year');
@@ -1302,6 +1377,13 @@ class Accountant extends CI_Controller
 		$year = $this->input->post('year');
 		echo json_encode($this->Accountant_model->SemiRevenue($year));
 	}
+
+  function MonthlyRevenue()
+  {
+    $year = $this->input->post('year');
+    echo json_encode($this->Accountant_model->MonthlyRevenue($year));
+  }
+
 
 
 }

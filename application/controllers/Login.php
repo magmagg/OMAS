@@ -67,33 +67,48 @@ class Login extends CI_Controller
 				else
 				{
 					$data['accountant'] = $this->Login_model->get_accountant_details($username);
-
-					foreach($data['accountant'] as $a)
+					if($data['accountant'])
 					{
-						$hash = $a->password;
-					}
-					if(password_verify($password, $hash))
-					{
-						$data['accountant'] = $this->Login_model->get_accountant_details($username);
 						foreach($data['accountant'] as $a)
 						{
-							$sessiondata = array('AccountantID'=>$a->UserID,
-																	'username'=>$a->username,
-																	'email'=>$a->email,
-																	'create_time'=>$a->create_time,
-																	'logged_in_accountant'=>true
-																	);
+							if($a->Status == 1)
+							{
+								$hash = $a->password;
+
+								if(password_verify($password, $hash))
+								{
+									$data['accountant'] = $this->Login_model->get_accountant_details($username);
+									foreach($data['accountant'] as $a)
+									{
+										$sessiondata = array('AccountantID'=>$a->UserID,
+																				'username'=>$a->username,
+																				'email'=>$a->email,
+																				'create_time'=>$a->create_time,
+																				'logged_in_accountant'=>true
+																				);
+									}
+									$this->session->set_userdata($sessiondata);
+									redirect('Accountant','refresh');
+								}
+								else
+								{
+									$this->session->set_flashdata('error','User not found');
+									redirect('Login','refresh');
+								}
+							}
+							else
+							{
+									$this->session->set_flashdata('error','Account disabled');
+									redirect('Login','refresh');
+							}
 						}
-						$this->session->set_userdata($sessiondata);
-						redirect('Accountant','refresh');
 					}
 					else
 					{
-						$this->session->set_flashdata('error','User not found');
-						redirect('Login','refresh');
+							$this->session->set_flashdata('error','User not found');
+							redirect('Login','refresh');
 					}
 				}
-				//Login here
 			}
 		}
   }

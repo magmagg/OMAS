@@ -18,10 +18,10 @@
 							<?= $this->session->flashdata('success'); ?>
 								<?php if(validation_errors()){echo $this->session->flashdata('error');}?>
 
-								<form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
+								<form role="form" method="POST" id="myformsubmit" action="<?=base_url().'Accountant/submit_make_service_invoice'?>">
 									<div class="form-group">
 										<label>Customer</label>
-										<select class="customers" id="customerselect" name="customerid" style="width: 100%">
+										<select class="customers" id="customerselect" name="customerid" style="width: 100%" required>
 				                        <option value=""></option>
 				                        <?php foreach($customers as $c):?>
 				                        <option value="<?=$c->CustomerID?>"><?=$c->CustomerName?></option>
@@ -45,9 +45,35 @@
 												<label class="myformlabel">Quantity</label>
 												<input class="form-control quantityfield" name="servicequantity[]" id="quantity" type="number" placeholder="Enter Quantity" required>
 											</div>
-											<div class="form-group col-lg-3">
+											<div class="form-group col-lg-2">
 												<label class="myformlabel">Total</label>
 												<input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+											</div>
+											<div class="form-group col-lg-1" id="firstdelete">
+												<label class="myformlabel"> Delete </label>
+												<button type="button" class="btn btn-danger deleterow" id="deleterow" onclick="delrow(this)">X</button>
+											</div>
+										</div>
+										<div class="row" id="itemsrow1">
+											<div class="form-group col-lg-3">
+											<select class="form-control items" placeholder="Item" id="items1" name="items[]" style="width: 100%" onchange="changeminmax(this)">
+												<option value="">Please select</option>
+														<?php foreach($items as $i): ?>
+															<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
+														<?php endforeach; ?>
+												</select>
+											</div>
+											<div class="form-group col-lg-3">
+												<input class="form-control unitpricefield" name="unitprice[]" id="unitprice1" type="number" placeholder="Price" readonly>
+											</div>
+											<div class="form-group col-lg-3">
+												<input class="form-control quantityfield" name="quantity[]" id="quantity1" type="number" placeholder="Enter Quantity" required>
+											</div>
+											<div class="form-group col-lg-2">
+												<input class="form-control totalfield" id="total1" name="total[]" placeholder="Total" readonly>
+											</div>
+											<div class="form-group col-lg-1" id="firstdelete">
+												<button type="button" class="btn btn-danger deleterow" id="deleterow1" onclick="delrow(this)">X</button>
 											</div>
 										</div>
 									</div>
@@ -100,7 +126,11 @@
 		</select>
 	</div>
 </div>
+<div class="form-group col-lg-1" id="deletebutton">
+	<button type="button" class="btn btn-danger deleterow" id="" onclick="delrow(this)">X</button>
+</div>
 <script>
+$("#deletebutton").hide();
 $("#itemsdd").hide();
 	//var items = <?php echo json_encode($items); ?>;
 	$("#customerselect").select2({
@@ -182,25 +212,37 @@ $("#itemsdd").hide();
 </script>
 
 <script>
-	var id = 1;
+	var id = 2;
 	$("#addservice").click(function() {
 		var clone = $("#itemsrow").clone(true);
+		var deletebutton = $("#deletebutton").clone().show();
+
+		clone.attr("id","itemsrow"+id);
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
+		clone.find("#firstdelete").remove();
 		clone.find("#service").attr("id", "service" + id);
 		clone.find("#quantity").attr("id", "quantity" + id);
 		clone.find("#unitprice").attr("id", "unitprice" + id);
 		clone.find("#total").attr("id", "total" + id);
+		deletebutton.find(".deleterow").attr("id","deleterow"+id);
 		id++;
+		$(clone).append(deletebutton);
 		$("#append").append(clone);
 	});
 
 
   $( "#cloneme2" ).click(function() {
     var clone = $("#itemsrow").clone(true);
+		var orig = $("#itemsdd").find("#itemsddd");
+		var cloned = $(orig).clone().show();
+		var deletebutton = $("#deletebutton").clone().show();
+
+		clone.attr("id","itemsrow"+id);
     clone.find('input').val('');
     clone.find(".myformlabel").remove();
     clone.find("#serviceform").remove();
+		clone.find("#firstdelete").remove();
 
 		clone.find("#unitprice").prop("readonly", true);
 
@@ -208,16 +250,25 @@ $("#itemsdd").hide();
     clone.find("#unitprice").attr("id","unitprice"+id).attr("name", "unitprice[]");
     clone.find("#total").attr("id","total"+id);
 
-		var orig = $("#itemsdd").find("#itemsddd");
-		var cloned = $(orig).clone().show();
 		cloned.find('.items').attr("id","items"+id);
-
-		//var itemsclone = $('#itemsdd').clone(true);
-		//itemsclone.find('.items').attr("id","items"+id);
+		deletebutton.find(".deleterow").attr("id","deleterow"+id);
     id++;
+		$(clone).append(deletebutton);
     $(clone).prepend(cloned);
     $("#append").append(clone);
   });
+</script>
+<script>
+function delrow(sel)
+{
+ var currentid =sel.id.slice(-1);
+	if(isNaN(currentid)){
+	 currentid = '';
+	 }else{
+
+	 }
+	$('#itemsrow'+currentid).remove();
+}
 </script>
 <script>
 function changeminmax(sel)
@@ -225,6 +276,7 @@ function changeminmax(sel)
 	var itemid = sel.value;
 	var selectid = sel.id;
 	var selectidnumber = selectid[selectid.length -1];
+
 	$("#quantity"+selectidnumber).attr({
        "max" : 10,        // substitute your own
        "min" : 1          // values (or variables) here
@@ -247,6 +299,18 @@ function changeminmax(sel)
 		}
 	});
 }
+</script>
+
+<script>
+$("#myformsubmit").submit(function(e){
+	if ( $('#append').children().length > 0 ) {
+
+}
+else {
+	alert("Please input atleast one service/Item");
+	e.preventDefault();
+}
+});
 </script>
 
 

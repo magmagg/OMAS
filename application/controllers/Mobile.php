@@ -317,12 +317,48 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function assetsCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['assets'] = $this->Model_Mobile->assetCurr($balanceID);
+		echo json_encode($data);
+	}
+
+	function assetsNonCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['assets'] = $this->Model_Mobile->assetNonCurr($balanceID);
+		echo json_encode($data);
+	}
+
 	function liabilities()
 	{
 
 		$balanceID = (int)$this->input->post('ID');
 
 		$data['liabilities'] = $this->Model_Mobile->liabilitiesTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function liabilitiesCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['liabilities'] = $this->Model_Mobile->liabilitiesCurrent($balanceID);
+		echo json_encode($data);
+	}
+
+	function liabilitiesNonCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['liabilities'] = $this->Model_Mobile->liabilitiesNonCurrent($balanceID);
 		echo json_encode($data);
 	}
 
@@ -435,6 +471,40 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//services rendered
+
+	function servicesMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesAnnual()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['annual'] = $this->Model_Mobile->AnnualServices($year);
+		echo json_encode($data);
+	}
+
 	//Purchasing Reports
 
 	function purchaseMonthly()
@@ -500,6 +570,151 @@ class Mobile extends CI_Controller {
 		$year = (int)$this->input->post('year');
 
 		$data['annual'] = $this->Model_Mobile->AnnualInventory($year);
+		echo json_encode($data);
+	}
+
+	//Expenses Reports
+
+	function expenseMonthly()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseSemi()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['semi'] = $this->Model_Mobile->SemiExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	function expenseAnnual()
+	{
+		$year = (int)$this->input->post('year');
+		$expense = $this->input->post('expense');
+
+		$data['annual'] = $this->Model_Mobile->AnnualExpense($year,$expense);
+		echo json_encode($data);
+	}
+
+	//Revenue Reports
+
+	function revenueMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyRevenue($year);
+		echo json_encode($data);
+	}
+
+	function revenueQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyRevenue($year);
+		echo json_encode($data);
+	}
+
+	function revenueSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiRevenue($year);
+		echo json_encode($data);
+	}
+
+	function revenueAnnual()
+	{
+
+		$data['annual'] = $this->Model_Mobile->YearlyRevenue();
+		echo json_encode($data);
+	}
+
+	//INCOME STATEMENT
+
+	function statementRevenue()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+		$year = 2016;
+		$month = 1;
+		$duration = "semi";
+
+		$data['income'] = $this->Model_Mobile->MonthlyIncome($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeInventoryBegin()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 2;
+		$duration = "annual";
+
+		$data['begin'] = $this->Model_Mobile->MonthlyStatementInventory($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeInventoryEnd()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 0;
+		$duration = "semi";
+
+		$data['end'] = $this->Model_Mobile->MonthlyStatementInventoryEnd($year,$month,$duration);
+		echo json_encode($data);
+	}
+
+	function incomeExpenses()
+	{
+
+		/*
+
+			$month, magpapalit kada month na pinili. pag quarterly naman, and values
+			dapat 1-4 lang. pag semi annual, 0-1 lang
+
+		*/
+
+		$year = 2016;
+		$month = 0;
+		$table = "fees";
+		$duration = "annual";
+
+		$data['expense'] = $this->Model_Mobile->MonthlyStatementExpenses($year,$month,$table,$duration);
 		echo json_encode($data);
 	}
 

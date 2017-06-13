@@ -21,6 +21,8 @@
                             <th>#</th>
                             <th>Purchase Order ID</th>
                             <th>Item</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
                             <th>Supplier</th>
                             <th>Status</th>
                         </tr>
@@ -32,6 +34,8 @@
                             <td><?=$num?></td>
                             <td><?=$p->PurchaseID?></td>
                             <td><?=$p->ItemName?></td>
+                            <td>₱ <?=number_format($p->UnitPrice)?></td>
+                            <td><?=$p->Quantity?></td>
                             <td>
                               <?php foreach($suppliers as $s)
                               {

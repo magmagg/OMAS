@@ -10,7 +10,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					View service invoice
+					Service invoice, Sales Count
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills">
@@ -73,7 +73,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Purchase
+					Purchase reports, Procurement count
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills">
@@ -142,7 +142,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Inventory
+						Inventory, Used items from inventory
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
@@ -204,17 +204,30 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Purchase
+						Revenue
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
-							<li class="active"><a href="#quarterpie" data-toggle="tab">Quarterly</a></li>
+							<li class="active"><a href="#monthlypie" data-toggle="tab">Monthly</a></li>
 							<li><a href="#semianualpie" data-toggle="tab">Semi Annually</a></li>
+							<li><a href="#quarterpie" data-toggle="tab">Quarterly</a></li>
+							<li><a href="#anualpie" data-toggle="tab">Annual</a></li>
 						</ul>
 						<div class="tab-content">
 
+							<div class="tab-pane fade in active" id="monthlypie">
+								<div class="form-group">
+									<select id="ysmonthlypie" style="width: 100%">
+										 <option value=""></option>
+										 <?php foreach($serviceyears as $sy): ?>
+											 <option value="<?=$sy->Annual?>"><?=$sy->Annual?></option>
+										 <?php endforeach; ?>
+									 </select>
+								</div>
+								<div class="ct-chart ct-golden-section" id="monthlypiechart"></div>
+							</div>
 
-							<div class="tab-pane fade in active" id="quarterpie">
+							<div class="tab-pane" id="quarterpie">
 								<div class="form-group">
 									<select id="ysquarterpie" style="width: 100%">
 										 <option value=""></option>
@@ -236,6 +249,10 @@
 									 </select>
 								</div>
 								<div class="ct-chart ct-golden-section" id="semipiechart"></div>
+							</div>
+
+							<div class="tab-pane fade" id="anualpie">
+								<div class="ct-chart ct-golden-section" id="anualpiechart"></div>
 							</div>
 
 						</div>
@@ -434,6 +451,9 @@ $("#ysquarterpie").select2({
 	placeholder: "Select year"
 });
 $("#yssemipie").select2({
+	placeholder: "Select year"
+});
+$("#ysmonthlypie").select2({
 	placeholder: "Select year"
 });
 
@@ -671,8 +691,8 @@ $("#yssemiex").select2({
 	//AnualData
 	var labelanuals = [];
 	var seriesanuals = [];
-	<?php foreach($serviceyears as $sy): ?>
-	labelanuals.push('<?=$sy->Annual?>');
+	<?php foreach($purchaseyears as $sy): ?>
+	labelanuals.push(<?=$sy->Annual?>);
 	seriesanuals.push(<?=$sy->counted?>);
 	<?php endforeach?>
 	var danual = {
@@ -688,7 +708,6 @@ $("#yssemiex").select2({
 		},
 		width: 600,
  		height: 300,
-		high: 5,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
@@ -807,8 +826,9 @@ $("#yssemiex").select2({
 			},
 			success: function(data) {
 				var data1 = JSON.parse(data);
+				console.log(data1);
 				$.each(data1, function(index, value) {
-					seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
+					seriesdata.splice(data1[index].Semi, 1, data1[index].counted);
 				});
 
 				//New chart
@@ -1065,7 +1085,7 @@ $('#yssemiex').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].counted);
+				seriesdata.splice(data1[index].Semi, 1, data1[index].counted);
 			});
 
 			//New chart
@@ -1181,7 +1201,6 @@ $('#selectexannual').change(function() {
 		},
 		width: 600,
  		height: 300,
-		high: 5,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
@@ -1216,6 +1235,7 @@ $('#ysmonthlyi').change(function() {
 					seriesdata
 				]
 			};
+			console.log(seriesdata);
 			var maxValueInArray = Math.max.apply(Math, seriesdata);
 			var options = {
 				seriesBarDistance: 10,
@@ -1252,9 +1272,9 @@ $('#ysquarteri').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Quarter - 1, 1, data1[index].Quantity);
-			});
+				seriesdata.splice(data1[index].month - 1, 1, data1[index].Quantity);
 
+			});
 			//New chart
 			var data = {
 				labels: ['Q1', 'Q2', 'Q3', 'Q4'],
@@ -1299,7 +1319,7 @@ $('#yssemii').change(function() {
 		success: function(data) {
 			var data1 = JSON.parse(data);
 			$.each(data1, function(index, value) {
-				seriesdata.splice(data1[index].Semi - 1, 1, data1[index].Quantity);
+				seriesdata.splice(data1[index].month, 1, data1[index].Quantity);
 			});
 
 			//New chart
@@ -1336,6 +1356,105 @@ $('#yssemii').change(function() {
 <!--Inventory-->
 
 <!-- pie chart revenue -->
+<script>
+var dmonthly = {
+	labels: [],
+	series: [[]]
+};
+var dsemi = {
+	labels: [],
+	series: [[]]
+};
+//Datas
+//AnualData
+var labelanuals = [];
+var seriesanuals = [];
+<?php foreach($yearlyrevenue as $sy): ?>
+labelanuals.push('<?=$sy->Annual?>');
+seriesanuals.push(<?=$sy->counted?>);
+<?php endforeach?>
+var danual = {
+	labels: labelanuals,
+	series: [seriesanuals]
+};
+var options = {
+	seriesBarDistance: 10,
+	reverseData: true,
+	horizontalBars: true,
+	axisY: {
+		offset: 70
+	},
+	width: 600,
+	height: 300
+}
+console.log(seriesanuals);
+
+var maxValueInArray = Math.max.apply(Math, seriesanuals);
+var optionsa = {
+	seriesBarDistance: 10,
+	reverseData: true,
+	horizontalBars: true,
+	axisY: {
+		offset: 70
+	},
+	width: 600,
+	height: 300,
+	high: maxValueInArray,
+	low: 0,
+ scaleMinSpace: 20,
+ onlyInteger: true
+}
+var bcmonthlypie = new Chartist.Bar('#monthlypiechart', dmonthly, options);
+var bcanualpie = new Chartist.Bar('#anualpiechart', danual, options);
+</script>
+<script>
+$('#ysmonthlypie').change(function() {
+	var year = this.value;
+	var seriesdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	//alert(id);
+	$.ajax({
+		type: 'POST',
+		url: '<?=base_url();?>Accountant/MonthlyRevenue',
+		data: {
+			'year': year
+		},
+		success: function(data) {
+			var data1 = JSON.parse(data);
+			$.each(data1, function(index, value) {
+				seriesdata.splice(data1[index].month - 1, 1, data1[index].total);
+			});
+
+			//New chart
+			var data = {
+				labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				series: [
+					seriesdata
+				]
+			};
+			console.log(seriesdata);
+			var maxValueInArray = Math.max.apply(Math, seriesdata);
+			var options = {
+				seriesBarDistance: 10,
+				reverseData: true,
+				horizontalBars: true,
+				axisY: {
+					offset: 70
+				},
+				width: 600,
+				height: 300,
+				high: maxValueInArray,
+				low: 0,
+			 scaleMinSpace: 20,
+			 onlyInteger: true
+			}
+			bcmonthlypie.detach();
+			bcmonthlypie = new Chartist.Bar('#monthlypiechart', data, options);
+			//Done new chart
+		}
+	});
+
+});
+</script>
 <script>
 var data = {
   series: [1,1,1]
@@ -1379,7 +1498,7 @@ $('#ysquarterpie').change(function() {
 				var data1 = JSON.parse(data);
 				$.each(data1, function(index, value) {
 					seriesdata.push(data1[index].sum);
-					labeldata.push('Q'+data1[index].Quarter+":"+data1[index].sum);
+					labeldata.push('Quarter '+data1[index].Quarter+":"+data1[index].sum);
 				});
 				console.log(labeldata);
 				var data = {
@@ -1432,7 +1551,7 @@ $('#yssemipie').change(function() {
 					seriesdata.push(data1[index].sum);
 					var quarter = parseInt(data1[index].Semi);
 					var final = quarter+1;
-					labeldata.push('Q'+final+":"+data1[index].sum);
+					labeldata.push('Quarter '+final+":"+data1[index].sum);
 				});
 				var data = {
 					labels: labeldata,

@@ -33,9 +33,13 @@
         function soldList()
         {
             $where = "service_invoice_item.POI_ItemID = purchasing_order_item.ItemID ";
-            $this->db->select('purchasing_order_item.ItemName AS itemName, purchasing_order_item.ItemDesc AS itemDesc, purchasing_order_item.UnitPrice AS itemPrice, service_invoice_item.Quantity AS Quantity ');
+
+            $group = "purchasing_order_item.ItemName";
+
+            $this->db->select('purchasing_order_item.ItemName AS itemName, purchasing_order_item.ItemDesc AS itemDesc, purchasing_order_item.UnitPrice AS itemPrice, sum(service_invoice_item.Quantity) AS Quantity ');
             $this->db->from('purchasing_order_item,service_invoice_item ');
             $this->db->where($where);
+            $this->db->group_by($group);
             $query = $this->db->get();
             return $query->result_array();
         }
@@ -196,7 +200,27 @@
 
         function assetTotal($balanceID)
         {
-            $where = "balance_id = '$balanceID'";
+            $where = "balance_id = '$balanceID' and asset_current = 0";
+            $this->db->select('*');
+            $this->db->from('assets');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function assetCurr($balanceID)
+        {
+            $where = "balance_id = '$balanceID' and asset_current = 1";
+            $this->db->select('*');
+            $this->db->from('assets');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function assetNonCurr($balanceID)
+        {
+            $where = "balance_id = '$balanceID' and asset_current = 2";
             $this->db->select('*');
             $this->db->from('assets');
             $this->db->where($where);
@@ -206,7 +230,27 @@
 
         function liabilitiesTotal($balanceID)
         {
-            $where = "balance_id = '$balanceID'";
+            $where = "balance_id = '$balanceID' and liability_current = 0";
+            $this->db->select('*');
+            $this->db->from('liabilities');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function liabilitiesCurrent($balanceID)
+        {
+            $where = "balance_id = '$balanceID' and liability_current = 1";
+            $this->db->select('*');
+            $this->db->from('liabilities');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function liabilitiesNonCurrent($balanceID)
+        {
+            $where = "balance_id = '$balanceID' and liability_current = 2";
             $this->db->select('*');
             $this->db->from('liabilities');
             $this->db->where($where);
@@ -384,6 +428,94 @@
 
         }
 
+        //Services Rendered
+
+        function MonthlyServices($year)
+        {
+
+            $group = "Month(service_invoice.TransactionDate)";
+
+            $select = "sum(service_invoice_service.Quantity) as counted, MONTH(service_invoice.TransactionDate) as month";
+
+            $from = "service_invoice_service, service_invoice";
+
+            $where = "service_invoice_service.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+            $this->db->select($select);
+            $this->db->from($from);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyServices($year)
+        {
+
+            $group = "Quarter(service_invoice.TransactionDate)";
+
+            $select = "sum(service_invoice_service.Quantity) as counted, Quarter(service_invoice.TransactionDate) as Quarter";
+            
+            $from = "service_invoice_service, service_invoice";
+
+            $where = "service_invoice_service.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+            $this->db->select($select);
+            $this->db->from($from);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiServices($year)
+        {
+
+            $group = "MONTH(service_invoice.TransactionDate)>6";
+
+            $select = "sum(service_invoice_service.Quantity) as counted, MONTH(service_invoice.TransactionDate)>6 as month";
+            
+            $from = "service_invoice_service, service_invoice";
+
+            $where = "service_invoice_service.SO_ID = service_invoice.ServiceID and
+YEAR(service_invoice.TransactionDate) ='".$year."'";
+
+
+            $this->db->select($select);
+            $this->db->from($from);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualServices($year)
+        {
+
+            $group = "Year(service_invoice.TransactionDate)";
+            $select = "sum(service_invoice_service.Quantity) as counted,  Year(service_invoice.TransactionDate) as Annual";
+            $from = "service_invoice_service, service_invoice";
+
+
+            $where = "service_invoice_service.SO_ID = service_invoice.ServiceID";
+
+
+            $this->db->select($select);
+            $this->db->from($from);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
         //Purchase Reports
 
         function MonthlyPurchase($year)
@@ -466,8 +598,6 @@
             $from = "service_invoice_item, service_invoice";
 
 
-            $where = "YEAR(TransactionDate) ='".$year."'";
-
             $where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
 YEAR(service_invoice.TransactionDate) ='".$year."'";
 
@@ -488,8 +618,6 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
             $select = "sum(service_invoice_item.Quantity) as Quantity,  Quarter(service_invoice.TransactionDate) as month";
             $from = "service_invoice_item, service_invoice";
 
-
-            $where = "YEAR(TransactionDate) ='".$year."'";
 
             $where = "service_invoice_item.SO_ID = service_invoice.ServiceID and
 YEAR(service_invoice.TransactionDate) ='".$year."'";
@@ -545,7 +673,342 @@ YEAR(service_invoice.TransactionDate) = 2017";
 
         }
 
+        //Expense Reports
 
+        function MonthlyExpense($year,$expense)
+        {
+
+            $group = "Month(date_created)";
+            $select = "Month(date_created) as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyExpense($year,$expense)
+        {
+
+            $group = "Quarter(date_created)";
+            $select = "Quarter(date_created) as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiExpense($year,$expense)
+        {
+
+            $group = "Month(date_created)>6";
+            $select = "Month(date_created)>6 as month, sum(value) as counted";
+
+
+            $where = "YEAR(date_created) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function AnnualExpense($year,$expense)
+        {
+
+            $group = "Year(date_created)";
+            $select = "Year(date_created) as year, sum(value) as counted";
+
+            $this->db->select($select);
+            $this->db->from($expense);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        //Revenue Reports
+
+        function MonthlyRevenue($year)
+        {
+
+            $group = "MONTH(TransactionDate)";
+            $select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function QuarterlyRevenue($year)
+        {
+
+            $group = "Quarter(TransactionDate)";
+            $select = "sum(total) as total, Quarter(TransactionDate) quarter";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function SemiRevenue($year)
+        {
+
+            $group = "Month(TransactionDate)>6";
+            $select = "Month(TransactionDate)>6 as month, sum(total) as total";
+
+
+            $where = "YEAR(TransactionDate) ='".$year."'";
+        
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function YearlyRevenue()
+        {
+
+            $group = "Year(TransactionDate)";
+            $select = "Year(TransactionDate) as Annual, sum(total) as counted";
+
+            $this->db->select($select);
+            $this->db->from('service_invoice');
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        //INCOME STATEMENT
+
+        function MonthlyIncome($year,$month,$duration)
+        {
+
+            $select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+            if($duration == "monthly")
+            {
+
+                $where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "quarterly")
+            {
+
+                $where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "semi")
+            {
+                /*
+                    Pag semi annual, and value dapat ng $month is 1 or 2
+                    representing 1st and 2nd half.
+
+                */
+
+                if($month == "1")
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+                                and YEAR(TransactionDate) ='".$year."'";
+                }else
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+                                and YEAR(TransactionDate) ='".$year."'";
+                }
+
+            }else if($duration == "annual")
+            {
+                $where = "YEAR(TransactionDate) ='".$year."'";
+            }
+        
+        
+
+            $this->db->select('sum(Total) as Total');
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function MonthlyStatementInventory($year,$month,$duration)
+        {
+
+            $select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+            if($duration == "monthly")
+            {
+
+                $where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "quarterly")
+            {
+
+                $where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "semi")
+            {
+                /*
+                    Pag semi annual, and value dapat ng $month is 1 or 2
+                    representing 1st and 2nd half.
+
+                */
+
+                if($month == "1")
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+                                and YEAR(TransactionDate) ='".$year."'";
+                }else
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+                                and YEAR(TransactionDate) ='".$year."'";
+                }
+
+            }else if($duration == "annual")
+            {
+                $where = "YEAR(TransactionDate) ='".$year."'";
+            }
+        
+
+            $this->db->select('sum(Total) as Total');
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function MonthlyStatementInventoryEnd($year,$month,$duration)
+        {
+
+            $select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+            if($duration == "monthly")
+            {
+
+                $where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "quarterly")
+            {
+
+                $where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+            }else if($duration == "semi")
+            {
+                /*
+                    Pag semi annual, and value dapat ng $month is 1 or 2
+                    representing 1st and 2nd half.
+
+                */
+
+                if($month == "1")
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+                                and YEAR(TransactionDate) ='".$year."'";
+                }else
+                {
+                    $where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+                                and YEAR(TransactionDate) ='".$year."'";
+                }
+
+            }else if($duration == "annual")
+            {
+                $where = "YEAR(TransactionDate) ='".$year."'";
+            }
+        
+
+            $this->db->select('sum(Total) as Total');
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
+
+        function MonthlyStatementExpenses($year,$month,$table,$duration)
+        {
+
+            if($duration == "monthly")
+            {
+
+                $where = "MONTH(date_created) ='".$month."' AND YEAR(date_created) = '".$year."'";
+
+            }else if($duration == "quarterly")
+            {
+
+                $where = "Quarter(date_created) ='".$month."' AND YEAR(date_created) = '".$year."'";
+
+            }else if($duration == "semi")
+            {
+                /*
+                    Pag semi annual, and value dapat ng $month is 1 or 2
+                    representing 1st and 2nd half.
+
+                */
+
+                if($month == "1")
+                {
+                    $where = "MONTH(date_created) BETWEEN 1 AND 6
+                                and YEAR(date_created) ='".$year."'";
+                }else
+                {
+                    $where = "MONTH(date_created) BETWEEN 7 AND 12
+                                and YEAR(date_created) ='".$year."'";
+                }
+
+            }else if($duration == "annual")
+            {
+                $where = "YEAR(date_created) ='".$year."'";
+            }
+        
+
+            $this->db->select('sum(value) as Total');
+            $this->db->from($table);
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+
+        }
 
 	}
 ?>

@@ -25,6 +25,7 @@
                          </div>
                            <?php $forlabel = 1; ?>
                            <?php foreach($purchaseorder as $p): ?>
+                               <?php $status = $p->Status; ?>
                            <div class="row" id="itemsrow">
                              <div class="form-group col-lg-3">
                                <?php if($forlabel == 1): ?>
@@ -55,8 +56,11 @@
                            <?php $forlabel++; ?>
                          <?php endforeach; ?>
                          <div align="center">
-                           <button type="button" class="btn btn-danger rejectbutton" id="<?=$POID?>">Reject</button>
-                           <button type="button" class="btn btn-success acceptbutton" id="<?=$POID?>">Accept</button>
+                             <?php if($status == 1): ?>
+                             <?php else: ?>
+                               <button type="button" class="btn btn-danger rejectbutton" id="<?=$POID?>">Reject</button>
+                               <button type="button" class="btn btn-success acceptbutton" id="<?=$POID?>">Accept</button>
+                             <?php endif; ?>
                          </div>
                  </div>
              </div>

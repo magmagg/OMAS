@@ -96,6 +96,7 @@
                                            required>
                                 </div>
                                 <?php echo form_error('password'); ?>
+                                <?php echo $this->session->flashdata('error'); ?>
 
 
                                 <!-- Change this to a button or input when using this as a form -->

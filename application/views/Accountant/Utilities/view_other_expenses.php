@@ -1,7 +1,7 @@
 <section class="sec-content">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Utilities</h1>
+			<h1 class="page-header">Expenses</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -12,7 +12,7 @@
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Pill Tabs
+						Expenses
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
@@ -21,10 +21,10 @@
 							<?php $count = 1; ?>
 							<?php foreach($expenses as $e): ?>
 								<?php if($count == 1): ?>
-									<li class="active"><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									<li class="active"><a href="#<?=$e?>" data-toggle="tab"><?=str_replace('_', ' ', ucwords($e));?></a>
 									</li>
 								<?php else: ?>
-									<li><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									<li><a href="#<?=$e?>" data-toggle="tab"><?=ucwords($e)?></a>
 									</li>
 								<?php endif; ?>
 								<?php $count++;?>
@@ -64,7 +64,7 @@
 														  <?php endif;?>
 														</td>
 														<td>
-                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->other_expenseID?>"><button type="button" class="btn btn-primary">View</button></a>
+															<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->other_expenseID?>')">View</button>
                             </td>
 													</tr>
 													<?php $num++ ;?>
@@ -78,10 +78,14 @@
 										    <thead>
 										        <tr>
 										            <th>#</th>
-										            <th>Utility ID</th>
+										            <th>Expense ID</th>
 										            <th>Name</th>
 										            <th>Date created</th>
+																<?php if($key != 12): ?>
 										            <th>Status</th>
+															<?php else: ?>
+																<th> Fiscal year </th>
+															<?php endif;?>
 										            <th>Action</th>
 										        </tr>
 										    </thead>
@@ -101,7 +105,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->rentID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->rentID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -120,7 +124,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->insuranceID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->insuranceID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -139,7 +143,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->feesID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->feesID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -158,7 +162,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->wagesID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->wagesID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -177,7 +181,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->interestID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->interestID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -196,7 +200,7 @@
 														  <?php endif;?>
 														</td>
 														<td>
-															<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->suppliesID?>"><button type="button" class="btn btn-primary">View</button></a>
+															<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->suppliesID?>')">View</button>
 														</td>
 															</tr>
 														<?php endforeach; ?>
@@ -215,7 +219,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->maintenanceID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->maintenanceID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -234,7 +238,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->travelID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->travelID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -253,7 +257,7 @@
 														  <?php endif;?>
 														</td>
 																<td>
-		                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->entertainmentID?>"><button type="button" class="btn btn-primary">View</button></a>
+																	<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->entertainmentID?>')">View</button>
 		                            </td>
 															</tr>
 														<?php endforeach; ?>
@@ -272,7 +276,7 @@
 														  <?php endif;?>
 														</td>
 																	<td>
-			                              <a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->trainingID?>"><button type="button" class="btn btn-primary">View</button></a>
+																		<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->trainingID?>')">View</button>
 			                            </td>
 																</tr>
 															<?php endforeach; ?>
@@ -291,7 +295,7 @@
 																<?php endif;?>
 															</td>
 																		<td>
-																			<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->UtilitiesID?>"><button type="button" class="btn btn-primary">View</button></a>
+																			<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->UtilitiesID?>')">View</button>
 																		</td>
 																	</tr>
 																<?php endforeach; ?>
@@ -304,7 +308,7 @@
 																			<td> <?=$e->date_created?> </td>
 																			<td> <?=$e->fiscal_year?> </td>
 																			<td>
-																				<a href="<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->depreciationID?>"><button type="button" class="btn btn-primary">View</button></a>
+																				<button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_expense/'.$value.'/'.$e->depreciationID?>')">View</button>
 																			</td>
 																		</tr>
 																	<?php endforeach; ?>
@@ -316,6 +320,7 @@
 								<?php endif; ?>
 								<?php $count++; ?>
 							<?php endforeach; ?>
+
 						</div>
 					</div>
 					<!-- /.panel-body -->

@@ -34,7 +34,7 @@
 									<?php if($count == 1): ?>
 									<label class="myformlabel">Value</label>
 									<?php endif; ?>
-									<input class="form-control" value="<?=$a->asset_value?>" readonly>
+									<input class="form-control" value="₱ <?=number_format($a->asset_value)?>" readonly>
 								</div>
 						</div>
 						<?php $count++; ?>
@@ -44,7 +44,7 @@
 									Total
 								</div>
 								<div class="col-lg-6">
-									<input class="form-control" value="<?=$total_assets?>" readonly>
+									<input class="form-control" value="₱ <?=number_format($total_assets)?>" readonly>
 								</div>
 						</div>
 						<!-- /.row (nested) -->
@@ -73,7 +73,7 @@
 									<?php if($count == 1): ?>
 									<label class="myformlabel">Value</label>
 									<?php endif; ?>
-									<input class="form-control" value="<?=$l->liability_value?>" readonly>
+									<input class="form-control" value="₱<?=number_format($l->liability_value)?>" readonly>
 								</div>
 						</div>
 						<?php $count++; ?>
@@ -83,7 +83,7 @@
 									Total
 								</div>
 								<div class="col-lg-6">
-									<input class="form-control" value="<?=$total_liabilities?>" readonly>
+									<input class="form-control" value="₱<?=number_format($total_liabilities)?>" readonly>
 								</div>
 						</div>
 						<!-- /.row (nested) -->
@@ -117,7 +117,7 @@
 									<?php if($count == 1): ?>
 									<label class="myformlabel">Value</label>
 									<?php endif; ?>
-									<input class="form-control" value="<?=$o->owner_value?>" readonly>
+									<input class="form-control" value="₱ <?=number_format($o->owner_value)?>" readonly>
 								</div>
 						</div>
 						<?php $count++; ?>
@@ -127,7 +127,7 @@
 									Total
 								</div>
 								<div class="col-lg-6">
-									<input class="form-control" value="<?=$total_equity?>" readonly>
+									<input class="form-control" value="₱ <?=number_format($total_equity)?>" readonly>
 								</div>
 						</div>
 						<!-- /.row (nested) -->
@@ -157,16 +157,16 @@
 
 						<div class="row">
 							<div class="col-lg-4">
-								<input class="form-control" value="<?=$total_liabilities?>" readonly>
+								<input class="form-control" value="₱ <?=number_format($total_liabilities)?>" readonly>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control" value="<?=$total_equity?>" readonly>
+								<input class="form-control" value="₱ <?=number_format($total_equity)?>" readonly>
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control" value="<?=$total_equity+$total_liabilities?>.00" readonly>
+								<input class="form-control" value="₱ <?=number_format($total_equity+$total_liabilities)?>" readonly>
 							</div>
 						</div>
-<br>
+						<br>
 						<div class"row">
 							<div class="col-lg-4">
 								Total assets
@@ -174,7 +174,7 @@
 							<div class="col-lg-4">
 							</div>
 							<div class="col-lg-4">
-								<input class="form-control" value="<?=$total_assets?>" readonly>
+								<input class="form-control" value="₱ <?=number_format($total_assets)?>" readonly>
 							</div>
 						</div>
 
@@ -189,11 +189,15 @@
 							<div class="col-lg-4">
 								<?php $total = $total_equity + $total_liabilities; ?>
 								<?php if($total == $total_assets):?>
-										<input class="form-control" value="Balanced" readonly>
+										<input class="form-control" style="background-color:#00ff00;" value="Balanced" readonly>
 								<?php elseif($total > $total_assets):?>
-										<input class="form-control" value="Greater liabilities" readonly>
+										<input class="form-control" style="background-color:#ff4c4c;" value="Greater liabilities" readonly>
+										<br>
+										<a href="<?=base_url();?>Accountant/edit_one_balance_sheet/<?=$balancesheetid?>"<button type="button" class="btn btn-primary deleterow" style="width:100%">Edit sheet</button></a>
 								<?php elseif($total < $total_assets):?>
-										<input class="form-control" value="Greater assets" readonly>
+										<input class="form-control" style="background-color:#ff4c4c;" value="Greater assets" readonly>
+										<br>
+										<a href="<?=base_url();?>Accountant/edit_one_balance_sheet/<?=$balancesheetid?>"<button type="button" class="btn btn-primary deleterow" style="width:100%">Edit sheet</button></a>
 								<?php endif; ?>
 							</div>
 						</div>
@@ -230,6 +234,24 @@
 	<script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
 
 
+	<script src="<?=base_url();?>assets/accounting.js"></script>
+
+<script>
+accounting.settings = {
+	currency: {
+		symbol : "₱",   // default currency symbol is '$'
+		format: "%s%v", // controls output: %s = symbol, %v = value/number (can be object: see below)
+		decimal : ".",  // decimal point separator
+		thousand: ",",  // thousands separator
+		precision : 2   // decimal places
+	},
+	number: {
+		precision : 0,  // default precision on numbers is 0
+		thousand: ",",
+		decimal : "."
+	}
+}
+</script>
 	</body>
 
 	</html>

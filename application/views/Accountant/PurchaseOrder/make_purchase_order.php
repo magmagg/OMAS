@@ -34,23 +34,23 @@
                          <div class="row" id="itemsrow">
                            <div class="form-group col-lg-3">
                              <label class="myformlabel">Item</label>
-                             <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item"  value="<?=set_value('address');?>" required>
-                             <?php echo form_error('address'); ?>
+                             <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item" required>
                            </div>
-                           <div class="form-group col-lg-3">
+                           <div class="form-group col-lg-4">
+                             <label class="myformlabel">Item description</label>
+                             <input class="form-control itemfield" name="itemdesc[]" id="itemdesc" placeholder="Description" required>
+                           </div>
+                           <div class="form-group col-lg-1">
                              <label class="myformlabel">Quantity</label>
-                             <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Enter Quantity"  value="<?=set_value('address');?>" required>
-                             <?php echo form_error('address'); ?>
+                             <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Qty" required>
                            </div>
-                           <div class="form-group col-lg-3">
+                           <div class="form-group col-lg-1">
                              <label class="myformlabel">Unit price</label>
-                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Enter Price"  value="<?=set_value('address');?>" required>
-                             <?php echo form_error('address'); ?>
+                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Price" required>
                            </div>
-                           <div class="form-group col-lg-3">
+                           <div class="form-group col-lg-2">
                              <label class="myformlabel">Total</label>
                              <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
-                             <?php echo form_error('address'); ?>
                            </div>
                          </div>
                         </div>
@@ -90,8 +90,12 @@
 
     <!-- Custom Theme JavaScript -->
     <!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
+    <div class="form-group col-lg-1" id="deletebutton">
+      <button type="button" class="btn btn-danger deleterow" id="" onclick="deleterow(this)">X</button>
+    </div>
 
     <script>
+    $("#deletebutton").hide();
     $(".suppliers").select2({
         placeholder: "Select a supplier"
       });
@@ -124,12 +128,19 @@
       var clone = $("#itemsrow").clone();
       clone.find('input').val('');
       clone.find(".myformlabel").remove();
+      clone.attr("id","itemsrow"+id);
       clone.find("#item").attr("id","item"+id);
+      clone.find("#itemdesc").attr("id","itemdesc"+id);
       clone.find("#quantity").attr("id","quantity"+id);
       clone.find("#unitprice").attr("id","unitprice"+id);
       clone.find("#total").attr("id","total"+id);
+      var deletebutton = $("#deletebutton").clone().show();
+      deletebutton.find(".deleterow").attr("id","deleterow"+id);
       id++;
+
+      $(clone).append(deletebutton);
       $("#append").append(clone);
+
     });
     </script>
 
@@ -157,6 +168,18 @@
     });
     </script>
 
+    <script>
+    function deleterow(sel)
+    {
+     var currentid =sel.id.slice(-1);
+      if(isNaN(currentid)){
+       currentid = '';
+       }else{
+
+       }
+      $('#itemsrow'+currentid).remove();
+    }
+    </script>
 </body>
 
 </html>
