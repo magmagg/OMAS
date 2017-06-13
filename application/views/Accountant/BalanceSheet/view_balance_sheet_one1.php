@@ -5,6 +5,16 @@
 	$total_equity = $b->total_equity;
 }
 ?>
+<?php foreach($assets as $a)
+{
+	$assetcurrent = $a->asset_current;
+}
+?>
+<?php foreach($liabilities as $l)
+{
+	$liability_current = $l->liability_current;
+}
+?>
 <section class="sec-content">
 	 <div class="row">
 			 <div class="col-lg-12">
@@ -19,7 +29,13 @@
       <div class="col-xs-6 col-md-6">
 				<table style="width:100%">
 			  <tr>
+					<?php if($assetcurrent == 1): ?>
+			    <td>Assets - Current</td>
+					<?php elseif($assetcurrent == 2): ?>
+			    <td>Assets - Non current</td>
+					<?php else:?>
 			    <td>Assets</td>
+					<?php endif?>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -45,7 +61,13 @@
 					<td></td>
 				</tr>
 				<tr>
+					<?php if($liability_current == 1): ?>
+					<td>Liabilities - Current</td>
+					<?php elseif($liability_current == 2): ?>
+					<td>Liabilities - Non current</td>
+					<?php else:?>
 					<td>Liabilities</td>
+					<?php endif?>
 					<td></td>
 					<td></td>
 					<td></td>

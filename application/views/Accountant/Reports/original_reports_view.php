@@ -679,21 +679,11 @@ $("#yssemiex").select2({
 		},
 		fullWidth: true
 	}
-	var optionsa = {
-		seriesBarDistance: 10,
-		reverseData: true,
-		horizontalBars: true,
-		axisY: {
-			offset: 70
-		},
-		width:600,
-		height:300
-	}
 
 	var bcmonthlyservices = new Chartist.Bar('#monthlyservices', dmonthly, options);
   var bcquarterservices = new Chartist.Bar('#quarterservices', dquarter, options);
   var bcsemiservices = new Chartist.Bar('#semiservices', dsemi, options);
-  var bcanualservices = new Chartist.Bar('#anualservices', danual, optionsa);
+  var bcanualservices = new Chartist.Bar('#anualservices', danual, options);
 </script>
 
 <script>
@@ -776,7 +766,8 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					fullWidth: true,
+					width: 600,
+			 		height: 300,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -822,7 +813,8 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					fullWidth: true,
+					width: 600,
+			 		height: 300,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -873,27 +865,17 @@ $("#yssemiex").select2({
 		axisY: {
 			offset: 70
 		},
-		fullWidth: true,
+		width: 600,
+ 		height: 300,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
 	}
 
-	var optionsa = {
-		seriesBarDistance: 10,
-		reverseData: true,
-		horizontalBars: true,
-		axisY: {
-			offset: 70
-		},
-		width:600,
-		height:300
-	}
-
 	var bcmonthlyp = new Chartist.Bar('#monthlypchart', dmonthly, options);
   var bcquarterp = new Chartist.Bar('#quarterpchart', dquarter, options);
   var bcsemip = new Chartist.Bar('#semipchart', dsemi, options);
-  var bcanualp = new Chartist.Bar('#anualpchart', danual, optionsa);
+  var bcanualp = new Chartist.Bar('#anualpchart', danual, options);
 </script>
 
 <script>
@@ -928,7 +910,8 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					fullWidth: true,
+					width: 600,
+			 		height: 300,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -974,7 +957,8 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					fullWidth: true,
+					width: 600,
+			 		height: 300,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -1021,7 +1005,8 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					fullWidth: true,
+					width: 600,
+			 		height: 300,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -1067,27 +1052,18 @@ $("#yssemiex").select2({
 		axisY: {
 			offset: 70
 		},
-		fullWidth: true,
+		width: 600,
+ 		height: 300,
 		high: 5,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
 	}
-	var optionsa = {
-		seriesBarDistance: 10,
-		reverseData: true,
-		horizontalBars: true,
-		axisY: {
-			offset: 70
-		},
-		width:600,
-		height:300
-	}
 
 	var bcmonthlyex = new Chartist.Bar('#monthlyexchart', dmonthly, options);
   var bcquarterex = new Chartist.Bar('#quarterexchart', dquarter, options);
   var bcsemiex = new Chartist.Bar('#semiexchart', dsemi, options);
-  var bcanualex = new Chartist.Bar('#anualexchart', danual, optionsa);
+  var bcanualex = new Chartist.Bar('#anualexchart', danual, options);
 </script>
 
 <script>
@@ -1145,7 +1121,8 @@ $('#ysmonthlyex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1215,7 +1192,8 @@ $('#ysquarterex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1284,7 +1262,8 @@ $('#yssemiex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1328,7 +1307,8 @@ $('#selectexannual').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1378,7 +1358,8 @@ $('#selectexannual').change(function() {
 		axisY: {
 			offset: 70
 		},
-		fullWidth: true,
+		width: 600,
+ 		height: 300,
 		low: 0,
 	 scaleMinSpace: 20,
 	 onlyInteger: true
@@ -1422,7 +1403,8 @@ $('#ysmonthlyi').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1467,7 +1449,8 @@ $('#ysquarteri').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1513,7 +1496,8 @@ $('#yssemii').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1559,7 +1543,8 @@ var options = {
 	axisY: {
 		offset: 70
 	},
-	fullWidth: true,
+	width: 600,
+	height: 300
 }
 console.log(seriesanuals);
 
@@ -1571,7 +1556,8 @@ var optionsa = {
 	axisY: {
 		offset: 70
 	},
-	fullWidth: true,
+	width: 600,
+	height: 300,
 	high: maxValueInArray,
 	low: 0,
  scaleMinSpace: 20,
@@ -1613,7 +1599,8 @@ $('#ysmonthlypie').change(function() {
 				axisY: {
 					offset: 70
 				},
-				fullWidth: true,
+				width: 600,
+				height: 300,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1649,7 +1636,7 @@ var sum = function(a, b) { return a + b };
 var semipiechart = new Chartist.Pie('#semipiechart', data, {
   labelInterpolationFnc: function(value) {
     return Math.round(value / data.series.reduce(sum) * 100) + '%';
-  },fullWidth: true
+  },width:600,height: 300
 });
 </script>
 
@@ -1680,7 +1667,7 @@ $('#ysquarterpie').change(function() {
 				var options = {
 				  labelInterpolationFnc: function(value) {
 				    return value[0]
-				  },fullWidth: true
+				  },width:600,height: 300
 
 				};
 				var responsiveOptions = [
@@ -1732,7 +1719,7 @@ $('#yssemipie').change(function() {
 				var options = {
 				  labelInterpolationFnc: function(value) {
 				    return value[0]
-				  },fullWidth: true
+				  },width:600,height: 300
 				};
 				var responsiveOptions = [
 				  ['screen and (min-width: 640px)', {
