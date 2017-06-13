@@ -16,7 +16,7 @@ class Admin_model extends CI_Model
 
 	function get_accountants()
 	{
-		$this->db->select('username,email,create_time,UserID');
+		$this->db->select('username,email,create_time,UserID,Status');
 		$this->db->from('accountant');
 		$query = $this->db->get();
 		return $query->result();
@@ -122,6 +122,26 @@ class Admin_model extends CI_Model
 		$this->db->update('service_invoice',$data);
 	}
 
-	//Trying bitbucket
+	function activate_user($id,$data)
+	{
+		$this->db->where('UserID',$id);
+		$this->db->update('accountant',$data);
+	}
+
+	function get_accountant_details($username)
+	{
+		$this ->db->select('*');
+		$this ->db->from('accountant');
+		$this->db->where('UserID', $username);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function submit_edit_accountant($data,$id)
+	{
+		$this->db->where('UserID',$id);
+		$this->db->update('accountant',$data);
+	}
+
 
 }
