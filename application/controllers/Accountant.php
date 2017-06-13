@@ -1196,12 +1196,55 @@ class Accountant extends CI_Controller
     redirect(base_url().'Accountant/view_one_expense/'.$table.'/'.$id, 'refresh');
   }
 
+  function download_file()
+  {
+    $this->load->helper('download');
+
+    $id = $this->uri->segment(3);
+    $table = $this->uri->segment(4);
+    if($table == 'other_expenses')
+      $use = array('other_expenseID'=>$id);
+    else if($table =='rent')
+      $use = array('rentID'=>$id);
+    else if($table =='insurance')
+      $use = array('insuranceID'=>$id);
+    else if($table =='fees')
+      $use = array('feesID'=>$id);
+    else if($table =='wages')
+      $use = array('wagesID'=>$id);
+    else if($table =='interest')
+      $use = array('interestID'=>$id);
+    else if($table =='supplies')
+      $use = array('suppliesID'=>$id);
+    else if($table =='maintenance')
+      $use = array('maintenanceID'=>$id);
+    else if($table =='travel')
+      $use = array('travelID'=>$id);
+    else if($table =='entertainment')
+      $use = array('entertainmentID'=>$id);
+    else if($table =='training')
+      $use = array('trainingID'=>$id);
+    else if($table =='utilities')
+      $use = array('UtilitiesID'=>$id);
+		else if($table =='depreciation')
+			$use = array('depreciationID'=>$id);
+
+
+
+    $data['expense'] = $this->Accountant_model->get_one_expense($use, $table);
+    foreach($data['expense'] as $e)
+    {
+      force_download($e['other_doc'], NULL);
+    }
+  }
+
   //Reports
   function reports()
   {
 		$data['serviceyears'] = $this->Accountant_model->AnnualService();
 		$data['purchaseyears'] = $this->Accountant_model->AnnualPurchase();
 		$data['inventoryyears'] = $this->Accountant_model->AnnualInventory();
+    $data['yearlyrevenue'] = $this->Accountant_model->YearlyRevenue();
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/Reports/sub_menu');
@@ -1329,6 +1372,13 @@ class Accountant extends CI_Controller
 		$year = $this->input->post('year');
 		echo json_encode($this->Accountant_model->SemiRevenue($year));
 	}
+
+  function MonthlyRevenue()
+  {
+    $year = $this->input->post('year');
+    echo json_encode($this->Accountant_model->MonthlyRevenue($year));
+  }
+
 
 
 }

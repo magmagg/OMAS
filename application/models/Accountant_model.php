@@ -710,5 +710,37 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 
 	}
 
+	function MonthlyRevenue($year)
+	{
+
+			$group = "MONTH(TransactionDate)";
+			$select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+	function YearlyRevenue()
+	{
+
+			$group = "Year(TransactionDate)";
+			$select = "Year(TransactionDate) as Annual, sum(total) as counted";
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+
 
 }

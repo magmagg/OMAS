@@ -40,7 +40,7 @@
 							<?php else: ?>
 							<div class="form-group">
 								<label>File</label>
-								<input class="form-control" value="<?=$e['other_doc']?>" readonly>
+								<a href="<?=base_url();?>Accountant/download_file/<?=$e[$idname]?>/<?=$table?>"><button class="btn btn-primary">Download file</button></a>
 							</div>
 							<?php endif; ?>
 							<?php if($table == 'depreciation'):?>
