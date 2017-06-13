@@ -1,7 +1,7 @@
 <section class="sec-content">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Utilities</h1>
+			<h1 class="page-header">Expenses</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -12,7 +12,7 @@
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Pill Tabs
+						Expenses
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
@@ -21,10 +21,10 @@
 							<?php $count = 1; ?>
 							<?php foreach($expenses as $e): ?>
 								<?php if($count == 1): ?>
-									<li class="active"><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									<li class="active"><a href="#<?=$e?>" data-toggle="tab"><?=str_replace('_', ' ', ucwords($e));?></a>
 									</li>
 								<?php else: ?>
-									<li><a href="#<?=$e?>" data-toggle="tab"><?=$e?></a>
+									<li><a href="#<?=$e?>" data-toggle="tab"><?=ucwords($e)?></a>
 									</li>
 								<?php endif; ?>
 								<?php $count++;?>

@@ -176,7 +176,7 @@ class Accountant extends CI_Controller
         array(
                 'field' => 'suppliername',
                 'label' => 'suppliername',
-                'rules' => 'required'
+                'rules' => 'required|is_unique[supplier.SupplierName]'
         ),
 				array(
 								'field' => 'address',
@@ -238,7 +238,7 @@ class Accountant extends CI_Controller
 
         $this->Accountant_model->submit_add_supplier($data);
         $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!</div>');
-				redirect(base_url().'Accountant/add_supplier', 'refresh');
+				redirect(base_url().'Accountant/view_suppliers', 'refresh');
 
     }
   }
@@ -376,6 +376,7 @@ class Accountant extends CI_Controller
 	function submit_make_purchase_order()
 	{
     $use['items'] = list($items) = $this->input->post('item');
+    $use['itemdesc'] = list($items) = $this->input->post('itemdesc');
     $use['quantity'] = list($items) = $this->input->post('quantity');
     $use['unitprice'] = list($items) = $this->input->post('unitprice');
     $use['total'] = list($items) = $this->input->post('total');
@@ -412,6 +413,7 @@ class Accountant extends CI_Controller
     {
       $data = array('ItemName'=>$value,
                     'Quantity'=>$use['quantity'][$key],
+                    'ItemDesc'=>$use['itemdesc'][$key],
                     'UnitPrice'=>$use['unitprice'][$key],
                     'PO_ID'=>$PurchaseID);
       $this->Accountant_model->insert_purchase_order_item($data);
@@ -851,6 +853,22 @@ class Accountant extends CI_Controller
     $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
     $data['oequity'] = $this->Accountant_model->get_oequity($id);
     $data['balancer'] = $this->Accountant_model->get_balancer($id);
+    $data['balancesheetid'] = $id;
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/BalanceSheet/sub_menu');
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+  }
+
+  function edit_one_balance_sheet()
+  {
+    $id = $this->uri->segment(3);
+
+    $data['assets'] = $this->Accountant_model->get_assets($id);
+    $data['liabilities'] = $this->Accountant_model->get_liabilities($id);
+    $data['oequity'] = $this->Accountant_model->get_oequity($id);
+    $data['balancer'] = $this->Accountant_model->get_balancer($id);
+    $data['balancesheetid'] = $id;
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');

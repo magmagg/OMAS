@@ -87,12 +87,13 @@ $(document).ready(function() {
     $('.DeleteCustomer').click(function() {
         var id = $(this).data("id");
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover supplier!",
-            type: "warning",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false,
+          title: "Are you sure?",
+          text: "You will not be able to recover supplier!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
             },
             function(isConfirm) {
             if (isConfirm) {
@@ -110,6 +111,7 @@ $(document).ready(function() {
                         showCancelButton: false,
                         showConfirmButton: false,
                         confirmButtonColor: "#DD6B55",
+                        showCancelButton: true,
                         confirmButtonText: "Yes, delete it!",
                         closeOnConfirm: false
                       });

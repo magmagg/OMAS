@@ -10,7 +10,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					View service invoice
+					Service invoice
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills">
@@ -204,7 +204,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Purchase
+						Revenue
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills">
@@ -1379,7 +1379,7 @@ $('#ysquarterpie').change(function() {
 				var data1 = JSON.parse(data);
 				$.each(data1, function(index, value) {
 					seriesdata.push(data1[index].sum);
-					labeldata.push('Q'+data1[index].Quarter+":"+data1[index].sum);
+					labeldata.push('Quarter '+data1[index].Quarter+":"+data1[index].sum);
 				});
 				console.log(labeldata);
 				var data = {
@@ -1432,7 +1432,7 @@ $('#yssemipie').change(function() {
 					seriesdata.push(data1[index].sum);
 					var quarter = parseInt(data1[index].Semi);
 					var final = quarter+1;
-					labeldata.push('Q'+final+":"+data1[index].sum);
+					labeldata.push('Quarter '+final+":"+data1[index].sum);
 				});
 				var data = {
 					labels: labeldata,
