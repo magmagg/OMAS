@@ -1,7 +1,7 @@
 <section class="sec-content">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">View Utility</h1>
+			<h1 class="page-header">View Expense</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -10,7 +10,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					Basic Form Elements
+					Expense
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -28,13 +28,14 @@
 								<label>Price</label>
 								<input class="form-control" value="<?=$e['value']?>" readonly>
 							</div>
-							<?php if($e['other_doc'] == ''): ?>
-							<?php else: ?>
 							<div class="form-group">
-								<label>File</label>
-								<input class="form-control" value="<?=$e['other_doc']?>" readonly>
-							</div>
+								<label>Paid?</label>
+								<?php if($e['Status'] == 1):?>
+								<input class="form-control" value="Yes" readonly>
+								<?php else: ?>
+								<input class="form-control" value="No" readonly>
 							<?php endif; ?>
+							</div>
 							<?php if($table == 'depreciation'):?>
 							<div class="form-group" id="fiscalyear">
 								<label>Fiscal year</label>
@@ -42,12 +43,42 @@
 							</div>
 							<?php else: ?>
 							<?php endif; ?>
+							<?php if($e['other_doc'] == ''): ?>
+							<?php else: ?>
+							<div class="form-group">
+								<label>File</label>
+								<a href="<?=base_url();?>Accountant/download_file/<?=$e[$idname]?>/<?=$table?>"><button class="btn btn-primary">Download file</button></a>
+							</div>
+							<?php endif; ?>
+
+
+							<?php if($e['Status'] == 1):?>
 							<form role="form" method="POST" action="<?=base_url()?>Accountant/submit_update_expense" enctype="multipart/form-data">
+								<input type="hidden" name="id" value="<?=$e[$idname]?>">
+								<input type="hidden" name="table" value="<?=$table?>">
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-                                 <input type="checkbox" id="filecheckbox" name="filecheckbox" value="1">With file?
-                             </label>
+                         <input type="checkbox" id="filecheckbox" name="filecheckbox" value="1">With file?
+                     </label>
+									</div>
+								</div>
+								<div class="form-group" id="fileinput">
+									<label>Choose file:</label>
+									<input type="file" name="fileinput" id="userfile" />
+								</div>
+								<button type="submit" id="submitbutton" class="btn btn-default" disabled>Update</button>
+							</form>
+						<?php else: ?>
+
+							<form role="form" method="POST" action="<?=base_url()?>Accountant/submit_update_expense" enctype="multipart/form-data">
+								<input type="hidden" name="id" value="<?=$e[$idname]?>">
+								<input type="hidden" name="table" value="<?=$table?>">
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+                         <input type="checkbox" id="filecheckbox" name="filecheckbox" value="1">With file?
+                     </label>
 									</div>
 								</div>
 								<div class="form-group" id="fileinput">
@@ -56,24 +87,20 @@
 								</div>
 								<?php if($table == 'depreciation'):?>
 								<?php else: ?>
-								<?php if($e['Status'] == 1): ?>
-								<?php else: ?>
-								<input type="hidden" name="id" value="<?=$e[$idname]?>">
-								<input type="hidden" name="table" value="<?=$table?>">
-								<div class="form-group">
-									<div class="checkbox">
-										<label>
-                                 <input type="checkbox" id="paidcheckbox" name="paidcheckbox" value="1">Paid already?
-                             </label>
-									</div>
+								<div class="form-group" id="checkboxdiv">
+										<div class="checkbox">
+												<label>
+														<input type="checkbox" id="paidcheckbox" name="paidcheckbox" value="1">Paid already?
+												</label>
+										</div>
 								</div>
 								<div class="form-group" id="datepaid">
 									<label>Date paid</label>
 									<input name="expensedatepaid" type="date" id="datepicker">
 								</div>
+							<?php endif; ?>
 								<button type="submit" id="submitbutton" class="btn btn-default" disabled>Update</button>
 							</form>
-							<?php endif; ?>
 							<?php endif; ?>
 							<?php endforeach; ?>
 						</div>
@@ -132,6 +159,21 @@
 				$("#userfile").prop('required', false);
 			}
 		});
+	});
+
+	$(function(){
+	    var dtToday = new Date();
+
+	    var month = dtToday.getMonth() + 1;
+	    var day = dtToday.getDate();
+	    var year = dtToday.getFullYear();
+	    if(month < 10)
+	        month = '0' + month.toString();
+	    if(day < 10)
+	        day = '0' + day.toString();
+
+	    var maxDate = year + '-' + month + '-' + day;
+	    $('#datepicker').attr('max', maxDate);
 	});
 </script>
 

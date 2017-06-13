@@ -170,6 +170,21 @@ class Accountant_model extends CI_Model
 		return $query->result();
 	}
 
+
+	function get_quantity_by_itemid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('purchasing_order_item');
+		$this->db->where('ItemID',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	function subtract_quantity($data,$value)
+	{
+			$this->db->where('ItemID',$value);
+			$this->db->update('purchasing_order_item',$data);
+	}
+
 	function get_service_invoice_byuser_items($SOID)
 	{
 		$this->db->select('*');
@@ -351,6 +366,14 @@ class Accountant_model extends CI_Model
 	{
 		$this->db->where($idname,$id);
 		$this->db->update($table,$data);
+	}
+
+	function get_fiscal_years_used()
+	{
+		$this->db->select('fiscal_year');
+		$this->db->from('depreciation');
+		$query = $this->db->get();
+		return $query->result();
 	}
 
 	//Services Reports
@@ -692,6 +715,38 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 			$this->db->group_by($group);
 			$query = $this->db->get();
 			return $query->result_array();
+
+	}
+
+	function MonthlyRevenue($year)
+	{
+
+			$group = "MONTH(TransactionDate)";
+			$select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+			$where = "YEAR(TransactionDate) ='".$year."'";
+
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+	function YearlyRevenue()
+	{
+
+			$group = "Year(TransactionDate)";
+			$select = "Year(TransactionDate) as Annual, sum(total) as counted";
+
+			$this->db->select($select);
+			$this->db->from('service_invoice');
+			$this->db->group_by($group);
+			$query = $this->db->get();
+			return $query->result();
 
 	}
 

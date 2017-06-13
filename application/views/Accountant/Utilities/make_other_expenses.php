@@ -33,7 +33,7 @@
                             <option value="travel">Travel</option>
                             <option value="entertainment">Media & Entertainment</option>
                             <option value="training">Training</option>
-                            <option value="utilities">Utilitiy</option>
+                            <option value="utilities">Utility</option>
                             <option value="depreciation">Depreciation</option>
                         </select>
                     </div>
@@ -149,6 +149,19 @@ for (i = new Date().getFullYear(); i > 1900; i--)
 <script>
 $('#select').change(function() {
   if(this.value == 'depreciation'){
+    $.ajax({
+			type: 'POST',
+			url: '<?=base_url();?>Accountant/get_fiscal_years_used',
+			data: {
+				'table': this.value
+			},
+			success: function(data) {
+  			var data1 = JSON.parse(data);
+        $.each(data1, function(index, value) {
+          $("#yearpicker option[value='"+data1[index].fiscal_year+"']").remove();
+        });
+			}
+		});
       $( "#fiscalyear" ).show();
       $( "#datepaid" ).hide();
       $( "#checkboxdiv" ).hide();

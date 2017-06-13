@@ -54,7 +54,7 @@
                             </td>
                           -->
                             <td>
-                              <a href="<?=base_url().'Accountant/view_one_service_invoice/'.$s->ServiceID?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <button type="button" class="btn btn-primary" onclick="window.open('<?=base_url().'Accountant/view_one_service_invoice/'.$s->ServiceID?>')">View</button>
                             </td>
                         </tr>
                       <?php $num++; ?>
