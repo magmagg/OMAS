@@ -317,12 +317,48 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function assetsCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['assets'] = $this->Model_Mobile->assetCurr($balanceID);
+		echo json_encode($data);
+	}
+
+	function assetsNonCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['assets'] = $this->Model_Mobile->assetNonCurr($balanceID);
+		echo json_encode($data);
+	}
+
 	function liabilities()
 	{
 
 		$balanceID = (int)$this->input->post('ID');
 
 		$data['liabilities'] = $this->Model_Mobile->liabilitiesTotal($balanceID);
+		echo json_encode($data);
+	}
+
+	function liabilitiesCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['liabilities'] = $this->Model_Mobile->liabilitiesCurrent($balanceID);
+		echo json_encode($data);
+	}
+
+	function liabilitiesNonCurrent()
+	{
+
+		$balanceID = (int)$this->input->post('ID');
+
+		$data['liabilities'] = $this->Model_Mobile->liabilitiesNonCurrent($balanceID);
 		echo json_encode($data);
 	}
 
@@ -435,6 +471,40 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//services rendered
+
+	function servicesMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesQuarterly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['quarterly'] = $this->Model_Mobile->QuarterlyServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesSemi()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['semi'] = $this->Model_Mobile->SemiServices($year);
+		echo json_encode($data);
+	}
+
+	function servicesAnnual()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['annual'] = $this->Model_Mobile->AnnualServices($year);
+		echo json_encode($data);
+	}
+
 	//Purchasing Reports
 
 	function purchaseMonthly()
@@ -543,6 +613,14 @@ class Mobile extends CI_Controller {
 
 	//Revenue Reports
 
+	function revenueMonthly()
+	{
+		$year = (int)$this->input->post('year');
+
+		$data['monthly'] = $this->Model_Mobile->MonthlyRevenue($year);
+		echo json_encode($data);
+	}
+
 	function revenueQuarterly()
 	{
 		$year = (int)$this->input->post('year');
@@ -556,6 +634,13 @@ class Mobile extends CI_Controller {
 		$year = (int)$this->input->post('year');
 
 		$data['semi'] = $this->Model_Mobile->SemiRevenue($year);
+		echo json_encode($data);
+	}
+
+	function revenueAnnual()
+	{
+
+		$data['annual'] = $this->Model_Mobile->YearlyRevenue();
 		echo json_encode($data);
 	}
 
