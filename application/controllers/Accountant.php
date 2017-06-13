@@ -1399,6 +1399,8 @@ class Accountant extends CI_Controller
     $year = $this->input->post('yearpicker');
     $duration = $this->input->post('duration');
     $month = $this->input->post('month');
+    $data['other_income'] = $this->input->post('other_income');
+    $data['interest_expense'] = $this->input->post('interest_expense');
     $totalexpenses = '';
 
     //statementrevenue
@@ -1461,9 +1463,14 @@ class Accountant extends CI_Controller
     {
         $totalexpenses += $u['Total'];
     }
-    $data['totalexpense'] = array('totalexpenses'=>$totalexpenses);
+    $data['totalexpense'] = $totalexpenses;
 
-    echo json_encode($data);
+    //echo json_encode($data);
+
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Reports/sub_menu');
+    $this->load->view('Accountant/Reports/income_statement',$data);
 
   }
 
