@@ -29,5 +29,5 @@
 </section>
 
 <script type="text/javascript">
-    add_class("menu_utilities");
+    add_class("menu_reports");
 </script>

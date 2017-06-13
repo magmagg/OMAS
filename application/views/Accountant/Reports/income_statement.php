@@ -10,7 +10,7 @@
 		 <div class="col-xs-4 col-md-4">
       </div>
       <div class="col-xs-4 col-md-4">
-				<table style="width:100%" border="1px">
+				<table style="width:100%">
 			  <tr>
 					<td colspan="5"><center>Income Statement<center></td>
 			  </tr>
@@ -101,6 +101,41 @@
 					</tr>
 				<?php else:?>
 				<?php endif;?>
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Net income Before Interest & Tax</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>A number</td>
+				</tr>
+				<tr>
+					<td>Interest Expense</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><?php echo number_format($interest_expense); ?></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Net Income Before Tax</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>A number</td>
+				</tr>
 
 			</table>
       </div>
