@@ -1386,77 +1386,85 @@ class Accountant extends CI_Controller
 
   //Income statement
 
-  	function statementRevenue()
-  	{
+  function income_statement()
+  {
 
-  		/*
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Reports/sub_menu');
+    $this->load->view('Accountant/Reports/income_statement');
+  }
 
-  			$month, magpapalit kada month na pinili. pag quarterly naman, and values
-  			dapat 1-4 lang. pag semi annual, 0-1 lang
+  function submit_get_income_statement()
+  {
+    $year = $this->input->post('yearpicker');
+    $duration = $this->input->post('duration');
+    $month = $this->input->post('month');
+    $totalexpenses = '';
 
-  		*/
-  		$year = 2016;
-  		$month = 1;
-  		$duration = "semi";
+    //statementrevenue
+    $data['income'] = $this->Accountant_model->MonthlyIncome($year,$month,$duration);
+    //incomeinventorybegin
+    $data['begin'] = $this->Accountant_model->MonthlyStatementInventory($year,$month,$duration);
+    //incomeinventoryend
+    $data['end'] = $this->Accountant_model->MonthlyStatementInventoryEnd($year,$month,$duration);
+    $use['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities');
+    foreach($use['expenses'] as $e)
+    {
+      $use[$e] = $this->Accountant_model->MonthlyStatementExpenses($year,$month,$e,$duration);
+    }
 
-  		$data['income'] = $this->Model_Mobile->MonthlyIncome($year,$month,$duration);
-  		echo json_encode($data);
-  	}
+    foreach($use['other_expenses'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['rent'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['insurance'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['fees'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['wages'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['interest'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['supplies'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['maintenance'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['travel'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['entertainment'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['training'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['utilities'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    $data['totalexpense'] = $totalexpenses;
 
-  	function incomeInventoryBegin()
-  	{
+    echo json_encode($data);
 
-  		/*
-
-  			$month, magpapalit kada month na pinili. pag quarterly naman, and values
-  			dapat 1-4 lang. pag semi annual, 0-1 lang
-
-  		*/
-
-  		$year = 2016;
-  		$month = 2;
-  		$duration = "annual";
-
-  		$data['begin'] = $this->Model_Mobile->MonthlyStatementInventory($year,$month,$duration);
-  		echo json_encode($data);
-  	}
-
-  	function incomeInventoryEnd()
-  	{
-
-  		/*
-
-  			$month, magpapalit kada month na pinili. pag quarterly naman, and values
-  			dapat 1-4 lang. pag semi annual, 0-1 lang
-
-  		*/
-
-  		$year = 2016;
-  		$month = 0;
-  		$duration = "semi";
-
-  		$data['end'] = $this->Model_Mobile->MonthlyStatementInventoryEnd($year,$month,$duration);
-  		echo json_encode($data);
-  	}
-
-  	function incomeExpenses()
-  	{
-
-  		/*
-
-  			$month, magpapalit kada month na pinili. pag quarterly naman, and values
-  			dapat 1-4 lang. pag semi annual, 0-1 lang
-
-  		*/
-
-  		$year = 2016;
-  		$month = 0;
-  		$table = "fees";
-  		$duration = "annual";
-
-  		$data['expense'] = $this->Model_Mobile->MonthlyStatementExpenses($year,$month,$table,$duration);
-  		echo json_encode($data);
-  	}
-
+  }
 
 }
