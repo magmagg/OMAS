@@ -19,7 +19,6 @@
                       <li><a href="<?=base_url();?>Accountant/make_utilities" class="child">Create Utilities</a></li>
                     </ul>
                 </li>-->
-                      <li><a href="<?=base_url();?>Accountant/income_statement" class="parent">Income statement</a></li>
 
             </ul>
 

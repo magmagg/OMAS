@@ -7,9 +7,9 @@
 	 </div>
 	 <!-- /.row -->
 	 <div class="row">
-		 <div class="col-xs-4 col-md-4">
+		 <div class="col-xs-2 col-md-2">
       </div>
-      <div class="col-xs-4 col-md-4">
+      <div class="col-xs-8 col-md-8">
 				<table style="width:100%">
 			  <tr>
 					<td colspan="5"><center>Income Statement<center></td>
@@ -46,7 +46,7 @@
 					<td style="text-indent:50px">End Inventory</td>
 					<td></td>
 					<td></td>
-					<td><?php echo number_format($end[0]['Total'])?></td>
+					<td><?php echo '-'.number_format($end[0]['Total'])?></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -54,7 +54,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><?php echo number_format($begin[0]['Total']-$end[0]['Total'])?></td>
+					<td>-<?php echo number_format($begin[0]['Total']-$end[0]['Total'])?></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -75,7 +75,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><?php echo number_format($totalexpense)?></td>
+					<td>-<?php echo number_format($totalexpense)?></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -99,28 +99,37 @@
 						<td></td>
 						<td><?php echo number_format($other_income)?></td>
 					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<?php $nibit = (($income[0]['Total']-($begin[0]['Total']-$end[0]['Total']))-$totalexpense)+$other_income; ?>
+					<tr>
+						<td>Net income Before Interest & Tax</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><?php echo number_format($nibit)?></td>
+					</tr>
 				<?php else:?>
+					<tr>
+						<td>Net income Before Interest & Tax</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><?php echo number_format(($income[0]['Total']-($begin[0]['Total']-$end[0]['Total']))-$totalexpense)?></td>
+					</tr>
 				<?php endif;?>
-				<tr>
-					<td>&nbsp;</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Net income Before Interest & Tax</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>A number</td>
-				</tr>
+
 				<tr>
 					<td>Interest Expense</td>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><?php echo number_format($interest_expense); ?></td>
+					<td>-<?php echo number_format($interest_expense); ?></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -134,12 +143,16 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td>A number</td>
+					<?php if(isset($nibit)):?>
+						<td><?php echo number_format($nibit-$interest_expense)?></td>
+					<?php else:?>
+						<td><?php echo number_format((($income[0]['Total']-($begin[0]['Total']-$end[0]['Total']))-$totalexpense)-$interest_expense);?></td>
+					<?php endif;?>
 				</tr>
 
 			</table>
       </div>
-			<div class="col-xs-4 col-md-4 text-right">
+			<div class="col-xs-2 col-md-2 text-right">
 
 </div>
 

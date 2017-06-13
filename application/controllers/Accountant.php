@@ -866,7 +866,7 @@ class Accountant extends CI_Controller
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
-    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one1',$data);
   }
 
   function edit_one_balance_sheet()
