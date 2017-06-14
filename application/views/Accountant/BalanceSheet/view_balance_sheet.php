@@ -35,6 +35,8 @@
                             <td><?=$i->date_created?></td>
                             <td>
                               <a href="<?=base_url().'Accountant/view_balance_sheet_one/'.$i->balance_id?>"><button type="button" class="btn btn-primary">View</button></a>
+                              <a href="<?=base_url().'Accountant/edit_one_balance_sheet/'.$i->balance_id?>"><button type="button" class="btn btn-primary">Edit</button></a>
+
                             </td>
                         </tr>
                       <?php $num++; ?>
