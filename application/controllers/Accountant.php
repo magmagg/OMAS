@@ -847,8 +847,16 @@ class Accountant extends CI_Controller
 
   function submit_update_balancesheet()
   {
-    $data = array('created_by'=>$this->session->userdata('AccountantID'));
-    $balanceid = $this->Accountant_model->insert_balance_table($data);
+    $balanceid = $this->input->post('balancesheetid');
+    $this->Accountant_model->delete_from_assets_table($balanceid);
+    $this->Accountant_model->delete_from_oequity_table($balanceid);
+    $this->Accountant_model->delete_from_liabilities_table($balanceid);
+    $this->Accountant_model->delete_from_balancer_table($balanceid);
+    $this->Accountant_model->delete_from_balance_table($balanceid);
+
+    $data = array('created_by'=>$this->session->userdata('AccountantID'),
+                  'balance_id'=>$balanceid);
+    $this->Accountant_model->insert_balance_table($data);
 
     $use['assetname'] = list($items) = $this->input->post('assetname');
     $use['assetvalue'] = list($items) = $this->input->post('assetvalue');
@@ -919,7 +927,7 @@ class Accountant extends CI_Controller
                   'total_equity'=>$oequitytotal);
     $this->Accountant_model->insert_balancer($data);
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
-    redirect(base_url().'Accountant/balance_sheet', 'refresh');
+  //  redirect(base_url().'Accountant/balance_sheet', 'refresh');
   }
 
   function view_balance_sheet()

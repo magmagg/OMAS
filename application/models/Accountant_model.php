@@ -941,4 +941,31 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 	}
 
 
+	function delete_from_balance_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('balance',$data);
+	}
+	function delete_from_assets_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('assets',$data);
+	}
+	function delete_from_oequity_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('owners_equity',$data);
+	}
+	function delete_from_balancer_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('balancer',$data);
+	}
+	function delete_from_liabilities_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('liabilities',$data);
+	}
+
+
 }

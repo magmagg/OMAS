@@ -22,10 +22,10 @@
 							<?php foreach($assets as $a): ?>
 							<div class="row" id="asscountdb<?=$asscountdb?>">
 									<div class="form-group col-lg-6">
-										<input class="form-control" value="<?=$a->asset_name?>" readonly>
+										<input class="form-control" name="assetname[]" value="<?=$a->asset_name?>">
 									</div>
 									<div class="form-group col-lg-5">
-										<input class="form-control" value="₱ <?=number_format($a->asset_value)?>" readonly>
+										<input class="form-control" name="assetvalue[]" type="number" value="<?=$a->asset_value?>">
 									</div>
 									<div class="form-group col-lg-1">
 										<button type="button" class="btn btn-danger deleterow" id="asscountdbrow<?=$asscountdb?>" onclick="delasscountdb(this)">X</button>
@@ -80,10 +80,10 @@
 						<?php foreach($liabilities as $l): ?>
 						<div class="row" id="liacountdb<?=$liacountdb?>">
 								<div class="form-group col-lg-6">
-									<input class="form-control" value="<?=$l->liability_name?>" readonly>
+									<input class="form-control" name="liabilityname[]" value="<?=$l->liability_name?>">
 								</div>
 								<div class="form-group col-lg-5">
-									<input class="form-control" value="₱<?=number_format($l->liability_value)?>" readonly>
+									<input class="form-control" name="liabilityvalue[]" type="number" value="<?=$l->liability_value?>">
 								</div>
 								<div class="form-group col-lg-1">
 									<button type="button" class="btn btn-danger deleterow" id="liacountdbrow<?=$liacountdb?>" onclick="delliacountdb(this)">X</button>
@@ -142,10 +142,10 @@
 							<?php foreach($oequity as $o): ?>
 							<div class="row" id="oeqcountdb<?=$oeqcountdb?>">
 									<div class="form-group col-lg-6">
-										<input class="form-control" value="<?=$o->owner_name?>" readonly>
+										<input class="form-control" name="oequityname[]" value="<?=$o->owner_name?>">
 									</div>
 									<div class="form-group col-lg-5">
-										<input class="form-control" value="₱<?=number_format($o->owner_value)?>" readonly>
+										<input class="form-control" name="oequityvalue[]" type="number" value="<?=$o->owner_value?>">
 									</div>
 									<div class="form-group col-lg-1">
 										<button type="button" class="btn btn-danger deleterow" id="oeqacountdbrow<?=$oeqcountdb?>" onclick="deloeqcountdb(this)">X</button>
