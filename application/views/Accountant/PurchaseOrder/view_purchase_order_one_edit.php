@@ -39,9 +39,11 @@
 
                         <?php endforeach;?>
                        </div>
+                       <?php $piid = 1;?>
                        <div class="row">
+                       <?php foreach($purchaseorder as $p): ?>
+                         <div id="pirow<?=$piid?>">
                          <?php $count = 1; ?>
-                         <?php foreach($purchaseorder as $p): ?>
                            <div class="form-group col-lg-3">
                              <input class="form-control iitemfield" name="item[]" id="iitem<?=$count?>" value="<?=$p->ItemName?>" required>
                            </div>
@@ -57,7 +59,11 @@
                            <div class="form-group col-lg-2">
                              <input class="form-control ttotalfield" id="ttotal<?=$count?>" name="total[]" placeholder="Total" value="<?=$p->Quantity*$p->UnitPrice?>" readonly>
                            </div>
-                           <?php $count++; ?>
+                           <div class="form-group col-lg-1">
+                             <button type="button" class="btn btn-danger deleterow" id="bpirow<?=$piid?>" onclick="deleterowpiid(this)">X</button>
+                           </div>
+                         </div>
+                           <?php $piid++; ?>
                          <?php endforeach; ?>
                        </div>
                        <div id="append">
@@ -76,6 +82,9 @@
                            </div>
                            <div class="form-group col-lg-2">
                              <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+                           </div>
+                           <div class="form-group col-lg-1" id="deletebutton">
+                             <button type="button" class="btn btn-danger deleterow" id="" onclick="deleterow(this)">X</button>
                            </div>
                          </div>
                         </div>
@@ -115,14 +124,9 @@
 
     <!-- Custom Theme JavaScript -->
     <!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
-    <div class="form-group col-lg-1" id="deletebutton">
-      <button type="button" class="btn btn-danger deleterow" id="" onclick="deleterow(this)">X</button>
-    </div>
+
 
     <script>
-    $("#deletebutton").hide();
-
-
     <script>
     $('#supplierselect').on('change', function() {
       $.ajax({
@@ -156,11 +160,9 @@
       clone.find("#quantity").attr("id","quantity"+id);
       clone.find("#unitprice").attr("id","unitprice"+id);
       clone.find("#total").attr("id","total"+id);
-      var deletebutton = $("#deletebutton").clone().show();
-      deletebutton.find(".deleterow").attr("id","deleterow"+id);
+      clone.find(".deleterow").attr("id","deleterow"+id);
       id++;
 
-      $(clone).append(deletebutton);
       $("#append").append(clone);
 
     });
@@ -215,13 +217,29 @@
     <script>
     function deleterow(sel)
     {
-     var currentid =sel.id.slice(-1);
-      if(isNaN(currentid)){
-       currentid = '';
-       }else{
+      if ( $('#append').children().length == 1 ) {
+        alert("Please leave atleast one input");
+    }
+    else {
 
-       }
-      $('#itemsrow'+currentid).remove();
+       var currentid =sel.id.slice(-1);
+        if(isNaN(currentid)){
+         currentid = '';
+         }else{
+
+         }
+        $('#itemsrow'+currentid).remove();
+    }
+    }
+    function deleterowpiid(sel)
+    {
+      var currentid =sel.id.slice(-1);
+       if(isNaN(currentid)){
+        currentid = '';
+        }else{
+
+        }
+       $('#pirow'+currentid).remove();
     }
     </script>
 </body>

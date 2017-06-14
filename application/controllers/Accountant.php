@@ -485,19 +485,20 @@ class Accountant extends CI_Controller
 
     foreach($data['purchaseorder'] as $p)
     {
-      if($p->Status == 2)
-      {
-        $this->load->view('Accountant/header');
-        $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one_edit',$data);
-      }
-      else
-      {
-
-
-    		$this->load->view('Accountant/header');
-    		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
-      }
+      $Status = $p->Status;
     }
+
+    if($Status == 2)
+    {
+      $this->load->view('Accountant/header');
+      $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one_edit',$data);
+    }
+    else
+    {
+      $this->load->view('Accountant/header');
+      $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
+    }
+
 	}
 
 	//service Invoice

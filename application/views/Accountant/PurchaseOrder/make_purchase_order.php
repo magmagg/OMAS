@@ -17,7 +17,7 @@
                <div class="col-lg-12">
                <?= $this->session->flashdata('success'); ?>
                <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-                  <form role="form" method="POST" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
+                  <form role="form" method="POST" id="myformsubmit" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
                        <div class="form-group">
                         <label>Supplier</label>
                          <select class="suppliers" id="supplierselect" name="supplierid" style="width: 100%">
@@ -57,7 +57,6 @@
                        <button type="button" class="btn btn-success" id="cloneme">Add more items</button>
                        <p> Prepared by: <?=$this->session->userdata['username']?> </p>
                        <button type="submit" class="btn btn-default">Submit Button</button>
-                       <button type="reset" class="btn btn-default">Reset Button</button>
                    </form>
                </div>
            </div>
@@ -171,6 +170,7 @@
     <script>
     function deleterow(sel)
     {
+      
      var currentid =sel.id.slice(-1);
       if(isNaN(currentid)){
        currentid = '';
@@ -179,6 +179,18 @@
        }
       $('#itemsrow'+currentid).remove();
     }
+    </script>
+
+    <script>
+    $("#myformsubmit").submit(function(e){
+    	if ( $('#append').children().length > 0 ) {
+
+    }
+    else {
+    	alert("Please input atleast one service/Item");
+    	e.preventDefault();
+    }
+    });
     </script>
 </body>
 

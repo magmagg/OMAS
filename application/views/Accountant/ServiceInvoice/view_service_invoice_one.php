@@ -76,14 +76,14 @@
                              <?php if($forlabel == 1): ?>
                              <label>Unit price</label>
                              <?php endif;?>
-                             <input class="form-control" value="<?=$s->UnitPrice?>" readonly>
+                             <input class="form-control" value="₱<?=number_format($s->UnitPrice)?>" readonly>
                            </div>
                            <?php $total = $s->Quantity * $s->UnitPrice ?>
                            <div class="form-group col-lg-3">
                              <?php if($forlabel == 1): ?>
                              <label>Total</label>
                              <?php endif;?>
-                             <input class="form-control" value="<?=$total?>" readonly>
+                             <input class="form-control" value="₱<?=number_format($total)?>" readonly>
                            </div>
                          </div>
                          <?php $forlabel++; ?>
