@@ -33,7 +33,7 @@
 							<div class="ct-chart ct-golden-section" id="monthlyservices"></div>
 						</div>
 
-            <div class="tab-pane fade" id="quarter">
+            <div class="tab-pane" id="quarter">
               <div class="form-group">
                 <select id="yearselectquarterservice" style="width: 100%">
                    <option value=""></option>
@@ -45,7 +45,7 @@
               <div class="ct-chart ct-golden-section" id="quarterservices"></div>
             </div>
 
-						<div class="tab-pane fade" id="semianual">
+						<div class="tab-pane" id="semianual">
               <div class="form-group">
                 <select id="yearselectsemiservice" style="width: 100%">
                    <option value=""></option>

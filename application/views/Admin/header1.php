@@ -129,11 +129,6 @@
                                         <i class="icon-user icon-large"></i> Users
                                     </a>
                                 </li>
-                                  <li>
-                                    <a href="#">
-                                        <i class="icon-cogs icon-large"></i> Settings
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </div>

@@ -967,5 +967,17 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 		$this->db->delete('liabilities',$data);
 	}
 
+	function delete_from_poi($pi)
+	{
+		$data = array('ItemID'=>$pi);
+		$this->db->delete('purchasing_order_item',$data);
+	}
+
+	function update_purchase_order($data,$PurchaseID)
+	{
+		$this->db->update('purchasing_order',$data);
+		$this->db->where('PurchaseID',$PurchaseID);
+	}
+
 
 }

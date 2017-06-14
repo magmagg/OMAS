@@ -123,7 +123,7 @@
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
-                
+
                                 <?php if($this->session->userdata('logged_in_admin') == true): ?>
                                   <li>
                                       <a href="<?=base_url();?>Admin/view_accountants" id="menu_users">
@@ -132,11 +132,7 @@
                                   </li>
                                 <?php else: ?>
                                 <?php endif; ?>
-                                <li>
-                                    <a href="#">
-                                       <i class="icon-cogs icon-large"></i> Settings
-                                    </a>
-                                </li>
+                              
                             </ul>
                         </div>
                     </div>

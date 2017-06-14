@@ -422,6 +422,45 @@ class Accountant extends CI_Controller
 		redirect(base_url().'Accountant/view_purchase_orders');
 	}
 
+  function submit_edit_purchase_order()
+  {
+    $PurchaseID = $this->input->post('purchaseid');
+    $use['pastitems'] = list($items) = $this->input->post('pastitems');
+    foreach($use['pastitems'] as $pi)
+    {
+      $this->Accountant_model->delete_from_poi($pi);
+    }
+    $use['items'] = list($items) = $this->input->post('item');
+    $use['itemdesc'] = list($items) = $this->input->post('itemdesc');
+    $use['quantity'] = list($items) = $this->input->post('quantity');
+    $use['unitprice'] = list($items) = $this->input->post('unitprice');
+    $use['total'] = list($items) = $this->input->post('total');
+
+    $total = 0;
+    foreach($use['total'] as $t)
+    {
+      $total += $t;
+    }
+
+    //Insert data now
+      $data = array('Total'=>$total,
+                    'Status'=>0);
+      $this->Accountant_model->update_purchase_order($data,$PurchaseID);
+
+
+    foreach($use['items'] as $key=>$value)
+    {
+      $data = array('ItemName'=>$value,
+                    'Quantity'=>$use['quantity'][$key],
+                    'ItemDesc'=>$use['itemdesc'][$key],
+                    'UnitPrice'=>$use['unitprice'][$key],
+                    'PO_ID'=>$PurchaseID);
+      $this->Accountant_model->insert_purchase_order_item($data);
+    }
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
+    redirect(base_url().'Accountant/view_purchase_orders');
+  }
+
 	function view_purchase_orders()
 	{
 		if($this->session->userdata('logged_in_admin') == true)
@@ -444,8 +483,21 @@ class Accountant extends CI_Controller
 		$data['purchaseorder'] = $this->Accountant_model->get_purchase_orders_byuser_items($id);
 		$data['supplier'] = $this->Accountant_model->get_one_supplier($data['purchaseorder'][0]->Supplier_SupplierID);
 
-		$this->load->view('Accountant/header');
-		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
+    foreach($data['purchaseorder'] as $p)
+    {
+      if($p->Status == 2)
+      {
+        $this->load->view('Accountant/header');
+        $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one_edit',$data);
+      }
+      else
+      {
+
+
+    		$this->load->view('Accountant/header');
+    		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
+      }
+    }
 	}
 
 	//service Invoice
