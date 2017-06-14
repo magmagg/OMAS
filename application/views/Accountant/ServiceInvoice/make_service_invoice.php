@@ -130,6 +130,8 @@
 </div>
 <script>
 $("#deletebutton").hide();
+$("#itemsrow").hide();
+$("#itemsrow1").hide();
 $("#itemsdd").hide();
 	//var items = <?php echo json_encode($items); ?>;
 	$("#customerselect").select2({
@@ -213,7 +215,7 @@ $("#itemsdd").hide();
 <script>
 	var id = 2;
 	$("#addservice").click(function() {
-		var clone = $("#itemsrow").clone(true);
+		var clone = $("#itemsrow").clone(true).show();
 		var deletebutton = $("#deletebutton").clone().show();
 
 		clone.attr("id","itemsrow"+id);
@@ -232,7 +234,7 @@ $("#itemsdd").hide();
 
 
   $( "#cloneme2" ).click(function() {
-    var clone = $("#itemsrow").clone(true);
+    var clone = $("#itemsrow").clone(true).show();
 		var orig = $("#itemsdd").find("#itemsddd");
 		var cloned = $(orig).clone().show();
 		var deletebutton = $("#deletebutton").clone().show();
