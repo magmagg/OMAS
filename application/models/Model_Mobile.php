@@ -71,6 +71,92 @@
             return $query->result_array();
         }
 
+    
+        function supplierDetails($id)
+        {
+            $where = "SupplierID = '$id'";
+            $this->db->select('*');
+            $this->db->from('supplier');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function purchaseOrderDetails($id)
+        {
+            $where = "PurchaseID = '$id'";
+            $this->db->select('*');
+            $this->db->from('purchasing_order');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function userInfo($id)
+        {
+            $where = "UserID = '$id'";
+            $this->db->select('*');
+            $this->db->from('accountant');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        function getInvoiceItems($ids,$SO_ID)
+        {
+            $this->db->select('service_invoice_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,POI_ItemID,SO_ID');
+            $this->db->from('service_invoice_item');
+            $this->db->where('SO_ID',$SO_ID);
+            $this->db->where_in('service_invoice_item.POI_ItemID',$ids);
+            $this->db->join('purchasing_order_item', 'purchasing_order_item.ItemID = service_invoice_item.POI_ItemID');
+        //$this->db->join('department', 'department.dept_id = admin.dept_grp');
+        //$this->db->order_by("lname", "asc");
+        //$this->db->limit($num,$start);
+
+      /*  $this->db->select('purchasing_order_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,SO_ID');
+        $this->db->from('purchasing_order_item');
+        $this->db->where_in('purchasing_order_item.ItemID',$ids);
+        $this->db->join('service_invoice_item', 'service_invoice_item.POI_ItemID = purchasing_order_item.ItemID');*/
+
+        $query = $this->db->get();
+        return $query->result();    
+        }
+
+        function getInvoiceItemsWeb($SO_ID)
+        {
+            $this->db->select('service_invoice_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,POI_ItemID,SO_ID');
+            $this->db->from('service_invoice_item');
+            $this->db->where('SO_ID',$SO_ID);
+            //$this->db->where_in('service_invoice_item.POI_ItemID',$ids);
+            $this->db->join('purchasing_order_item', 'purchasing_order_item.ItemID = service_invoice_item.POI_ItemID');
+
+             $query = $this->db->get();
+            return $query->result(); 
+        }
+
+        function getInvoiceServiceWeb($SO_ID)
+        {
+            $this->db->where_in("SO_ID",$SO_ID);
+            return $this->db->get('service_invoice_service')->result();
+        }
+
+        
+         function getPOItemsWeb($PurchaseID)
+        {
+            $this->db->where_in("PO_ID",$PurchaseID);
+            return $this->db->get('purchasing_order_item')->result();
+        }
+
+        function serviceInvoiceDetails($id)
+        {
+            $where = "ServiceID = '$id'";
+            $this->db->select('*');
+            $this->db->from('service_invoice');
+            $this->db->where($where);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
         function purchase_invoice()
         {   
             $this->db->select("PurchaseID");

@@ -6,12 +6,25 @@ class Admin extends CI_Controller
 	function __construct()
 	{
     parent::__construct();
+		if($this->session->userdata('logged_in_accountant') == TRUE)
+		{
+			redirect('Accountant');
+		}
+		else if($this->session->userdata('logged_in_admin') == TRUE)
+		{
+			redirect('Admin');
+		}
+		else
+		{
+			redirect('Login','refresh');
+		}
     $this->load->model('Admin_model');
 		$this->load->model('Accountant_model');
   }
 
   function index()
   {
+
 		$this->load->view('Admin/header1');
 		$this->load->view('Admin/index');
   }
@@ -22,12 +35,12 @@ class Admin extends CI_Controller
 				array(
 								'field' => 'username',
 								'label' => 'username',
-								'rules' => 'trim|required|min_length[1]|max_length[45]|is_unique[accountant.Username]'
+								'rules' => 'trim|required|min_length[8]|max_length[45]|is_unique[accountant.Username]'
 				),
 				array(
 								'field' => 'password',
 								'label' => 'password',
-								'rules' => 'trim|required|min_length[1]|max_length[45]',
+								'rules' => 'trim|required|min_length[8]|max_length[45]',
 								'errors' => array(
 												'required' => 'You must provide a %s.',
 								),
@@ -43,7 +56,7 @@ class Admin extends CI_Controller
 				array(
 								'field' => 'confirmpassword',
 								'label' => 'confirmpassword',
-								'rules' => 'trim|required|min_length[1]|max_length[45]|matches[password]'
+								'rules' => 'trim|required|min_length[8]|max_length[45]|matches[password]'
 				)
 		);
 
@@ -196,12 +209,12 @@ class Admin extends CI_Controller
 				array(
 								'field' => 'username',
 								'label' => 'username',
-								'rules' => 'trim|required|min_length[1]|max_length[45]'
+								'rules' => 'trim|required|min_length[8]|max_length[45]'
 				),
 				array(
 								'field' => 'password',
 								'label' => 'password',
-								'rules' => 'trim|min_length[1]|max_length[45]',
+								'rules' => 'trim|min_length[8]|max_length[45]',
 								'errors' => array(
 												'required' => 'You must provide a %s.',
 								),
@@ -217,7 +230,7 @@ class Admin extends CI_Controller
 				array(
 								'field' => 'confirmpassword',
 								'label' => 'confirmpassword',
-								'rules' => 'trim|min_length[1]|max_length[45]|matches[password]'
+								'rules' => 'trim|min_length[8]|max_length[45]|matches[password]'
 				)
 		);
 

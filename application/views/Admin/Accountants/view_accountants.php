@@ -114,7 +114,7 @@ $(document).ready(function() {
                             showCancelButton: false,
                             showConfirmButton: false,
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Yes, delete it!",
+                            confirmButtonText: "Yes, Deactivate it!",
                             closeOnConfirm: false
                           });
                             setTimeout(function() {
@@ -136,7 +136,7 @@ $(document).ready(function() {
                 text: "Activate account?",
                 type: "warning",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Yes, Activate it!",
                 showCancelButton: true,
                 closeOnConfirm: false,
             },

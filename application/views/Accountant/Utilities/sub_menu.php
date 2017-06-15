@@ -20,7 +20,7 @@
                     </ul>
                 </li>-->
                       <li><a href="<?=base_url();?>Accountant/view_other_expenses" class="parent">View Expenses</a></li>
-                      <li><a href="<?=base_url();?>Accountant/make_other_expenses" class="parent">Create Other expenses</a></li>
+                      <li><a href="<?=base_url();?>Accountant/make_other_expenses" class="parent">Create expenses</a></li>
 
 
 

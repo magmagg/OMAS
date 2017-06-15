@@ -7,7 +7,7 @@
 		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
-	<form role="form" method="POST" action="<?=base_url().'Accountant/submit_create_balance_sheet'?>">
+	<form role="form" method="POST" id="myformsubmit" action="<?=base_url().'Accountant/submit_create_balance_sheet'?>">
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="panel panel-default">
@@ -20,11 +20,11 @@
 								<div class="col-lg-12">
 										<div class="form-group col-lg-6">
 											<label class="myformlabel">Name</label>
-											<input class="form-control" name="assetname[]" placeholder="Enter asset" required>
+											<input class="form-control" name="assetname[]" id="assetname" placeholder="Enter asset">
 										</div>
 										<div class="form-group col-lg-5">
 											<label class="myformlabel">Value</label>
-											<input class="form-control" name="assetvalue[]" type="number" placeholder="Enter Value" required>
+											<input class="form-control" name="assetvalue[]" id="assetvalue" type="number" placeholder="Enter Value">
 										</div>
 										<div class="form-group col-lg-1" id="assetsdelete">
 											<label class="myformlabel"> Delete </label>
@@ -66,11 +66,11 @@
 						<div class="col-lg-12">
 							<div class="form-group col-lg-6">
 								<label class="myformlabel">Name</label>
-								<input class="form-control" name="liabilityname[]" placeholder="Enter liability" required>
+								<input class="form-control" name="liabilityname[]" id="liabilityname" placeholder="Enter liability">
 							</div>
 							<div class="form-group col-lg-5">
 								<label class="myformlabel">Value</label>
-								<input class="form-control" name="liabilityvalue[]" type="number" placeholder="Enter Value" required>
+								<input class="form-control" name="liabilityvalue[]" id="liabilityvalue" type="number" placeholder="Enter Value">
 							</div>
 							<div class="form-group col-lg-1" id="liadelete">
 								<label class="myformlabel"> Delete </label>
@@ -116,11 +116,11 @@
 							<div class="col-lg-12">
 								<div class="form-group col-lg-6">
 									<label class="myformlabel">Name</label>
-									<input class="form-control" name="oequityname[]" placeholder="Enter Owners equity" required>
+									<input class="form-control" name="oequityname[]" id="oeqname" placeholder="Enter Owners equity">
 								</div>
 								<div class="form-group col-lg-5">
 									<label class="myformlabel">Value</label>
-									<input class="form-control" name="oequityvalue[]" type="number" placeholder="Enter Value" required>
+									<input class="form-control" name="oequityvalue[]" id="oeqvalue" type="number" placeholder="Enter Value">
 								</div>
 								<div class="form-group col-lg-1" id="oeqdelete">
 									<label class="myformlabel"> Delete </label>
@@ -167,36 +167,80 @@
 <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
 
 <script>
+$("#assetsrow").hide();
+$("#liabilityrow").hide();
+$("#oequityrow").hide();
 var assid = 1;
 var liaid = 1;
 var oeqid = 1;
+var clone = $("#assetsrow").clone().show();
+clone.find('input').val('');
+clone.find(".myformlabel").remove();
+clone.find("#assetsdeleterow").attr("id","assetsdeleterow"+assid);
+clone.find("#assetname").prop("required",true);
+clone.find("#assetvalue").prop("required",true);
+clone.attr("id","assetsrow"+assid);
+assid++;
+$("#assetsappend").append(clone);
+var clone = $("#liabilityrow").clone().show();
+clone.find('input').val('');
+clone.find(".myformlabel").remove();
+clone.find("#liadeleterow").attr("id","liadeleterow"+liaid);
+clone.find("#liabilityname").prop("required",true);
+clone.find("#liabilityvalue").prop("required",true);
+clone.attr("id","liabilityrow"+liaid);
+liaid++;
+$("#liabilityappend").append(clone);
+var clone = $("#oequityrow").clone().show();
+clone.find('input').val('');
+clone.find(".myformlabel").remove();
+clone.find("#oeqdeleterow").attr("id","oeqdeleterow"+oeqid);
+clone.find("#oeqname").prop("required",true);
+clone.find("#oeqvalue").prop("required",true);
+clone.attr("id","oequityrow"+oeqid);
+oeqid++;
+$("#oequityappend").append(clone);
+
+var ascount = 1;
+var liacount = 1;
+var oeqcount = 1;
+
 	$("#cloneasset").click(function() {
-		var clone = $("#assetsrow").clone();
+		var clone = $("#assetsrow").clone().show();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
 		clone.find("#assetsdeleterow").attr("id","assetsdeleterow"+assid);
+		clone.find("#assetname").prop("required",true);
+		clone.find("#assetvalue").prop("required",true);
 		clone.attr("id","assetsrow"+assid);
 		assid++;
+		ascount++;
 		$("#assetsappend").append(clone);
 	});
 
 	$("#cloneliability").click(function() {
-		var clone = $("#liabilityrow").clone();
+		var clone = $("#liabilityrow").clone().show();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
 		clone.find("#liadeleterow").attr("id","liadeleterow"+liaid);
+		clone.find("#liabilityname").prop("required",true);
+		clone.find("#liabilityvalue").prop("required",true);
 		clone.attr("id","liabilityrow"+liaid);
 		liaid++;
+		liacount++;
 		$("#liabilityappend").append(clone);
 	});
 
 	$("#cloneoequity").click(function() {
-		var clone = $("#oequityrow").clone();
+		var clone = $("#oequityrow").clone().show();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
 		clone.find("#oeqdeleterow").attr("id","oeqdeleterow"+oeqid);
+		clone.find("#oeqname").prop("required",true);
+		clone.find("#oeqvalue").prop("required",true);
 		clone.attr("id","oequityrow"+oeqid);
 		oeqid++;
+		oeqcount++;
 		$("#oequityappend").append(clone);
 	});
 </script>
@@ -211,6 +255,7 @@ function delas(sel)
 
 	 }
 	$('#assetsrow'+currentid).remove();
+	ascount--;
 }
 
 function dellia(sel)
@@ -222,6 +267,7 @@ function dellia(sel)
 
 	 }
 	$('#liabilityrow'+currentid).remove();
+	liacount--;
 }
 
 function deloeq(sel)
@@ -233,7 +279,28 @@ function deloeq(sel)
 
 	 }
 	$('#oequityrow'+currentid).remove();
+	oeqcount--;
 }
+</script>
+
+<script>
+$("#myformsubmit").submit(function(e){
+	if ( ascount == 0) {
+		alert("Please input atleast one Asset/Liability/Owners equity");
+		e.preventDefault();
+}
+else if ( liacount == 0) {
+	alert("Please input atleast one Asset/Liability/Owners equity");
+	e.preventDefault();
+}
+else if ( oeqcount == 0) {
+	alert("Please input atleast one Asset/Liability/Owners equity");
+	e.preventDefault();
+}
+else {
+
+}
+});
 </script>
 
 

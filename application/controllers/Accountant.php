@@ -6,13 +6,26 @@ class Accountant extends CI_Controller
 	function __construct()
 	{
     parent::__construct();
-
+		/*if($this->session->userdata('logged_in_accountant') == TRUE)
+		{
+			redirect('Accountant');
+		}
+		else if($this->session->userdata('logged_in_admin') == TRUE)
+		{
+			redirect('Admin');
+		}
+		else
+		{
+			redirect('Login','refresh');
+		}*/
     $this->load->model('Accountant_model');
     $this->load->model('Admin_model');
+    $this->load->model('Model_Mobile');
   }
 
   function index()
   {
+
 		$this->load->view('Accountant/header');
 		$this->load->view('Accountant/index');
   }
@@ -418,8 +431,157 @@ class Accountant extends CI_Controller
                     'PO_ID'=>$PurchaseID);
       $this->Accountant_model->insert_purchase_order_item($data);
     }
+    	$this->purchase_msg($userId,$this->input->post('supplierid'),$PurchaseID);
 		$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
 		redirect(base_url().'Accountant/view_purchase_orders');
+	}
+
+	public function purchase_msg($userId,$supplierId,$PurchaseID){
+
+		$supplier_info=$this->supplier_information($supplierId);
+		$po_info=$this->po_info($PurchaseID);
+		$user_info=$this->user_info($userId);
+		$items_info=$this->po_items_info($PurchaseID);
+		//$service_item=$this->service_items_info($service_items);
+
+		$message = "<center> <img src='" . base_url() . "assets/images/logo.png' width='20%'/> </center>" . "<hr> <h2 style='margin:0px 0px 15px 0px; text-align:center; color:#fff; background:#be1e2d; padding:20px; font-family:Arial, sans-serif;'> OMAS </h2>";
+		$message .= "<p style='text-align: center; font-family: Verdana, sans-serif; font-size:22px;'>" .
+					"Hi! This is" .  " OMAS. We would like to order items from you"  . ". Please see our order details below. Thank you!" . 
+					"</p>";
+		$message .= "<table width='100%' border='0' cellpadding='5'>" . 
+						"<tr>" .
+							"<td colspan='4'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#444; padding:20px; font-family:Arial, sans-serif;'> OMAS PURCHASE ORDER </h2>" . 
+							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td colspan='2' width='50%'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#be1e2d; padding:5px; font-family:Arial, sans-serif;'> SUPPLIER INFORMATION </h2>" . 
+ 							"</td>" . 
+ 							"<td colspan='2' width='50%'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#be1e2d; padding:5px; font-family:Arial, sans-serif;'> ORDER INFORMATION </h2>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>SUPPLIER NAME:</h3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<h3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $supplier_info[0]['SupplierName'] . "</h3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>PO ID:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $po_info[0]['PurchaseID'] . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>CONTACT DETAILS:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $supplier_info[0]['Email'] . " /<BR>" . $supplier_info[0]['Phone'] . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>TRANSACTION DATE:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" .  $po_info[0]['TransactionDate']  . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>ADDRESS:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $supplier_info[0]['Address']." ".$supplier_info[0]['City']." ".$supplier_info[0]['Region']." ".$supplier_info[0]['PostalCode']. "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>TOTAL:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'> Php " .  $po_info[0]['Total']   . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr style='background:#be1e2d; color:#fff;'>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'> ITEM ID </H3>" .
+						
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>ITEM NAME</H3>" .
+							
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>PRICE </H3>" .
+								
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>QUANTITY </H3>" .
+								
+ 							"</td>" . 
+						"</tr>" ;
+						foreach($items_info as $po_items){
+						$message .="<tr style='background:#fff5ee; color:#fff;'>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . "###" . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $po_items->ItemName . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $po_items->UnitPrice . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $po_items->Quantity . "</H3>" . 
+ 							"</td>" .
+ 						"</tr>";
+						} 
+						$message .="<tr>" .
+							"<td colspan='2' width='50%' valign='top' align='right'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>PREPARED BY: </H3>" .
+							"</td>" .
+							"<td colspan='2' width='50%'>";
+								
+									$message .= "<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $user_info[0]['username'] . " </h3> <br> " ; 
+							
+							$message .= "</td>" .
+						"</tr>" .
+						"<tr style='background:#444; color:#fff'>" .
+							"<td colspan='4'>" .
+								"<p style='text-align: right; font-family: Verdana, sans-serif; font-size:14px;'>" .
+									"You may screen capture this and print or you can show this message to the person from OMAS. Thank you." .
+								"</p>" . 
+							"</td>" . 
+						"</tr>" .
+					"</table>";
+
+	
+		/*$this->send_mail("Service Invoice",$message,"hacelestial@feu-eac.edu.ph");*/
+		$this->send_mail("Purchase Order",$message,$supplier_info[0]['Email']);
+		 
+	}
+
+
+	function supplier_information($id)
+	{
+		$supplier = $this->Model_Mobile->supplierDetails($id);
+
+		return $supplier;
+	}
+
+	function po_info($id)
+	{
+		$po = $this->Model_Mobile->purchaseOrderDetails($id);
+
+		return $po;
+	}
+
+	function po_items_info($PurchaseID)
+	{
+		$data=$this->Model_Mobile->getPOItemsWeb($PurchaseID);
+		return $data;
 	}
 
   function submit_edit_purchase_order()
@@ -543,10 +705,11 @@ class Accountant extends CI_Controller
     $use['quantity'] = list($items) = $this->input->post('quantity');
     $use['total'] = list($items) = $this->input->post('total');
 
-		$use['service'] = list($items) = $this->input->post('service');
+	$use['service'] = list($items) = $this->input->post('service');
     $use['servicequantity'] = list($items) = $this->input->post('servicequantity');
     $use['serviceunitprice'] = list($items) = $this->input->post('serviceunitprice');
     $use['servicetotal'] = list($items) = $this->input->post('servicetotal');
+
 
     $total = 0;
     foreach($use['total'] as $t)
@@ -572,6 +735,7 @@ class Accountant extends CI_Controller
       $data = array('POI_ItemID'=>$value,
                     'Quantity'=>$use['quantity'][$key],
                     'SO_ID'=>$ServiceID);
+   
       $this->Accountant_model->insert_service_invoice_item($data);
 
       $use['itemquant'] = $this->Accountant_model->get_quantity_by_itemid($value);
@@ -581,6 +745,7 @@ class Accountant extends CI_Controller
       }
       $newquant = $origquant - $use['quantity'][$key];
       $data = array('Quantity'=>$newquant);
+
       $this->Accountant_model->subtract_quantity($data,$value);
     }
 
@@ -592,9 +757,221 @@ class Accountant extends CI_Controller
 										'SO_ID'=>$ServiceID);
 			$this->Accountant_model->insert_service_invoice_service($data);
 		}
+
+		//var_dump($use['items']);
+	$this->invoice_msg($this->session->userdata('AccountantID'),$this->input->post('customerid'), $ServiceID);
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
     redirect(base_url().'Accountant/view_service_invoices');
   }
+
+  public function invoice_msg($userId,$customer,$ServiceID){
+
+		$cust_info=$this->customer_information($customer);
+		$service_invoice_info=$this->service_invoice_info($ServiceID);
+		//$user_info=$this->user_info($userId);
+		$items_info=$this->items_info($ServiceID);
+		$service_item=$this->service_items_info($ServiceID);
+
+		$message = "<center> <img src='". base_url() ."assets/images/logo.png' width='20%'/> </center>" . "<hr> <h2 style='margin:0px 0px 15px 0px; text-align:center; color:#fff; background:#be1e2d; padding:20px; font-family:Arial, sans-serif;'> OMAS </h2>";
+		$message .= "<p style='text-align: center; font-family: Verdana, sans-serif; font-size:22px;'>" .
+					"You availed services from" .  " Online Managerial Accounting System"  . ". Please see your service invoice details below." . 
+					"</p>";
+		$message .= "<table width='100%' border='0' cellpadding='5'>" . 
+						"<tr>" .
+							"<td colspan='4'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#444; padding:20px; font-family:Arial, sans-serif;'> OMAS SERVICE INVOICE </h2>" . 
+							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td colspan='2' width='50%'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#be1e2d; padding:5px; font-family:Arial, sans-serif;'> CUSTOMER INFORMATION </h2>" . 
+ 							"</td>" . 
+ 							"<td colspan='2' width='50%'>" .
+								"<h2 style='margin:0px; text-align:center; color:#fff; background:#be1e2d; padding:5px; font-family:Arial, sans-serif;'> INVOICE INFORMATION </h2>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>CUSTOMER NAME:</h3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<h3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $cust_info[0]['CustomerName'] . "</h3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>INVOICE ID:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $service_invoice_info[0]['ServiceID'] . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>CONTACT DETAILS:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $cust_info[0]['Email'] . " /<BR>" . $cust_info[0]['Phone'] . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>TRANSACTION DATE:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" .  $service_invoice_info[0]['TransactionDate']  . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>ADDRESS:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $cust_info[0]['Address'] . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>TOTAL:</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'> Php " .  $service_invoice_info[0]['Total']  . "</H3>" . 
+ 							"</td>" . 
+						"</tr>" . 
+						"<tr style='background:#be1e2d; color:#fff;'>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'> ITEM ID </H3>" .
+						
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>ITEM NAME</H3>" .
+							
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>PRICE </H3>" .
+								
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>QUANTITY </H3>" .
+								
+ 							"</td>" . 
+						"</tr>" ;
+						foreach($items_info as $invoice_items){
+						$message .="<tr style='background:#fff5ee; color:#fff;'>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $invoice_items->ItemID . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $invoice_items->ItemName . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $invoice_items->UnitPrice . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $invoice_items->Quantity . "</H3>" . 
+ 							"</td>" .
+ 						"</tr>";
+						} 
+						foreach($service_item as $service){
+						$message .="<tr style='background:#fff5ee; color:#fff;'>" .
+							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . "###" . "</H3>" . 
+ 							"</td>" . 
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $service->service_name . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $service->UnitPrice . "</H3>" . 
+ 							"</td>" .
+ 							"<td width='25%' valign='middle' align='center'>" .
+								"<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $service->Quantity . "</H3>" . 
+ 							"</td>" .
+ 						"</tr>";
+						} 
+						$message .="<tr>" .
+							"<td colspan='2' width='50%' valign='top' align='right'>" .
+								"<H3 style='margin:0px; font-family:Arial, sans-serif;'>PREPARED BY: </H3>" .
+							"</td>" .
+							"<td colspan='2' width='50%'>";
+								
+									$message .= "<H3 style='margin:0px; font-family:Courier New, serif; color:#333;'>" . $user_info[0]['username'] . " </h3> <br> " ; 
+							
+							$message .= "</td>" .
+						"</tr>" .
+						"<tr style='background:#444; color:#fff'>" .
+							"<td colspan='4'>" .
+								"<p style='text-align: right; font-family: Verdana, sans-serif; font-size:14px;'>" .
+									"You may screen capture this and print or you can show this message to the person from OMAS. Thank you." .
+								"</p>" . 
+							"</td>" . 
+						"</tr>" .
+					"</table>";
+
+	
+		$this->send_mail("Service Invoice",$message,$cust_info[0]['Email']);
+		 
+	}
+
+	function customer_information($id)
+	{
+		$customer = $this->Model_Mobile->customerDetails($id);
+
+		return $customer;
+	}
+
+	function service_invoice_info($id)
+	{
+		$service_invoice = $this->Model_Mobile->serviceInvoiceDetails($id);
+
+		return $service_invoice;
+	}
+	
+	function user_info($id)
+	{
+		$user = $this->Model_Mobile->userInfo($id);
+
+		return $user;
+	}
+
+
+	function items_info($ServiceID)
+	{
+
+		
+		$data=$this->Model_Mobile->getInvoiceItemsWeb($ServiceID);
+		return $data;
+		
+	}
+
+	function service_items_info($ServiceID)
+	{
+
+		
+		$data=$this->Model_Mobile->getInvoiceServiceWeb($ServiceID);
+		return $data;
+	
+	}
+
+  public function send_mail($subj,$msg,$dest) {
+        $mail = new PHPMailer();
+        $mail->IsSMTP(); // we are going to use SMTP
+        $mail->SMTPAuth   = true; // enabled SMTP authentication
+        $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
+        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
+        $mail->Port       = 465;                   // SMTP port to connect to GMail
+        $mail->Username   = "dichliebeich12@gmail.com";  // user email address
+        $mail->Password   = "Faithhopelove12";            // password in GMail
+        $mail->SetFrom('omasph2017@gmail.com', 'Online Managerial Accounting');  //Who is sending the email
+    
+        $mail->Subject    = $subj;
+        $mail->Body      = $msg;
+        $mail->AltBody    = "Plain text message";
+        $destino = $dest; // Who is addressed the email to
+        $mail->AddAddress($destino, "John Doe");
+
+       
+        if(!$mail->Send()) {
+            $data["message"] = "Error: " . $mail->ErrorInfo;
+        } else {
+            $data["message"] = "Message sent correctly!";
+        }
+    
+        echo  $data["message"];
+    }
 
   function view_service_invoices()
   {

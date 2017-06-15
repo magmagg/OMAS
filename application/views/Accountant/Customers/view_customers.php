@@ -90,6 +90,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.DeleteCustomer').click(function() {
         var id = $(this).data("id");
+        console.log(id);
         swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover customer!",
