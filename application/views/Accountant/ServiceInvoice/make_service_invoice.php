@@ -39,11 +39,11 @@
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Unit price</label>
-												<input class="form-control unitpricefield" id="unitprice" type="number" placeholder="Price">
+												<input class="form-control unitpricefield" id="unitprice" step="0.01" type="number" placeholder="Price">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Quantity</label>
-												<input class="form-control quantityfield"  id="quantity" type="number" placeholder="Enter Quantity">
+												<input class="form-control quantityfield"  id="quantity" min="1" type="number" placeholder="Enter Quantity">
 											</div>
 											<div class="form-group col-lg-2">
 												<label class="myformlabel">Total</label>
@@ -60,7 +60,7 @@
 												<input class="form-control unitpricefield" name="unitprice[]" id="unitprice1" type="number" placeholder="Price" readonly>
 											</div>
 											<div class="form-group col-lg-3">
-												<input class="form-control quantityfield" name="quantity[]" id="quantity1" type="number" placeholder="Enter Quantity">
+												<input class="form-control quantityfield" name="quantity[]" id="quantity1" min="1" type="number" placeholder="Enter Quantity">
 											</div>
 											<div class="form-group col-lg-2">
 												<input class="form-control totalfield" id="total1" name="total[]" placeholder="Total" readonly>
@@ -288,8 +288,7 @@ function changeminmax(sel)
 	var selectidnumber = selectid[selectid.length -1];
 
 	$("#quantity"+selectidnumber).attr({
-       "max" : 10,        // substitute your own
-       "min" : 1          // values (or variables) here
+       "max" : 10        // substitute your own
     });
 
 	$.ajax({
@@ -302,8 +301,7 @@ function changeminmax(sel)
 			var data1 = JSON.parse(data);
 			$("#quantity"+selectidnumber).val(1);
 			$("#quantity"+selectidnumber).attr({
-					 "max" : data1[0].quantity,        // substitute your own
-					 "min" : 1          // values (or variables) here
+					 "max" : data1[0].quantity        // substitute your own
 				});
 		}
 	});

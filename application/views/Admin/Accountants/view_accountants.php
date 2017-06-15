@@ -108,7 +108,7 @@ $(document).ready(function() {
                         },
                         success: function(data) {
                           swal({
-                            title: "Deleted!",
+                            title: "Deactivated!",
                             text: "Account deactivated. Refreshing page...",
                             type: "success",
                             showCancelButton: false,
@@ -150,7 +150,7 @@ $(document).ready(function() {
                         },
                         success: function(data) {
                           swal({
-                            title: "Deleted!",
+                            title: "Activated!",
                             text: "Account activated. Refreshing page...",
                             type: "success",
                             showCancelButton: false,
