@@ -6,6 +6,7 @@ class Accountant extends CI_Controller
 	function __construct()
 	{
     parent::__construct();
+		/*
 		if($this->session->userdata('logged_in_accountant') == TRUE)
 		{
 			redirect('Accountant');
@@ -18,6 +19,7 @@ class Accountant extends CI_Controller
 		{
 			redirect('Login','refresh');
 		}
+		*/
     $this->load->model('Accountant_model');
     $this->load->model('Admin_model');
   }

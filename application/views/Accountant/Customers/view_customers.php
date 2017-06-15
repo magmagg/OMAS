@@ -105,7 +105,7 @@ $(document).ready(function() {
                         type: 'POST',
                         url: "<?php echo base_url();?>Accountant/delete_one_customer/",
                         data: {
-                          customerID: id
+                          'customerID': id
                         },
                         success: function(data) {
                           swal({

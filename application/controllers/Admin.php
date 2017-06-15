@@ -6,6 +6,7 @@ class Admin extends CI_Controller
 	function __construct()
 	{
     parent::__construct();
+		/*
 		if($this->session->userdata('logged_in_accountant') == TRUE)
 		{
 			redirect('Accountant');
@@ -18,6 +19,7 @@ class Admin extends CI_Controller
 		{
 			redirect('Login','refresh');
 		}
+		*/
     $this->load->model('Admin_model');
 		$this->load->model('Accountant_model');
   }
@@ -193,7 +195,7 @@ class Admin extends CI_Controller
 	{
 		$id = $this->input->post('id');
 		$data = array('Status'=>0);
-		$this->Admin_model->deactivate_user($id,$data);
+		$this->Admin_model->activate_user($id,$data);
 	}
 
 	function activate_user()

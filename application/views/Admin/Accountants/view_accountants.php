@@ -94,7 +94,7 @@ $(document).ready(function() {
                 text: "Deactivate account?",
                 type: "warning",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
+                confirmButtonText: "Yes, deactivate it!",
                 showCancelButton: true,
                 closeOnConfirm: false,
             },
