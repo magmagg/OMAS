@@ -104,11 +104,11 @@
 
         function getInvoiceItems($ids,$SO_ID)
         {
-        $this->db->select('service_invoice_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,POI_ItemID,SO_ID');
-        $this->db->from('service_invoice_item');
-        $this->db->where('SO_ID',$SO_ID);
-        $this->db->where_in('service_invoice_item.POI_ItemID',$ids);
-        $this->db->join('purchasing_order_item', 'purchasing_order_item.ItemID = service_invoice_item.POI_ItemID');
+            $this->db->select('service_invoice_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,POI_ItemID,SO_ID');
+            $this->db->from('service_invoice_item');
+            $this->db->where('SO_ID',$SO_ID);
+            $this->db->where_in('service_invoice_item.POI_ItemID',$ids);
+            $this->db->join('purchasing_order_item', 'purchasing_order_item.ItemID = service_invoice_item.POI_ItemID');
         //$this->db->join('department', 'department.dept_id = admin.dept_grp');
         //$this->db->order_by("lname", "asc");
         //$this->db->limit($num,$start);
@@ -120,6 +120,31 @@
 
         $query = $this->db->get();
         return $query->result();    
+        }
+
+        function getInvoiceItemsWeb($SO_ID)
+        {
+            $this->db->select('service_invoice_item.ItemID,service_invoice_item.Quantity,UnitPrice,ItemName,POI_ItemID,SO_ID');
+            $this->db->from('service_invoice_item');
+            $this->db->where('SO_ID',$SO_ID);
+            //$this->db->where_in('service_invoice_item.POI_ItemID',$ids);
+            $this->db->join('purchasing_order_item', 'purchasing_order_item.ItemID = service_invoice_item.POI_ItemID');
+
+             $query = $this->db->get();
+            return $query->result(); 
+        }
+
+        function getInvoiceServiceWeb($SO_ID)
+        {
+            $this->db->where_in("SO_ID",$SO_ID);
+            return $this->db->get('service_invoice_service')->result();
+        }
+
+        
+         function getPOItemsWeb($PurchaseID)
+        {
+            $this->db->where_in("PO_ID",$PurchaseID);
+            return $this->db->get('purchasing_order_item')->result();
         }
 
         function serviceInvoiceDetails($id)
