@@ -33,7 +33,7 @@
 							<div class="ct-chart ct-golden-section" id="monthlyservices"></div>
 						</div>
 
-            <div class="tab-pane" id="quarter">
+            <div class="tab-pane fade" id="quarter">
               <div class="form-group">
                 <select id="yearselectquarterservice" style="width: 100%">
                    <option value=""></option>
@@ -45,7 +45,7 @@
               <div class="ct-chart ct-golden-section" id="quarterservices"></div>
             </div>
 
-						<div class="tab-pane" id="semianual">
+						<div class="tab-pane fade" id="semianual">
               <div class="form-group">
                 <select id="yearselectsemiservice" style="width: 100%">
                    <option value=""></option>
@@ -677,8 +677,7 @@ $("#yssemiex").select2({
 		axisY: {
 			offset: 70
 		},
-		width:600,
-		height:300
+		fullWidth: true
 	}
 
 	var bcmonthlyservices = new Chartist.Bar('#monthlyservices', dmonthly, options);
@@ -721,8 +720,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width:600,
-					height:300,
+					fullWidth: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,

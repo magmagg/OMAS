@@ -20,8 +20,10 @@
                       <li><a href="<?=base_url();?>Accountant/make_purchase_order" class="child">Create Order</a></li>
                     </ul>
                 </li>
+                <!--
                 <li><a href="#" class="parent">Bills</a></li>
                 <li><a href="#" class="parent">Receipts</a></li>
+              -->
                 <li class="dropdown">
                   <a class="dropdown-toggle parent" data-toggle="dropdown" href="#">Suppliers
                     <i class="caret"></i></a>
@@ -32,7 +34,7 @@
                 </li>
 
             </ul>
-               
+
             </div>
         </div>
     </div>

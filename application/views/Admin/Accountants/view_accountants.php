@@ -9,6 +9,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
+          <?=$this->session->flashdata('success');?>
             <div class="panel-heading">
                 All users
             </div>
@@ -30,8 +31,12 @@
                             <td><?=$a->email?></td>
                             <td><?=$a->create_time?></td>
                             <td>
-                              <a href="<?=base_url().'Admin/edit_one_accountant/'.$a->UserID?>"><button type="button" class="btn btn-primary" disabled>Edit</button></a>
-                              <button type="button" class="btn btn-danger DeleteAccountant" data-id="<?=$a->UserID?>" disabled>Disable</button>
+                              <a href="<?=base_url().'Admin/edit_one_accountant/'.$a->UserID?>"><button type="button" class="btn btn-primary">Edit</button></a>
+                              <?php if($a->Status == 1):?>
+                                <button type="button" class="btn btn-danger DeleteAccountant" data-id="<?=$a->UserID?>">Deactivate</button>
+                              <?php else:?>
+                                <button type="button" class="btn btn-success ActivateAccountant" data-id="<?=$a->UserID?>">Activate</button>
+                              <?php endif;?>
                             </td>
                         </tr>
                       <?php endforeach;?>
@@ -86,24 +91,67 @@ $(document).ready(function() {
         var id = $(this).data("id");
         swal({
                 title: "Are you sure?",
-                text: "You will not be able to recover accountant!",
+                text: "Deactivate account?",
                 type: "warning",
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes, delete it!",
+                showCancelButton: true,
                 closeOnConfirm: false,
             },
             function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
                         type: 'POST',
-                        url: "<?php echo base_url();?>Admin/delete_one_accountant/",
+                        url: "<?php echo base_url();?>Admin/deactivate_user/",
                         data: {
-                          customerID: id
+                          'id': id
                         },
                         success: function(data) {
                           swal({
                             title: "Deleted!",
-                            text: "Accountant has been deleted. Refreshing page...",
+                            text: "Account deactivated. Refreshing page...",
+                            type: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            closeOnConfirm: false
+                          });
+                            setTimeout(function() {
+                                window.location.replace("<?=base_url().'Admin/view_accountants'?>");
+                            }, 2000);
+
+                        }
+                    });
+                } else {}
+            });
+    });
+});
+
+$(document).ready(function() {
+    $('.ActivateAccountant').click(function() {
+        var id = $(this).data("id");
+        swal({
+                title: "Are you sure?",
+                text: "Activate account?",
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                showCancelButton: true,
+                closeOnConfirm: false,
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?php echo base_url();?>Admin/activate_user/",
+                        data: {
+                          'id': id
+                        },
+                        success: function(data) {
+                          swal({
+                            title: "Deleted!",
+                            text: "Account activated. Refreshing page...",
                             type: "success",
                             showCancelButton: false,
                             showConfirmButton: false,

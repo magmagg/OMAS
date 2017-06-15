@@ -26,7 +26,6 @@
     <link href="<?=base_url();?>assets/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Sweetalert CSS -->
-    <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet">
 
 
     <!-- Custom CSS -->
@@ -36,6 +35,7 @@
     <link href="<?=base_url();?>assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/vendor/select2/select2.min.css" rel="stylesheet" type="text/css">
 
+    <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?=base_url();?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -123,15 +123,10 @@
                                         <i class="icon-money icon-large"></i> Expenses
                                     </a>
                                 </li>
-                              
+
                                 <li>
                                     <a href="<?=base_url();?>Admin/view_accountants">
                                         <i class="icon-user icon-large"></i> Users
-                                    </a>
-                                </li>
-                                  <li>
-                                    <a href="#">
-                                        <i class="icon-cogs icon-large"></i> Settings
                                     </a>
                                 </li>
                             </ul>

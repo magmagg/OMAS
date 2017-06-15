@@ -201,7 +201,6 @@ class Mobile extends CI_Controller {
 		$service_items = $this->input->post('service_items');
 
 
-
 		//Insert data now
 		$data = array('Total'=>$total,
 		              'Accountant_UserID'=>$userId,
@@ -241,7 +240,8 @@ class Mobile extends CI_Controller {
                     'Quantity'=>$quantity,
                     'SO_ID'=>$ServiceID);
       		$this->Accountant_model->insert_service_invoice_item($data);
-
+      		$stock=$this->Model_Mobile->getPurchasingItemsById($id);
+      		$this->Model_Mobile->subtractQuantities($ServiceID,$quantity,$id, $stock[0]['Quantity']);
 		}
 
 		foreach(explode('|',$service_items) as $service_item){

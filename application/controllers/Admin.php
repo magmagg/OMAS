@@ -176,4 +176,144 @@ class Admin extends CI_Controller
 		$this->session->set_flashdata('success','<div class="alert alert-danger">Service invoice Rejected!</div>');
 	}
 
+	function deactivate_user()
+	{
+		$id = $this->input->post('id');
+		$data = array('Status'=>0);
+		$this->Admin_model->deactivate_user($id,$data);
+	}
+
+	function activate_user()
+	{
+		$id = $this->input->post('id');
+		$data = array('Status'=>1);
+		$this->Admin_model->activate_user($id,$data);
+	}
+
+	function edit_one_accountant()
+	{
+		$config = array(
+				array(
+								'field' => 'username',
+								'label' => 'username',
+								'rules' => 'trim|required|min_length[1]|max_length[45]'
+				),
+				array(
+								'field' => 'password',
+								'label' => 'password',
+								'rules' => 'trim|min_length[1]|max_length[45]',
+								'errors' => array(
+												'required' => 'You must provide a %s.',
+								),
+				),
+				array(
+								'field' => 'email',
+								'label' => 'email',
+								'rules' => 'required|valid_email',
+								'errors' => array(
+												'is_unique' => 'Email already in use',
+											),
+				),
+				array(
+								'field' => 'confirmpassword',
+								'label' => 'confirmpassword',
+								'rules' => 'trim|min_length[1]|max_length[45]|matches[password]'
+				)
+		);
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$id = $this->uri->segment(3);
+
+				$data['user'] = $this->Admin_model->get_accountant_details($id);
+				$this->load->view('Admin/header');
+				$this->load->view('Admin/Accountants/sub_menu');
+				$this->load->view('Admin/accountants/edit_accountant',$data);
+				$this->session->set_flashdata('error','<div class="alert alert-danger">Please check form for errors!</div>');
+		}
+		else
+		{
+			$id = $this->input->post('userid');
+			if($this->input->post('password') == '')
+			{
+				$data = array('username'=>$this->input->post('username'),
+											'email'=>$this->input->post('email')
+										 );
+			}
+			else
+			{
+				$data = array('username'=>$this->input->post('username'),
+											'email'=>$this->input->post('email'),
+											'password'=>password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+										 );
+			}
+
+				$this->Admin_model->submit_edit_accountant($data,$id);
+				$this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+				redirect(base_url().'Admin/view_accountants', 'refresh');
+		}
+	}
+/*
+	function username_check($str)
+	{
+		$data['users'] = $this->Admin_model->get_accountants();
+
+		foreach($data['users'] as $key=>$value)
+		{
+			if($value->username == $str)
+			{
+				unset($data['users'][$key]);
+			}
+			else
+			{
+
+			}
+		}
+		foreach($data['users'] as $u)
+		{
+			if($u->username == $str)
+			{
+				$this->form_validation->set_message('username_check', 'The {field} field can not be the word "test"');
+        return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	function email_check($str)
+	{
+		$data['users'] = $this->Admin_model->get_accountants();
+
+		foreach($data['users'] as $key=>$value)
+		{
+			if($value->email == $str)
+			{
+				unset($data['users'][$key]);
+			}
+			else
+			{
+
+			}
+		}
+
+		foreach($data['users'] as $u)
+		{
+			if($u->email == $str)
+			{
+				$this->form_validation->set_message('username_check', 'Duplicate email');
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+		}
+	}
+	*/
+
 }

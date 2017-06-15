@@ -422,6 +422,45 @@ class Accountant extends CI_Controller
 		redirect(base_url().'Accountant/view_purchase_orders');
 	}
 
+  function submit_edit_purchase_order()
+  {
+    $PurchaseID = $this->input->post('purchaseid');
+    $use['pastitems'] = list($items) = $this->input->post('pastitems');
+    foreach($use['pastitems'] as $pi)
+    {
+      $this->Accountant_model->delete_from_poi($pi);
+    }
+    $use['items'] = list($items) = $this->input->post('item');
+    $use['itemdesc'] = list($items) = $this->input->post('itemdesc');
+    $use['quantity'] = list($items) = $this->input->post('quantity');
+    $use['unitprice'] = list($items) = $this->input->post('unitprice');
+    $use['total'] = list($items) = $this->input->post('total');
+
+    $total = 0;
+    foreach($use['total'] as $t)
+    {
+      $total += $t;
+    }
+
+    //Insert data now
+      $data = array('Total'=>$total,
+                    'Status'=>0);
+      $this->Accountant_model->update_purchase_order($data,$PurchaseID);
+
+
+    foreach($use['items'] as $key=>$value)
+    {
+      $data = array('ItemName'=>$value,
+                    'Quantity'=>$use['quantity'][$key],
+                    'ItemDesc'=>$use['itemdesc'][$key],
+                    'UnitPrice'=>$use['unitprice'][$key],
+                    'PO_ID'=>$PurchaseID);
+      $this->Accountant_model->insert_purchase_order_item($data);
+    }
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
+    redirect(base_url().'Accountant/view_purchase_orders');
+  }
+
 	function view_purchase_orders()
 	{
 		if($this->session->userdata('logged_in_admin') == true)
@@ -444,8 +483,22 @@ class Accountant extends CI_Controller
 		$data['purchaseorder'] = $this->Accountant_model->get_purchase_orders_byuser_items($id);
 		$data['supplier'] = $this->Accountant_model->get_one_supplier($data['purchaseorder'][0]->Supplier_SupplierID);
 
-		$this->load->view('Accountant/header');
-		$this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
+    foreach($data['purchaseorder'] as $p)
+    {
+      $Status = $p->Status;
+    }
+
+    if($Status == 2)
+    {
+      $this->load->view('Accountant/header');
+      $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one_edit',$data);
+    }
+    else
+    {
+      $this->load->view('Accountant/header');
+      $this->load->view('Accountant/PurchaseOrder/view_purchase_order_one',$data);
+    }
+
 	}
 
 	//service Invoice
@@ -845,6 +898,91 @@ class Accountant extends CI_Controller
 		redirect(base_url().'Accountant/balance_sheet', 'refresh');
   }
 
+  function submit_update_balancesheet()
+  {
+    $balanceid = $this->input->post('balancesheetid');
+    $this->Accountant_model->delete_from_assets_table($balanceid);
+    $this->Accountant_model->delete_from_oequity_table($balanceid);
+    $this->Accountant_model->delete_from_liabilities_table($balanceid);
+    $this->Accountant_model->delete_from_balancer_table($balanceid);
+    $this->Accountant_model->delete_from_balance_table($balanceid);
+
+    $data = array('created_by'=>$this->session->userdata('AccountantID'),
+                  'balance_id'=>$balanceid);
+    $this->Accountant_model->insert_balance_table($data);
+
+    $use['assetname'] = list($items) = $this->input->post('assetname');
+    $use['assetvalue'] = list($items) = $this->input->post('assetvalue');
+
+    $use['liabilityname'] = list($items) = $this->input->post('liabilityname');
+    $use['liabilityvalue'] = list($items) = $this->input->post('liabilityvalue');
+
+    $use['oequityname'] = list($items) = $this->input->post('oequityname');
+    $use['oequityvalue'] = list($items) = $this->input->post('oequityvalue');
+
+    if($this->input->post('assetcurrent') == NULL)
+    {
+      $assetcurrent = 0;
+    }
+    else
+    {
+      $assetcurrent = $this->input->post('assetcurrent');
+    }
+
+    if($this->input->post('liabilitycurrent') == NULL)
+    {
+      $liabilitycurrent = 0;
+    }
+    else
+    {
+      $liabilitycurrent = $this->input->post('liabilitycurrent');
+    }
+
+    $assetstotal = '';
+    $liabilitiestotal = '';
+    $oequitytotal = '';
+
+    foreach($use['assetname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'asset_name'=>$value,
+                    'asset_value'=>$use['assetvalue'][$key],
+                    'asset_current'=>$assetcurrent,
+                    );
+      $assetstotal += $use['assetvalue'][$key];
+      $this->Accountant_model->insert_assets($data);
+    }
+
+    foreach($use['liabilityname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'liability_name'=>$value,
+                    'liability_value'=>$use['liabilityvalue'][$key],
+                    'liability_current'=>$liabilitycurrent,
+                    );
+      $liabilitiestotal += $use['liabilityvalue'][$key];
+      $this->Accountant_model->insert_liabilities($data);
+    }
+
+    foreach($use['oequityname'] as $key=>$value)
+    {
+      $data = array('balance_id'=>$balanceid,
+                    'owner_name'=>$value,
+                    'owner_value'=>$use['oequityvalue'][$key],
+                    );
+      $oequitytotal += $use['oequityvalue'][$key];
+      $this->Accountant_model->insert_oequity($data);
+    }
+
+    $data = array('balance_id'=>$balanceid,
+                  'total_assets'=>$assetstotal,
+                  'total_liabilities'=>$liabilitiestotal,
+                  'total_equity'=>$oequitytotal);
+    $this->Accountant_model->insert_balancer($data);
+    $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted</div>');
+  //  redirect(base_url().'Accountant/balance_sheet', 'refresh');
+  }
+
   function view_balance_sheet()
   {
     $data['ids'] = $this->Accountant_model->get_balance_ids();
@@ -866,7 +1004,7 @@ class Accountant extends CI_Controller
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
-    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one1',$data);
   }
 
   function edit_one_balance_sheet()
@@ -881,7 +1019,7 @@ class Accountant extends CI_Controller
 
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/BalanceSheet/sub_menu');
-    $this->load->view('Accountant/BalanceSheet/view_balance_sheet_one',$data);
+    $this->load->view('Accountant/BalanceSheet/edit_balance_sheet_one',$data);
   }
 
 	//OtherExpenses
@@ -1384,6 +1522,94 @@ class Accountant extends CI_Controller
     echo json_encode($this->Accountant_model->MonthlyRevenue($year));
   }
 
+  //Income statement
 
+  function income_statement()
+  {
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Reports/sub_menu');
+    $this->load->view('Accountant/Reports/income_statement');
+  }
+
+  function submit_get_income_statement()
+  {
+    $year = $this->input->post('yearpicker');
+    $duration = $this->input->post('duration');
+    $month = $this->input->post('month');
+    $data['other_income'] = $this->input->post('other_income');
+    $data['interest_expense'] = $this->input->post('interest_expense');
+    $totalexpenses = '';
+
+    //statementrevenue
+    $data['income'] = $this->Accountant_model->MonthlyIncome($year,$month,$duration);
+    //incomeinventorybegin
+    $data['begin'] = $this->Accountant_model->MonthlyStatementInventory($year,$month,$duration);
+    //incomeinventoryend
+    $data['end'] = $this->Accountant_model->MonthlyStatementInventoryEnd($year,$month,$duration);
+    $use['expenses'] = array('other_expenses','rent','insurance','fees','wages','interest','supplies','maintenance','travel','entertainment','training','utilities');
+    foreach($use['expenses'] as $e)
+    {
+      $use[$e] = $this->Accountant_model->MonthlyStatementExpenses($year,$month,$e,$duration);
+    }
+
+    foreach($use['other_expenses'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['rent'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['insurance'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['fees'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['wages'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['interest'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['supplies'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['maintenance'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['travel'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['entertainment'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['training'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    foreach($use['utilities'] as $u)
+    {
+        $totalexpenses += $u['Total'];
+    }
+    $data['totalexpense'] = $totalexpenses;
+
+    //echo json_encode($data);
+
+
+    $this->load->view('Accountant/header');
+    $this->load->view('Accountant/Reports/sub_menu');
+    $this->load->view('Accountant/Reports/income_statement',$data);
+
+  }
 
 }

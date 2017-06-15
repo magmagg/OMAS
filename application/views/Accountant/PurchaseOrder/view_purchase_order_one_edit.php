@@ -17,46 +17,81 @@
                <div class="col-lg-12">
                <?= $this->session->flashdata('success'); ?>
                <?php if(validation_errors()){echo $this->session->flashdata('error');}?>
-                  <form role="form" method="POST" id="myformsubmit" action="<?=base_url().'Accountant/submit_make_purchase_order'?>">
+                  <form role="form" method="POST" action="<?=base_url().'Accountant/submit_edit_purchase_order'?>">
+                    <?php foreach($purchaseorder as $p):?>
+                    <input type="hidden" name="purchaseid" value="<?=$p->PurchaseID?>">
+                    <input type="hidden" name="pastitems[]" value="<?=$p->ItemID?>">
+                  <?php endforeach; ?>
                        <div class="form-group">
                         <label>Supplier</label>
+                        <?php $count = 1; ?>
+                        <?php foreach($supplier as $s):?>
+                          <?php if($count == 1):?>
                          <select class="suppliers" id="supplierselect" name="supplierid" style="width: 100%">
-                           <option value=""></option>
-                           <?php foreach($suppliers as $s):?>
                            <option value="<?=$s->SupplierID?>"><?=$s->SupplierName?></option>
-                           <?php endforeach;?>
                          </select>
-                         <p class="help-block" id="sname">Supplier name:</p>
-                         <p class="help-block" id="saddress">Supplier Address:</p>
-                         <p class="help-block" id="snum">Supplier #:</p>
+                         <p class="help-block" id="sname">Supplier name:<?=$s->SupplierName?></p>
+                         <p class="help-block" id="saddress">Supplier Address:<?=$s->Address?> <?=$s->City?> <?=$s->Region?> <?=$s->PostalCode?></p>
+                         <p class="help-block" id="snum">Supplier #:<?=$s->Phone?></p>
+                                              <?php $count++;?>
+                       <?php else:?>
+                       <?php endif;?>
+
+                        <?php endforeach;?>
+                       </div>
+                       <?php $piid = 1;?>
+                       <div class="row">
+                       <?php foreach($purchaseorder as $p): ?>
+                         <div id="pirow<?=$piid?>">
+                         <?php $count = 1; ?>
+                           <div class="form-group col-lg-3">
+                             <input class="form-control iitemfield" name="item[]" id="iitem<?=$count?>" value="<?=$p->ItemName?>" required>
+                           </div>
+                           <div class="form-group col-lg-4">
+                             <input class="form-control iitemfield" name="itemdesc[]" id="iitemdesc<?=$count?>" value="<?=$p->ItemDesc?>" required>
+                           </div>
+                           <div class="form-group col-lg-1">
+                             <input class="form-control qquantityfield" name="quantity[]" id="qquantity<?=$count?>" value="<?=$p->Quantity?>" type="number" required>
+                           </div>
+                           <div class="form-group col-lg-1">
+                             <input class="form-control uunitpricefield" name="unitprice[]" id="uunitprice<?=$count?>" type="number" value="<?=$p->UnitPrice?>" required>
+                           </div>
+                           <div class="form-group col-lg-2">
+                             <input class="form-control ttotalfield" id="ttotal<?=$count?>" name="total[]" placeholder="Total" value="<?=$p->Quantity*$p->UnitPrice?>" readonly>
+                           </div>
+                           <div class="form-group col-lg-1">
+                             <button type="button" class="btn btn-danger deleterow" id="bpirow<?=$piid?>" onclick="deleterowpiid(this)">X</button>
+                           </div>
+                         </div>
+                           <?php $piid++; ?>
+                         <?php endforeach; ?>
                        </div>
                        <div id="append">
                          <div class="row" id="itemsrow">
                            <div class="form-group col-lg-3">
-                             <label class="myformlabel">Item</label>
                              <input class="form-control itemfield" name="item[]" id="item" placeholder="Enter Item" required>
                            </div>
                            <div class="form-group col-lg-4">
-                             <label class="myformlabel">Item description</label>
                              <input class="form-control itemfield" name="itemdesc[]" id="itemdesc" placeholder="Description" required>
                            </div>
                            <div class="form-group col-lg-1">
-                             <label class="myformlabel">Quantity</label>
                              <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Qty" required>
                            </div>
                            <div class="form-group col-lg-1">
-                             <label class="myformlabel">Unit price</label>
                              <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Price" required>
                            </div>
                            <div class="form-group col-lg-2">
-                             <label class="myformlabel">Total</label>
                              <input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+                           </div>
+                           <div class="form-group col-lg-1" id="deletebutton">
+                             <button type="button" class="btn btn-danger deleterow" id="" onclick="deleterow(this)">X</button>
                            </div>
                          </div>
                         </div>
                        <button type="button" class="btn btn-success" id="cloneme">Add more items</button>
                        <p> Prepared by: <?=$this->session->userdata['username']?> </p>
                        <button type="submit" class="btn btn-default">Submit Button</button>
+                       <button type="reset" class="btn btn-default">Reset Button</button>
                    </form>
                </div>
            </div>
@@ -89,17 +124,9 @@
 
     <!-- Custom Theme JavaScript -->
     <!-- <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script> -->
-    <div class="form-group col-lg-1" id="deletebutton">
-      <button type="button" class="btn btn-danger deleterow" id="" onclick="deleterow(this)">X</button>
-    </div>
+
 
     <script>
-    $("#deletebutton").hide();
-    $(".suppliers").select2({
-        placeholder: "Select a supplier"
-      });
-    </script>
-
     <script>
     $('#supplierselect').on('change', function() {
       $.ajax({
@@ -133,11 +160,9 @@
       clone.find("#quantity").attr("id","quantity"+id);
       clone.find("#unitprice").attr("id","unitprice"+id);
       clone.find("#total").attr("id","total"+id);
-      var deletebutton = $("#deletebutton").clone().show();
-      deletebutton.find(".deleterow").attr("id","deleterow"+id);
+      clone.find(".deleterow").attr("id","deleterow"+id);
       id++;
 
-      $(clone).append(deletebutton);
       $("#append").append(clone);
 
     });
@@ -165,32 +190,57 @@
        var total = $('#unitprice'+currentid).val() * this.value;
        $('#total'+currentid).val(total);
     });
+
+    $("form").on('keyup change', '.uunitpricefield', function (){
+       var currentid =this.id.slice(-1);
+       if(isNaN(currentid)){
+        currentid = '';
+        }else{
+
+        }
+       var total = $('#qquantity'+currentid).val() * this.value;
+       $('#ttotal'+currentid).val(total);
+    });
+
+    $("form").on('keyup change', '.qquantityfield', function (){
+       var currentid =this.id.slice(-1);
+       if(isNaN(currentid)){
+        currentid = '';
+        }else{
+
+        }
+       var total = $('#uunitprice'+currentid).val() * this.value;
+       $('#ttotal'+currentid).val(total);
+    });
     </script>
 
     <script>
     function deleterow(sel)
     {
-      
-     var currentid =sel.id.slice(-1);
-      if(isNaN(currentid)){
-       currentid = '';
-       }else{
-
-       }
-      $('#itemsrow'+currentid).remove();
-    }
-    </script>
-
-    <script>
-    $("#myformsubmit").submit(function(e){
-    	if ( $('#append').children().length > 0 ) {
-
+      if ( $('#append').children().length == 1 ) {
+        alert("Please leave atleast one input");
     }
     else {
-    	alert("Please input atleast one service/Item");
-    	e.preventDefault();
+
+       var currentid =sel.id.slice(-1);
+        if(isNaN(currentid)){
+         currentid = '';
+         }else{
+
+         }
+        $('#itemsrow'+currentid).remove();
     }
-    });
+    }
+    function deleterowpiid(sel)
+    {
+      var currentid =sel.id.slice(-1);
+       if(isNaN(currentid)){
+        currentid = '';
+        }else{
+
+        }
+       $('#pirow'+currentid).remove();
+    }
     </script>
 </body>
 

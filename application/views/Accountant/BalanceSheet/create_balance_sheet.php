@@ -22,9 +22,13 @@
 											<label class="myformlabel">Name</label>
 											<input class="form-control" name="assetname[]" placeholder="Enter asset" required>
 										</div>
-										<div class="form-group col-lg-6">
+										<div class="form-group col-lg-5">
 											<label class="myformlabel">Value</label>
 											<input class="form-control" name="assetvalue[]" type="number" placeholder="Enter Value" required>
+										</div>
+										<div class="form-group col-lg-1" id="assetsdelete">
+											<label class="myformlabel"> Delete </label>
+											<button type="button" class="btn btn-danger deleterow" id="assetsdeleterow" onclick="delas(this)">X</button>
 										</div>
 									</div>
 							</div>
@@ -64,9 +68,13 @@
 								<label class="myformlabel">Name</label>
 								<input class="form-control" name="liabilityname[]" placeholder="Enter liability" required>
 							</div>
-							<div class="form-group col-lg-6">
+							<div class="form-group col-lg-5">
 								<label class="myformlabel">Value</label>
 								<input class="form-control" name="liabilityvalue[]" type="number" placeholder="Enter Value" required>
+							</div>
+							<div class="form-group col-lg-1" id="liadelete">
+								<label class="myformlabel"> Delete </label>
+								<button type="button" class="btn btn-danger deleterow" id="liadeleterow" onclick="dellia(this)">X</button>
 							</div>
 						</div>
 					</div>
@@ -110,9 +118,13 @@
 									<label class="myformlabel">Name</label>
 									<input class="form-control" name="oequityname[]" placeholder="Enter Owners equity" required>
 								</div>
-								<div class="form-group col-lg-6">
+								<div class="form-group col-lg-5">
 									<label class="myformlabel">Value</label>
 									<input class="form-control" name="oequityvalue[]" type="number" placeholder="Enter Value" required>
+								</div>
+								<div class="form-group col-lg-1" id="oeqdelete">
+									<label class="myformlabel"> Delete </label>
+									<button type="button" class="btn btn-danger deleterow" id="oeqdeleterow" onclick="deloeq(this)">X</button>
 								</div>
 							</div>
 						</div>
@@ -155,10 +167,16 @@
 <script src="<?=base_url();?>assets/dist/js/sb-admin-2.js"></script>
 
 <script>
+var assid = 1;
+var liaid = 1;
+var oeqid = 1;
 	$("#cloneasset").click(function() {
 		var clone = $("#assetsrow").clone();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
+		clone.find("#assetsdeleterow").attr("id","assetsdeleterow"+assid);
+		clone.attr("id","assetsrow"+assid);
+		assid++;
 		$("#assetsappend").append(clone);
 	});
 
@@ -166,6 +184,9 @@
 		var clone = $("#liabilityrow").clone();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
+		clone.find("#liadeleterow").attr("id","liadeleterow"+liaid);
+		clone.attr("id","liabilityrow"+liaid);
+		liaid++;
 		$("#liabilityappend").append(clone);
 	});
 
@@ -173,8 +194,46 @@
 		var clone = $("#oequityrow").clone();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
+		clone.find("#oeqdeleterow").attr("id","oeqdeleterow"+oeqid);
+		clone.attr("id","oequityrow"+oeqid);
+		oeqid++;
 		$("#oequityappend").append(clone);
 	});
+</script>
+
+<script>
+function delas(sel)
+{
+ var currentid =sel.id.slice(-1);
+	if(isNaN(currentid)){
+	 currentid = '';
+	 }else{
+
+	 }
+	$('#assetsrow'+currentid).remove();
+}
+
+function dellia(sel)
+{
+ var currentid =sel.id.slice(-1);
+	if(isNaN(currentid)){
+	 currentid = '';
+	 }else{
+
+	 }
+	$('#liabilityrow'+currentid).remove();
+}
+
+function deloeq(sel)
+{
+ var currentid =sel.id.slice(-1);
+	if(isNaN(currentid)){
+	 currentid = '';
+	 }else{
+
+	 }
+	$('#oequityrow'+currentid).remove();
+}
 </script>
 
 

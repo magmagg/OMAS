@@ -750,5 +750,234 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 
 	}
 
+	//Income statement
+	function MonthlyIncome($year,$month,$duration)
+	{
+
+			$select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+			if($duration == "monthly")
+			{
+
+					$where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "quarterly")
+			{
+
+					$where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "semi")
+			{
+					/*
+							Pag semi annual, and value dapat ng $month is 1 or 2
+							representing 1st and 2nd half.
+
+					*/
+
+					if($month == "1")
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+													and YEAR(TransactionDate) ='".$year."'";
+					}else
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+													and YEAR(TransactionDate) ='".$year."'";
+					}
+
+			}else if($duration == "annual")
+			{
+					$where = "YEAR(TransactionDate) ='".$year."'";
+			}
+
+
+
+			$this->db->select('sum(Total) as Total');
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function MonthlyStatementInventory($year,$month,$duration)
+	{
+
+			$select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+			if($duration == "monthly")
+			{
+
+					$where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "quarterly")
+			{
+
+					$where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "semi")
+			{
+					/*
+							Pag semi annual, and value dapat ng $month is 1 or 2
+							representing 1st and 2nd half.
+
+					*/
+
+					if($month == "1")
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+													and YEAR(TransactionDate) ='".$year."'";
+					}else
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+													and YEAR(TransactionDate) ='".$year."'";
+					}
+
+			}else if($duration == "annual")
+			{
+					$where = "YEAR(TransactionDate) ='".$year."'";
+			}
+
+
+			$this->db->select('sum(Total) as Total');
+			$this->db->from('purchasing_order');
+			$this->db->where($where);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function MonthlyStatementInventoryEnd($year,$month,$duration)
+	{
+
+			$select = "sum(total) as total, MONTH(TransactionDate) as month";
+
+
+			if($duration == "monthly")
+			{
+
+					$where = "MONTH(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "quarterly")
+			{
+
+					$where = "Quarter(TransactionDate) ='".$month."' AND YEAR(TransactionDate) = '".$year."'";
+
+			}else if($duration == "semi")
+			{
+					/*
+							Pag semi annual, and value dapat ng $month is 1 or 2
+							representing 1st and 2nd half.
+
+					*/
+
+					if($month == "1")
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 1 AND 6
+													and YEAR(TransactionDate) ='".$year."'";
+					}else
+					{
+							$where = "MONTH(TransactionDate) BETWEEN 7 AND 12
+													and YEAR(TransactionDate) ='".$year."'";
+					}
+
+			}else if($duration == "annual")
+			{
+					$where = "YEAR(TransactionDate) ='".$year."'";
+			}
+
+
+			$this->db->select('sum(Total) as Total');
+			$this->db->from('service_invoice');
+			$this->db->where($where);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+	function MonthlyStatementExpenses($year,$month,$table,$duration)
+	{
+
+			if($duration == "monthly")
+			{
+
+					$where = "MONTH(date_created) ='".$month."' AND YEAR(date_created) = '".$year."'";
+
+			}else if($duration == "quarterly")
+			{
+
+					$where = "Quarter(date_created) ='".$month."' AND YEAR(date_created) = '".$year."'";
+
+			}else if($duration == "semi")
+			{
+					/*
+							Pag semi annual, and value dapat ng $month is 1 or 2
+							representing 1st and 2nd half.
+
+					*/
+
+					if($month == "1")
+					{
+							$where = "MONTH(date_created) BETWEEN 1 AND 6
+													and YEAR(date_created) ='".$year."'";
+					}else
+					{
+							$where = "MONTH(date_created) BETWEEN 7 AND 12
+													and YEAR(date_created) ='".$year."'";
+					}
+
+			}else if($duration == "annual")
+			{
+					$where = "YEAR(date_created) ='".$year."'";
+			}
+
+
+			$this->db->select('sum(value) as Total');
+			$this->db->from($table);
+			$this->db->where($where);
+			$query = $this->db->get();
+			return $query->result_array();
+
+	}
+
+
+	function delete_from_balance_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('balance',$data);
+	}
+	function delete_from_assets_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('assets',$data);
+	}
+	function delete_from_oequity_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('owners_equity',$data);
+	}
+	function delete_from_balancer_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('balancer',$data);
+	}
+	function delete_from_liabilities_table($balanceid)
+	{
+		$data = array('balance_id'=>$balanceid);
+		$this->db->delete('liabilities',$data);
+	}
+
+	function delete_from_poi($pi)
+	{
+		$data = array('ItemID'=>$pi);
+		$this->db->delete('purchasing_order_item',$data);
+	}
+
+	function update_purchase_order($data,$PurchaseID)
+	{
+		$this->db->update('purchasing_order',$data);
+		$this->db->where('PurchaseID',$PurchaseID);
+	}
+
 
 }

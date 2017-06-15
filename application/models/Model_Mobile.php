@@ -21,6 +21,15 @@
             return $query->result_array();
         }
 
+        function getPurchasingItemsById($id)
+        {
+            $this->db->select('*');
+            $this->db->from('purchasing_order_item');
+            $this->db->where('ItemID',$id);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
         function soldList()
         {
             $where = "service_invoice_item.POI_ItemID = purchasing_order_item.ItemID ";
@@ -77,7 +86,7 @@
             return $query->result_array();
         }
 
-       function addPO($id,$total,$supplier,$item,$quantity,$price)
+        function addPO($id,$total,$supplier,$item,$quantity,$price)
         {
               //purchasing_order table
              $purchase_data = array
@@ -86,6 +95,14 @@
                 'Total' => $total,
                 'Supplier_SupplierID' => $supplier
              );
+        }
+
+        function subtractQuantities($ServiceID,$quantity,$id, $stock)
+        {
+            (int)$new_stock = (int)$stock-(int)$quantity;
+            $this->db->where('ItemID',$id);
+            $this->db->update('purchasing_order_item',array('Quantity'=>$new_stock));
+
         }
 
         function getNextInvoiceNum()
@@ -102,8 +119,8 @@
         function purchase_items($poId)
         {   
            
-             $this->db->where_in("PO_ID",$poId);
-
+            $this->db->where_in("PO_ID",$poId);
+            $this->db->where('Quantity != ',0);
             return $this->db->get('purchasing_order_item')->result_array();
         }
 

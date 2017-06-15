@@ -22,9 +22,13 @@
 											<label class="myformlabel">Name</label>
 											<input class="form-control" name="assetname[]" placeholder="Enter asset" required>
 										</div>
-										<div class="form-group col-lg-6">
+										<div class="form-group col-lg-5">
 											<label class="myformlabel">Value</label>
 											<input class="form-control" name="assetvalue[]" type="number" placeholder="Enter Value" required>
+										</div>
+										<div class="form-group col-lg-1" id="firstdelete">
+											<label class="myformlabel"> Delete </label>
+											<button type="button" class="btn btn-danger deleterow" id="deleterow" onclick="delrow(this)">X</button>
 										</div>
 									</div>
 							</div>
