@@ -31,7 +31,7 @@
 							<div class="form-group">
 								<label>Paid?</label>
 								<?php if($e['Status'] == 1):?>
-								<input class="form-control" value="Yes" readonly>
+								<input class="form-control" value="Paid on: <?=$e['date_paid']?>" readonly>
 								<?php else: ?>
 								<input class="form-control" value="No" readonly>
 							<?php endif; ?>

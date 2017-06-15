@@ -27,6 +27,8 @@ class Admin_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('purchasing_order');
+
+		$this->db->order_by('TransactionDate','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -69,6 +71,7 @@ class Admin_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('service_invoice');
+		$this->db->order_by('TransactionDate','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
