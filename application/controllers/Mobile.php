@@ -718,6 +718,17 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//Retrieve year for reports
+
+	function retrieveYear()
+	{
+		$module = $this->input->post('module');
+		
+		$data['year'] = $this->Model_Mobile->RetrieveYearly($module);
+		echo json_encode($data);
+	}
+
+
     
 }
 

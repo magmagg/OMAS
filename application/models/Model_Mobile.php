@@ -1010,5 +1010,19 @@ YEAR(service_invoice.TransactionDate) = 2017";
 
         }
 
+        //Retrieve year for spinners
+
+        function RetrieveYearly($module)
+        {
+
+            $group = "YEAR(TransactionDate)";
+
+            $this->db->select('YEAR(TransactionDate) as year');
+            $this->db->from($module);
+            $this->db->group_by($group);
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
 	}
 ?>
