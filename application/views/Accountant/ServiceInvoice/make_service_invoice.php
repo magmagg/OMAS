@@ -35,19 +35,19 @@
 										<div class="row" id="itemsrow">
 											<div class="form-group col-lg-3" id="serviceform">
 												<label class="myformlabel">Service</label>
-												<input class="form-control servicefield" name="service[]" id="service" placeholder="Enter service" required>
+												<input class="form-control servicefield" id="service" placeholder="Enter service">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Unit price</label>
-												<input class="form-control unitpricefield" name="serviceunitprice[]" id="unitprice" type="number" placeholder="Price" required>
+												<input class="form-control unitpricefield" id="unitprice" type="number" placeholder="Price">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Quantity</label>
-												<input class="form-control quantityfield" name="servicequantity[]" id="quantity" type="number" placeholder="Enter Quantity" required>
+												<input class="form-control quantityfield"  id="quantity" type="number" placeholder="Enter Quantity">
 											</div>
 											<div class="form-group col-lg-2">
 												<label class="myformlabel">Total</label>
-												<input class="form-control totalfield" id="total" name="total[]" placeholder="Total" readonly>
+												<input class="form-control totalfield" id="total" placeholder="Total" readonly>
 											</div>
 											<div class="form-group col-lg-1" id="firstdelete">
 												<label class="myformlabel"> Delete </label>
@@ -67,7 +67,7 @@
 												<input class="form-control unitpricefield" name="unitprice[]" id="unitprice1" type="number" placeholder="Price" readonly>
 											</div>
 											<div class="form-group col-lg-3">
-												<input class="form-control quantityfield" name="quantity[]" id="quantity1" type="number" placeholder="Enter Quantity" required>
+												<input class="form-control quantityfield" name="quantity[]" id="quantity1" type="number" placeholder="Enter Quantity">
 											</div>
 											<div class="form-group col-lg-2">
 												<input class="form-control totalfield" id="total1" name="total[]" placeholder="Total" readonly>
@@ -129,6 +129,7 @@
 	<button type="button" class="btn btn-danger deleterow" id="" onclick="delrow(this)">X</button>
 </div>
 <script>
+var addcount = 0;
 $("#deletebutton").hide();
 $("#itemsrow").hide();
 $("#itemsrow1").hide();
@@ -222,12 +223,19 @@ $("#itemsdd").hide();
 		clone.find('input').val('');
 		clone.find(".myformlabel").remove();
 		clone.find("#firstdelete").remove();
-		clone.find("#service").attr("id", "service" + id);
-		clone.find("#quantity").attr("id", "quantity" + id);
-		clone.find("#unitprice").attr("id", "unitprice" + id);
-		clone.find("#total").attr("id", "total" + id);
+
+		clone.find("#service").prop("required", true);
+		clone.find("#quantity").prop("required", true);
+		clone.find("#unitprice").prop("required", true);
+
+		clone.find("#service").attr("id", "service" + id).attr("name", "service[]");
+		clone.find("#quantity").attr("id", "quantity" + id).attr("name", "servicequantity[]");
+		clone.find("#unitprice").attr("id", "unitprice" + id).attr("name", "serviceunitprice[]");
+
+		clone.find("#total").attr("id", "total" + id).attr("name", "total[]");
 		deletebutton.find(".deleterow").attr("id","deleterow"+id);
 		id++;
+		addcount++;
 		$(clone).append(deletebutton);
 		$("#append").append(clone);
 	});
@@ -247,6 +255,11 @@ $("#itemsdd").hide();
 
 		clone.find("#unitprice").prop("readonly", true);
 
+
+		clone.find("#items1").prop("required", true);
+		clone.find("#unitprice").prop("required", true);
+
+
     clone.find("#quantity").attr("id","quantity"+id).attr("name", "quantity[]");
     clone.find("#unitprice").attr("id","unitprice"+id).attr("name", "unitprice[]");
     clone.find("#total").attr("id","total"+id);
@@ -254,6 +267,7 @@ $("#itemsdd").hide();
 		cloned.find('.items').attr("id","items"+id);
 		deletebutton.find(".deleterow").attr("id","deleterow"+id);
     id++;
+		addcount++;
 		$(clone).append(deletebutton);
     $(clone).prepend(cloned);
     $("#append").append(clone);
@@ -269,6 +283,7 @@ function delrow(sel)
 
 	 }
 	$('#itemsrow'+currentid).remove();
+	addcount--;
 }
 </script>
 <script>
@@ -291,7 +306,6 @@ function changeminmax(sel)
 		},
 		success: function(data) {
 			var data1 = JSON.parse(data);
-			console.log(data1[0].quantity);
 			$("#quantity"+selectidnumber).val(1);
 			$("#quantity"+selectidnumber).attr({
 					 "max" : data1[0].quantity,        // substitute your own
@@ -304,12 +318,12 @@ function changeminmax(sel)
 
 <script>
 $("#myformsubmit").submit(function(e){
-	if ( $('#append').children().length > 0 ) {
-
+	if ( addcount == 0 ) {
+		alert("Please input atleast one service/Item");
+		e.preventDefault();
 }
 else {
-	alert("Please input atleast one service/Item");
-	e.preventDefault();
+
 }
 });
 </script>
