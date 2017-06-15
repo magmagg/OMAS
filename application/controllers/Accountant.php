@@ -592,6 +592,8 @@ class Accountant extends CI_Controller
 										'SO_ID'=>$ServiceID);
 			$this->Accountant_model->insert_service_invoice_service($data);
 		}
+
+		//var_dump($use['items']);
     $this->session->set_flashdata('success','<div class="alert alert-success">Data inserted!!</div>');
     redirect(base_url().'Accountant/view_service_invoices');
   }
