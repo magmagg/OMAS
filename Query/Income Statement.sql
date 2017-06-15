@@ -78,7 +78,7 @@
 	-- Revenue
 		select sum(Total) as Total
 		from service_invoice
-		Where MONTH(TransactionDate) = 6
+		Where MONTH(TransactionDate) = 1
 		and YEAR(TransactionDate) = 2016;
 
 	-- Cost of Services
@@ -373,8 +373,7 @@
 	-- Revenue
 		select sum(Total) as Total
 		from service_invoice
-		Where Quarter(TransactionDate) = 1
-		and YEAR(TransactionDate) = 2016;
+		where YEAR(TransactionDate) = 2016;
 
 	-- Cost of Services
 
