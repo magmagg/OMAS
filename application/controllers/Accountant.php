@@ -6,13 +6,25 @@ class Accountant extends CI_Controller
 	function __construct()
 	{
     parent::__construct();
-
+		if($this->session->userdata('logged_in_accountant') == TRUE)
+		{
+			redirect('Accountant');
+		}
+		else if($this->session->userdata('logged_in_admin') == TRUE)
+		{
+			redirect('Admin');
+		}
+		else
+		{
+			redirect('Login','refresh');
+		}
     $this->load->model('Accountant_model');
     $this->load->model('Admin_model');
   }
 
   function index()
   {
+
 		$this->load->view('Accountant/header');
 		$this->load->view('Accountant/index');
   }

@@ -394,7 +394,7 @@
 						<div class="panel-body">
 							<form role="form" method="POST" action="<?=base_url();?>Accountant/submit_get_income_statement">
 							<div class="form-group">
-								<select name="duration" id="duration">
+								<select name="duration" id="duration" required>
 									 <option value=""></option>
 									 <option value="monthly">Monthly</option>
 									 <option value="quarterly">Quarterly</option>

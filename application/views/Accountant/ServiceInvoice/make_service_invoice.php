@@ -55,14 +55,7 @@
 											</div>
 										</div>
 										<div class="row" id="itemsrow1">
-											<div class="form-group col-lg-3">
-											<select class="form-control items" placeholder="Item" id="items1" name="items[]" style="width: 100%" onchange="changeminmax(this)">
-												<option value="">Please select</option>
-														<?php foreach($items as $i): ?>
-															<option value="<?=$i['ItemID']?>"><?=$i['ItemName']?></option>
-														<?php endforeach; ?>
-												</select>
-											</div>
+
 											<div class="form-group col-lg-3">
 												<input class="form-control unitpricefield" name="unitprice[]" id="unitprice1" type="number" placeholder="Price" readonly>
 											</div>
@@ -245,6 +238,7 @@ $("#itemsdd").hide();
     var clone = $("#itemsrow").clone(true).show();
 		var orig = $("#itemsdd").find("#itemsddd");
 		var cloned = $(orig).clone().show();
+		cloned.find('.items').prop("required",true);
 		var deletebutton = $("#deletebutton").clone().show();
 
 		clone.attr("id","itemsrow"+id);
