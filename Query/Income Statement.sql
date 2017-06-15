@@ -3,22 +3,26 @@
 							INCOME STATEMENT
 							   JUNE 2016
 	
-    Total Revenue									    +$$$
+    Total Revenue									    1,006,721
     
     Cost of Services
-		Begin Inventory							+$$$
-        End Inventory							-$$$
-        Total Cost										-$$$
+		Begin Inventory							1,297,511
+        End Inventory						   -1,006,721
+        Total Cost										-290,790
+        											--------------
+        												 715,931
         
-	Expenses											-$$$
+	Expenses											-646,267
+													--------------
+														 69,664
     
-    (INPUT)Other Income									+$$$
+    (INPUT)Other Income									+50,671
     ------------------------------------------------------------
-    Net Income Before Interest & Tax					 $$$
+    Net Income Before Interest & Tax					 120,335
     
-    (INPUT)Interest Expense								-$$$
+    (INPUT)Interest Expense								-80,783
     ------------------------------------------------------------
-	Net Income Before Tax								 $$$
+	Net Income Before Tax								 39,552
     
     
     Ang input lang dito is
