@@ -42,11 +42,11 @@
                            </div>
                            <div class="form-group col-lg-1">
                              <label class="myformlabel">Quantity</label>
-                             <input class="form-control quantityfield" name="quantity[]" id="quantity" type="number" placeholder="Qty" required>
+                             <input class="form-control quantityfield" name="quantity[]" id="quantity" min="1" type="number" placeholder="Qty" required>
                            </div>
                            <div class="form-group col-lg-1">
                              <label class="myformlabel">Unit price</label>
-                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" type="number" placeholder="Price" required>
+                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" step="0.01" type="number" placeholder="Price" required>
                            </div>
                            <div class="form-group col-lg-2">
                              <label class="myformlabel">Total</label>
@@ -170,7 +170,7 @@
     <script>
     function deleterow(sel)
     {
-      
+
      var currentid =sel.id.slice(-1);
       if(isNaN(currentid)){
        currentid = '';
