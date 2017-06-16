@@ -24,7 +24,7 @@ class Accountant extends CI_Controller
 
 		}
 		*/
-		
+
 
     $this->load->model('Accountant_model');
     $this->load->model('Admin_model');
