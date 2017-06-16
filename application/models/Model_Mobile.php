@@ -1110,5 +1110,16 @@ YEAR(service_invoice.TransactionDate) = 2017";
             return $query->result_array();
         }
 
+        //insert Filename
+
+        function insertFilename($filename,$name,$table)
+        {
+
+            
+            $this->db->where('name',$name);
+            $this->db->update($table,array('other_doc'=>$filename));
+            
+        }
+
 	}
 ?>

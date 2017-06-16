@@ -1159,6 +1159,18 @@ class Mobile extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//File name insertion
+
+	function FilenameInsert()
+	{
+		$filename = $this->input->post('file');
+		$name = $this->input->post('name');
+		$table = $this->input->post('table');
+		
+		$data['insert'] = $this->Model_Mobile->insertFilename($filename,$name,$table);
+		echo json_encode($data);
+	}
+
 
     
 }
