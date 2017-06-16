@@ -49,7 +49,7 @@
                      </div>
                      <div class="form-group">
                          <label>Price</label>
-                         <input class="form-control" name="price" type="number" placeholder="Enter price" value="<?=set_value('price');?>" required>
+                         <input class="form-control" name="price" type="number" min="0.01" step="0.01" placeholder="Enter price" value="<?=set_value('price');?>" required>
                          <?php echo form_error('price'); ?>
                      </div>
                      <div class="form-group">

@@ -444,10 +444,10 @@
 						<br>
 						<div class="form-inline">
 							<div class="form-group">
-								<input class="form-control" name="other_income" id="other_income" type="number" placeholder="Other income(Optional)">
+								<input class="form-control" name="other_income" id="other_income" step="0.01" min="0.01" type="number" placeholder="Other income(Optional)">
 							</div>
 							<div class="form-group">
-								<input class="form-control" name="interest_expense" id="interest_expense" type="number" placeholder="Interest expense" required>
+								<input class="form-control" name="interest_expense" id="interest_expense" step="0.01" min="0.01" type="number" placeholder="Interest expense" required>
 							</div>
 						</div>
 
@@ -721,8 +721,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width:600,
-					height:300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -768,8 +767,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width: 600,
-			 		height: 300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -815,8 +813,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width: 600,
-			 		height: 300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -912,8 +909,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width: 600,
-			 		height: 300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -959,8 +955,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width: 600,
-			 		height: 300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -1007,8 +1002,7 @@ $("#yssemiex").select2({
 					axisY: {
 						offset: 70
 					},
-					width: 600,
-			 		height: 300,
+					stretch: true,
 					high: maxValueInArray,
 					low: 0,
 				 scaleMinSpace: 20,
@@ -1123,8 +1117,7 @@ $('#ysmonthlyex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1194,8 +1187,7 @@ $('#ysquarterex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1264,8 +1256,7 @@ $('#yssemiex').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1309,8 +1300,7 @@ $('#selectexannual').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+			stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1405,8 +1395,7 @@ $('#ysmonthlyi').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1451,8 +1440,7 @@ $('#ysquarteri').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1498,8 +1486,7 @@ $('#yssemii').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1601,8 +1588,7 @@ $('#ysmonthlypie').change(function() {
 				axisY: {
 					offset: 70
 				},
-				width: 600,
-				height: 300,
+				stretch: true,
 				high: maxValueInArray,
 				low: 0,
 			 scaleMinSpace: 20,
@@ -1626,7 +1612,7 @@ var sum = function(a, b) { return a + b };
 var quarterpiechart = new Chartist.Pie('#quarterpiechart', data, {
   labelInterpolationFnc: function(value) {
     return Math.round(value / data.series.reduce(sum) * 100) + '%';
-  },width: 600,height: 300
+  },stretch: true,
 });
 //Anual
 var data = {
@@ -1638,7 +1624,7 @@ var sum = function(a, b) { return a + b };
 var semipiechart = new Chartist.Pie('#semipiechart', data, {
   labelInterpolationFnc: function(value) {
     return Math.round(value / data.series.reduce(sum) * 100) + '%';
-  },width:600,height: 300
+  },stretch: true,
 });
 </script>
 
@@ -1669,7 +1655,7 @@ $('#ysquarterpie').change(function() {
 				var options = {
 				  labelInterpolationFnc: function(value) {
 				    return value[0]
-				  },width:600,height: 300
+				  },stretch: true,
 
 				};
 				var responsiveOptions = [
@@ -1721,7 +1707,7 @@ $('#yssemipie').change(function() {
 				var options = {
 				  labelInterpolationFnc: function(value) {
 				    return value[0]
-				  },width:600,height: 300
+				  },stretch: true
 				};
 				var responsiveOptions = [
 				  ['screen and (min-width: 640px)', {
@@ -1746,6 +1732,85 @@ $('#yssemipie').change(function() {
 </script>
 <!-- pie chart -->
 
+<script>
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	var options = {
+		seriesBarDistance: 10,
+		reverseData: true,
+		horizontalBars: true,
+		axisY: {
+			offset: 70
+		},
+		stretch: true
+	}
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($yearlyrevenue as $sy): ?>
+	labelanuals.push('<?=$sy->Annual?>');
+	seriesanuals.push(<?=$sy->counted?>);
+	<?php endforeach?>
+	var danualbcanualp = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	bcanualp.detach();
+	bcanualp = new Chartist.Bar('#anualpchart', danualbcanualp, options);
+
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($serviceyears as $sy): ?>
+	labelanuals.push('<?=$sy->Annual?>');
+	seriesanuals.push(<?=$sy->counted?>);
+	<?php endforeach?>
+	var danualbcanualservices = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	bcanualservices.detach();
+	bcanualservices = new Chartist.Bar('#anualservices', danualbcanualservices, options);
+
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($purchaseyears as $sy): ?>
+	labelanuals.push(<?=$sy->Annual?>);
+	seriesanuals.push(<?=$sy->counted?>);
+	<?php endforeach?>
+	var danualbcanualp = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	bcanualp.detach();
+	bcanualp = new Chartist.Bar('#anualpchart', danualbcanualp, options);
+
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($inventoryyears as $sy): ?>
+	labelanuals.push(<?=$sy->year?>);
+	seriesanuals.push(<?=$sy->Quantity?>);
+	<?php endforeach?>
+	var danualbcanuali = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	bcanuali.detach();
+	bcanuali = new Chartist.Bar('#anualichart', danualbcanuali, options);
+
+	var labelanuals = [];
+	var seriesanuals = [];
+	<?php foreach($yearlyrevenue as $sy): ?>
+	labelanuals.push('<?=$sy->Annual?>');
+	seriesanuals.push(<?=$sy->counted?>);
+	<?php endforeach?>
+	var danualbcanualpie = {
+		labels: labelanuals,
+		series: [seriesanuals]
+	};
+	bcanualpie.detach();
+	bcanualpie = new Chartist.Bar('#anualpiechart', danualbcanualpie, options);
+
+});
+</script>
 </body>
 
 </html>

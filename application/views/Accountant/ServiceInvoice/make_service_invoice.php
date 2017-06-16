@@ -39,7 +39,7 @@
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Unit price</label>
-												<input class="form-control unitpricefield" id="unitprice" step="0.01" type="number" placeholder="Price">
+												<input class="form-control unitpricefield" id="unitprice" min="0.01" step="0.01" type="number" placeholder="Price">
 											</div>
 											<div class="form-group col-lg-3">
 												<label class="myformlabel">Quantity</label>

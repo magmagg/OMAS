@@ -46,7 +46,7 @@
                            </div>
                            <div class="form-group col-lg-1">
                              <label class="myformlabel">Unit price</label>
-                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" step="0.01" type="number" placeholder="Price" required>
+                             <input class="form-control unitpricefield" name="unitprice[]" id="unitprice" min="0.01" step="0.01" type="number" placeholder="Price" required>
                            </div>
                            <div class="form-group col-lg-2">
                              <label class="myformlabel">Total</label>

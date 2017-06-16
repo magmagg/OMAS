@@ -24,7 +24,7 @@
 										</div>
 										<div class="form-group col-lg-5">
 											<label class="myformlabel">Value</label>
-											<input class="form-control" name="assetvalue[]" step="0.01" id="assetvalue" type="number" placeholder="Enter Value">
+											<input class="form-control" name="assetvalue[]" min="0.01" step="0.01" id="assetvalue" type="number" placeholder="Enter Value">
 										</div>
 										<div class="form-group col-lg-1" id="assetsdelete">
 											<label class="myformlabel"> Delete </label>
@@ -70,7 +70,7 @@
 							</div>
 							<div class="form-group col-lg-5">
 								<label class="myformlabel">Value</label>
-								<input class="form-control" name="liabilityvalue[]" step="0.01" id="liabilityvalue" type="number" placeholder="Enter Value">
+								<input class="form-control" name="liabilityvalue[]" min="0.01" step="0.01" id="liabilityvalue" type="number" placeholder="Enter Value">
 							</div>
 							<div class="form-group col-lg-1" id="liadelete">
 								<label class="myformlabel"> Delete </label>
@@ -120,7 +120,7 @@
 								</div>
 								<div class="form-group col-lg-5">
 									<label class="myformlabel">Value</label>
-									<input class="form-control" name="oequityvalue[]" step="0.01"  id="oeqvalue" type="number" placeholder="Enter Value">
+									<input class="form-control" name="oequityvalue[]" min="0.01" step="0.01"  id="oeqvalue" type="number" placeholder="Enter Value">
 								</div>
 								<div class="form-group col-lg-1" id="oeqdelete">
 									<label class="myformlabel"> Delete </label>
