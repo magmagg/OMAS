@@ -123,7 +123,7 @@ class Accountant extends CI_Controller
 				array(
 								'field' => 'email',
 								'label' => 'email',
-								'rules' => 'required|valid_email|callback_check_customer_email',
+								'rules' => 'required|valid_email',
 				),
 				array(
 								'field' => 'address',

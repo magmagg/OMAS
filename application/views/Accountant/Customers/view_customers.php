@@ -98,6 +98,7 @@ $(document).ready(function() {
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false,
+                showCancelButton: true
             },
             function(isConfirm) {
                 if (isConfirm) {
