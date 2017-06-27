@@ -434,6 +434,7 @@ class Accountant extends CI_Controller
     {
       $data = array('ItemName'=>$value,
                     'Quantity'=>$use['quantity'][$key],
+                    'start_invent'=>$use['quantity'][$key],
                     'ItemDesc'=>$use['itemdesc'][$key],
                     'UnitPrice'=>$use['unitprice'][$key],
                     'PO_ID'=>$PurchaseID);
@@ -1926,7 +1927,6 @@ class Accountant extends CI_Controller
     $data['interest_expense'] = $this->input->post('interest_expense');
     $totalexpenses = '';
 
-		$data['myitems'] = $this->Accountant_model->revisionincomesstatement($year,$month,$duration);
 		$data['items'] = $this->Accountant_model->get_purchase_order_items();
     //statementrevenue
     $data['income'] = $this->Accountant_model->MonthlyIncome($year,$month,$duration);

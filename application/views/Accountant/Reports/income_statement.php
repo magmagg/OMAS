@@ -42,22 +42,31 @@
 					<td><?php echo number_format($begin[0]['Total'])?></td>
 					<td></td>
 				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 				<?php if($duration == 'annual'): ?>
-					<?php foreach($myitems as $m):?>
-						<?php foreach($items as $i):?>
-							<?php if($m->POI_ItemID == $i->ItemID):?>
-								<?=$i->ItemName?>
-								<tr>
-									<td style="text-indent:50px"><?=$i->ItemName?></td>
-									<td></td>
-									<td></td>
-									<td><?php echo number_format($begin[0]['Total'])?></td>
-									<td></td>
-								</tr>
-							<?php endif; ?>
-						<?php endforeach;?>
+					<?php foreach($items as $m):?>
+						<tr>
+							<td style="text-indent:50px"><?=$m->ItemName?></td>
+							<td><?=$m->start_invent?></td>
+							<td></td>
+							<td><?=$m->Quantity?></td>
+							<td></td>
+						</tr>
 					<?php endforeach; ?>
 				<?php endif; ?>
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 				<tr>
 					<td style="text-indent:50px">End Inventory</td>
 					<td></td>
