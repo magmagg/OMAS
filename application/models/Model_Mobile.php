@@ -202,10 +202,11 @@
         }
 
 
-        function purchase_items($poId)
+        function purchase_items($poId,$itemID)
         {   
            
             $this->db->where_in("PO_ID",$poId);
+            $this->db->where_not_in("ItemID ",$itemID);
             $this->db->where('Quantity != ',0);
             return $this->db->get('purchasing_order_item')->result_array();
         }

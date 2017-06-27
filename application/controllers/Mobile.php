@@ -104,7 +104,7 @@ class Mobile extends CI_Controller {
 	public function PurchaseOrderItems()
 	{	
 
-
+		$item_ids = $this->input->post('ids');
 		$PO_IDS = array();
 		$purchase_invoice = $this->Model_Mobile->purchase_invoice();
 		foreach ($purchase_invoice as $purchase_id) {
@@ -114,8 +114,16 @@ class Mobile extends CI_Controller {
 
 			}
 		}
-		
-		$data['purchase_items'] = $this->Model_Mobile->purchase_items($PO_IDS);
+
+		//$item_ids = "11|15|21";
+		$ids = array();
+
+		foreach(explode('|',$item_ids) as $id){
+
+				$ids[]=$id;
+			}
+	
+		$data['purchase_items'] = $this->Model_Mobile->purchase_items($PO_IDS,$ids);
 		echo json_encode($data);
 	}
 
