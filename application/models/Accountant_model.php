@@ -899,6 +899,26 @@ YEAR(service_invoice.TransactionDate) ='".$year."'";
 
 	}
 
+	function revisionincomesstatement($year,$month,$duration)
+	{
+
+			if($duration == "annual")
+			{
+
+					$where = "YEAR(TransactionDate) ='".$year."'";
+
+			}
+
+
+			$this->db->select('*');
+			$this->db->from('service_invoice as so');
+			$this->db->join('service_invoice_item as soi','so.ServiceID = soi.SO_ID');
+			$this->db->where($where);
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+
 	function MonthlyStatementExpenses($year,$month,$table,$duration)
 	{
 

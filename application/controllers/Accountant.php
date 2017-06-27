@@ -1926,6 +1926,8 @@ class Accountant extends CI_Controller
     $data['interest_expense'] = $this->input->post('interest_expense');
     $totalexpenses = '';
 
+		$data['myitems'] = $this->Accountant_model->revisionincomesstatement($year,$month,$duration);
+		$data['items'] = $this->Accountant_model->get_purchase_order_items();
     //statementrevenue
     $data['income'] = $this->Accountant_model->MonthlyIncome($year,$month,$duration);
     //incomeinventorybegin
@@ -1991,6 +1993,7 @@ class Accountant extends CI_Controller
     //echo json_encode($data);
 
 
+    $data['duration'] = $this->input->post('duration');
     $this->load->view('Accountant/header');
     $this->load->view('Accountant/Reports/sub_menu');
     $this->load->view('Accountant/Reports/income_statement',$data);
